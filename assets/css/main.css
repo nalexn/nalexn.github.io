@@ -84,6 +84,7 @@ hr {
  * 2. Correct the odd `em` font sizing in all browsers.
  */
 pre {
+  margin: 0;
   font-family: monospace, monospace;
   /* 1 */
   font-size: 1em;
@@ -96,11 +97,18 @@ pre {
  * 1. Remove the gray background on active links in IE 10.
  * 2. Remove gaps in links underline in iOS 8+ and Safari 8+.
  */
-a {
+a, a:visited {
   background-color: transparent;
   /* 1 */
   -webkit-text-decoration-skip: objects;
   /* 2 */
+  color: #0A6BCC;
+  text-decoration: none;
+}
+
+a:hover, a:visited:hover {
+  color: #6789CF;
+  text-decoration: none;
 }
 
 /**
@@ -437,19 +445,24 @@ template {
 }
 
 .highlight {
-  background-color: #faf9f9;
   -webkit-border-radius: 3px;
           border-radius: 3px;
   margin: 0;
+  overflow-y: hidden;
+  overflow-x: auto;
 }
 
 .highlighter-rouge {
-  color: #ce887b;
+  color: #4f4f4f;
   font-weight: 400;
-  border: 1px solid #607D8B;
+  border: 1px solid #ddd;
+  border-radius: .4em;
   -webkit-border-radius: 3px;
           border-radius: 3px;
-  padding: 0.1rem 0.5rem;
+  padding: 0 .3em;
+  margin: -1px 0;
+  background: #f3f3f3;
+  margin-bottom: 1.2em;
 }
 
 .highlight .hll {
@@ -468,7 +481,7 @@ template {
 
 /* Error */
 .highlight .k {
-  color: #069;
+  color: #d33682;
 }
 
 /* Keyword */
@@ -489,7 +502,7 @@ template {
 
 /* Comment.Preproc */
 .highlight .c1 {
-  color: #999;
+  color: #2A9600;
 }
 
 /* Comment.Single */
@@ -552,7 +565,7 @@ template {
 
 /* Keyword.Constant */
 .highlight .kd {
-  color: #069;
+  color: #cb4b16;
 }
 
 /* Keyword.Declaration */
@@ -622,7 +635,7 @@ template {
 
 /* Name.Exception */
 .highlight .nf {
-  color: #c0f;
+  color: #033;
 }
 
 /* Name.Function */
@@ -643,6 +656,10 @@ template {
 /* Name.Tag */
 .highlight .nv {
   color: #033;
+}
+
+.highlight .n {
+  color: #069;
 }
 
 /* Name.Variable */
@@ -808,14 +825,6 @@ blockquote {
   color: #ada8a8;
 }
 
-pre {
-  padding: 1rem 2rem;
-  overflow: auto;
-  white-space: pre-wrap;
-  word-wrap: break-word;
-  word-break: break-all;
-}
-
 pre code {
   border: 0;
   padding-right: 0;
@@ -827,16 +836,11 @@ pre code {
 }
 
 table {
-  border: 1px solid #aaa;
-  background-color: #eee;
-  width: 100%;
   text-align: left;
-  border-collapse: collapse;
 }
 
 table td, table.blueTable th {
-  border: 1px solid #aaa;
-  padding: 3px 2px;
+  padding: 0px 10px;
 }
 
 table tbody td {
@@ -890,6 +894,10 @@ table tfoot td {
 
 .post, .article-page {
   background-color: #fff;
+}
+
+.article-page {
+  width: 100%;
 }
 
 ::-moz-selection {
@@ -1087,7 +1095,7 @@ table tfoot td {
   transition: all 350ms cubic-bezier(0.13, 0.43, 0.54, 1.82);
 }
 
-.contact ul li a:hover {
+.contact ul li {
   color: #333030;
   -webkit-transform: scale(1.2);
       -ms-transform: scale(1.2);
@@ -1117,7 +1125,7 @@ footer .copyright {
   -webkit-align-items: stretch;
       -ms-flex-align: stretch;
           align-items: stretch;
-  min-height: 11rem;
+  height: 11rem;
   -webkit-border-radius: 10px;
           border-radius: 10px;
   overflow: hidden;
@@ -1155,10 +1163,39 @@ footer .copyright {
   font-size: 12px;
 }
 
-.post .post-content .post-title {
+.post-content {
+  position: relative;
+}
+
+.post-date, .post-words {
+  bottom: 14px;
+  position: absolute;
+}
+
+.post-words {
+  left: 105px;
+}
+
+.post {
   margin: 0 0 10px;
   font-size: 30px;
   font-weight: 400;
+}
+
+.post-title {
+  margin: 0 0 10px;
+  font-size: 26px;
+  font-weight: 400;
+  position: relative;
+  display: inline-block;
+  word-wrap: break-word;
+  overflow: hidden;
+  max-height: 4.5em; /* line-height * 3 */
+  line-height: 1.5em;
+}
+
+.post-content {
+  font-size: 0px;
 }
 
 .post .post-content .post-title a {
@@ -1243,8 +1280,11 @@ a.newer-posts:hover {
   font-size: 10px;
 }
 
-.page-cover-image .page-image {
-  width: 100%;
+.page-image {
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+  width: 80%;
   height: 100%;
 }
 
@@ -1362,35 +1402,8 @@ a.newer-posts:hover {
   opacity: .8;
 }
 
-/* - - - - - - - - - - Media Styles - - - - - - - - - - */
-/* Medium Devices, Desktops */
-@media only screen and (max-width: 992px) {
-  .post {
-    width: 48%;
-    max-width: 100%;
-    margin: 0 0.9% 1.5%;
-    -webkit-box-orient: vertical;
-    -webkit-box-direction: normal;
-    -webkit-flex-direction: column;
-        -ms-flex-direction: column;
-            flex-direction: column;
-  }
-  .post .post-thumbnail {
-    width: 100%;
-  }
-  .post .post-content {
-    width: 100%;
-  }
-  .post .post-content .post-title {
-    margin: 0 0 5px;
-  }
-  .post .post-content .post-title a {
-    font-size: 21px;
-  }
-}
-
 /* Small Devices, Tablets */
-@media only screen and (max-width: 768px) {
+@media only screen and (max-width: 840px) {
   .sidebar {
     position: relative;
     display: -webkit-box;
@@ -1448,34 +1461,5 @@ a.newer-posts:hover {
   }
   .contact-title, .copyright {
     display: none;
-  }
-}
-
-/* Extra Small Devices, Phones */
-@media only screen and (max-width: 480px) {
-  .content-box {
-    padding: 10px;
-  }
-  .post {
-    width: 98%;
-    max-width: 100%;
-    margin: 2%;
-    -webkit-box-orient: vertical;
-    -webkit-box-direction: normal;
-    -webkit-flex-direction: column;
-        -ms-flex-direction: column;
-            flex-direction: column;
-  }
-  .post .post-thumbnail {
-    width: 100%;
-  }
-  .post .post-content {
-    width: 100%;
-  }
-  .post .post-content .post-title {
-    margin: 0 0 5px;
-  }
-  .post .post-content .post-title a {
-    font-size: 21px;
   }
 }
