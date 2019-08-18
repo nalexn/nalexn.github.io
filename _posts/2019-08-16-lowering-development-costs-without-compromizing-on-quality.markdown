@@ -6,7 +6,7 @@ description: "Advice on optimizing human resources and team management"
 tags: [agile,software,development,project,management,mobile,application,business,finance,startup,digital,marketing,developer,lowering,costs,quality,human,resource]
 comments: true
 sharing: true
-published: true
+published: false
 img: launch_001.jpg
 ---
 
