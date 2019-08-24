@@ -66,7 +66,7 @@ There are endless amounts of ways how a developer can use any of these technique
 
 If we also introduce [Promise](https://nalexn.github.io/callbacks-part-3-promise-event-stream/#Promise), [Event](https://nalexn.github.io/callbacks-part-3-promise-event-stream/#Event) or [Stream of values](https://nalexn.github.io/callbacks-part-3-promise-event-stream/#Stream) in our project, the choice may blow one's mind (and their program).
 
-<div style="width:400px; display: block; margin-left: auto; margin-right: auto;"><img src="https://www.internationalgifservice.com/web_gifs-2015/Personnages-VIP/john-travolta-01.gif"></div>
+<div style="width:400px; display: block; margin-left: auto; margin-right: auto;"><img src="{% post_url 2019-08-23-state-management-guide-ios %}assets/img/john-travolta-01.gif"></div>
 
 ### So which method to use for propagating the state changes?
 
