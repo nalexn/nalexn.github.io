@@ -7,7 +7,7 @@ tags: [reswift,redux,ios,swift,development,unidirectional,data,flow,flux]
 comments: true
 sharing: true
 published: true
-img: order_001.jpg
+img: state_001.jpg
 ---
 
 There are many challenges in the software development, but there is one beast that tends to screw things up much more often than the others: the problem of app's state management and data propagation.
