@@ -10,7 +10,12 @@ layout: main
       </header>
       {% if page.img %}<div class="page-image"><img class="page-image" src={{ "/assets/img/" | prepend: site.baseurl | append : page.img}} alt="{{page.title}}"></div>{% endif %}
       {{ content }}
-      <a href="https://twitter.com/nallexn?ref_src=twsrc%5Etfw" class="twitter-follow-button" data-size="large" data-show-count="false">Follow @nallexn</a><script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+      <hr>
+      <p>P.S. Add me on LinkedIn or subscribe on Twitter to not miss the coming posts about practical hints and tricks in iOS engineering!</p>
+      <div style="width:0px; height:15px; display: block;"></div>
+      <div style="width:140px; display: block; margin-left: auto; margin-right: auto;"><a href="https://twitter.com/nallexn?ref_src=twsrc%5Etfw" class="twitter-follow-button" data-size="large" data-show-count="false">Follow @nallexn</a></div>
+      <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+      <div style="width:0px; height:30px; display: block;"></div>
       {% include disqus.html %}
     </div> <!-- End Wrap Content -->
   </div> <!-- End Page Content -->
