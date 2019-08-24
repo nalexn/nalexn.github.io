@@ -24,7 +24,7 @@ So what can go wrong with the [state](https://en.wikipedia.org/wiki/State_(compu
 6. **[Memory leak](https://en.wikipedia.org/wiki/Memory_leak)**. Just like any other resource in the program, when handled incorrectly, the state can stay in memory even after it is no longer intended to be used. Leaking big chunks of memory (hundreds of megabytes allocated for images, for example) can eventually lead to significant free memory deficit with subsequent crashing. When the state leaks, we probably lose a few KBs of memory at most, but who knows _how many times_ our program will leak it? The aftermath is slower performance and crashing.
 7. **[Limited testability](https://en.wikipedia.org/wiki/Software_testing)**. The state plays an essential role in [unit testing](https://en.wikipedia.org/wiki/Unit_testing). Sharing of the state by value or by reference [couples programming entities](https://en.wikipedia.org/wiki/Coupling_(computer_programming)), making their algorithms dependent on each other. Infelicitous design of the state management in the program can make tests less effective or even impossible to be written for poorly designed modules.
 
---
+---
 There are always two questions arising for a developer when a new piece of state is introduced: _"Where to store the state data?"_ and _"How to notify the other entities in the app about the state updates?"_. Let's cover each one in details and see if there is a silver bullet to the problem.
 
 ## 1. Where to store the state data?
@@ -136,7 +136,7 @@ There are many ways to comply with all three patterns at once. One example is [R
 
 You can benefit from using the **ReSwift** even more if you wrap the state in a `stream of values` or `event` and bind the state updates with the UI in each particular screen of the app.
 
---
+---
 In place of conclusion I would quote Albert Einstein:
 > “Everything should be made as simple as possible, but no simpler.”
 
