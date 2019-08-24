@@ -10,9 +10,7 @@ published: true
 img: order_001.jpg
 ---
 
-We all want our apps to run smoothly and have no issues. But every time a new bug report arrives, be that just a visual glitch or a crash - we feel sad, curious why our perfectly fine code betrayed us and revealed the sunspots.
-
-There are many challenges in the software development, but there is one beast that tends to screw things up much more often than the others: **the problem of app's state management and data propagation**.
+There are many challenges in the software development, but there is one beast that tends to screw things up much more often than the others: the problem of app's state management and data propagation.
 
 So what can go wrong with the [state](https://en.wikipedia.org/wiki/State_(computer_science)), which is simply a data intended for reading and writing?
 
