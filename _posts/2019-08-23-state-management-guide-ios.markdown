@@ -45,7 +45,7 @@ Things get much more complicated when we have the data meant to be transmitted o
 
 In this article, I cover both cases, and it's logical to start from the first one. Just so you don't get lost, the second case is fully covered down below in the section __Shared state management__, just keep reading.
 
-Ok, the interaction between two subsequent screens (parent-child). In order to achieve [low coupling](https://en.wikipedia.org/wiki/Coupling_(computer_programming)) between the modules, we need to make sure that the data transfer we design does not introduce an unnecessary dependency by disclosing needless details about the parties passing or receiving the data. _The less they know about each other - the better._
+Ok, the interaction between two subsequent screens (parent-child). In order to achieve [loose coupling](https://en.wikipedia.org/wiki/Loose_coupling) between the modules, we need to make sure that the data transfer we design does not introduce an unnecessary dependency by disclosing needless details about the parties passing or receiving the data. _The less they know about each other - the better._
 
 For passing data forward we have a practically standard technique - the [dependency injection](https://en.wikipedia.org/wiki/Dependency_injection) of the value itself or a reference to an entity with the read access to that data.
 
