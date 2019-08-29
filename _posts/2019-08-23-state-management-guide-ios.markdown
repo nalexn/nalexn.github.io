@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "The Comprehensive Guide to the State Management in iOS"
-date: 2019-08-16 21:30:00 +0600
+date: 2019-08-23 21:30:00 +0600
 description: "Common problems when working with the program state and the ways to address them. ReSwift - REDUX for iOS"
 tags: [reswift,redux,ios,swift,development,unidirectional,data,flow,flux]
 comments: true
