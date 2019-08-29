@@ -475,8 +475,10 @@ template {
 
 /* Comment */
 .highlight .err {
-  color: #a00;
-  background-color: #faa;
+  color: #24292E;
+  background-color: #ACF2BD;
+  display: inline-block;
+  width: 1.16em;
 }
 
 /* Error */
