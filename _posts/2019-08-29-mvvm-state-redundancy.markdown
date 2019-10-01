@@ -30,7 +30,7 @@ struct Podcast: Equatable {
 }
 ```
 
-The networking layer is represented with this tiny protocol; I'll omit the factual networking code for simplicity of the example
+The networking layer is represented with this tiny protocol; I'll omit the factual networking code for simplicity of the example:
 
 ```swift
 protocol PodcastsService {
@@ -71,7 +71,7 @@ class PodcastCell: UITableViewCell {
 
     func populate(podcast: Podcast) {
         textLabel?.text = podcast.title
-        imageView?.image = podcast. previewImage
+        imageView?.image = podcast.previewImage
     }
 }
 ```
