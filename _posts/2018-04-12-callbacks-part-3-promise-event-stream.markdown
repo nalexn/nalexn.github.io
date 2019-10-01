@@ -4,6 +4,8 @@ title: "Callbacks, Part 3: Promise, Event, and Stream (Functional Reactive Progr
 date: 2018-04-12 21:30:00 +0600
 description: Comparison of callback techniques in iOS
 tags: [promise,promises,event,stream,frp,functional,reactive,programming,ios,development,best practices]
+redirect_from:
+  - blog/2018/04/12/callbacks-part-3-promise-event-stream
 comments: true
 sharing: true
 published: true
