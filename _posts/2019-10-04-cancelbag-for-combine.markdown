@@ -16,162 +16,95 @@ Just like it happened in the past with ARC for Objective-C, Autolayout, or Swift
 
 However, Apple has made a great job of making the transition as seamless as possible for developers: Combine is a masterpiece of simplicity, among other reactive frameworks.
 
-I always thought that despite great flexibility and universality of RxSwift, its APIs are heavily overloaded and redundant, which made it hard to adopt in production by many engineering teams around the globe.
+It provides really concise and programmer-friendly API that's just enough for basic handling of the "values over time".
 
-Combine, on the other hand, provides really concise and programmer-friendly API that's just enough for basic handling of the "values over time". Given the power to extend existing frameworks, I anticipate the community to create hundreds of tiny extensions, helpers and wrappers that will make Combine even more convenient to use. One of such extensions I propose in this article.
+## Houston, we have a problem…
 
-## The problem
+As you'd expect from the conciseness of the API, there always will be someone who's missing his [favorite fancy operator](https://rxmarbles.com/) from a reactive framework they're used to.
 
-When trying the Combine for the first time, I immediately stumbled upon an issue: the memory management of the subscriptions.
+I understand that. But it feels like Combine is missing something fundamental, and the suggested alternative seems cumbersome and old-fashioned: I'm talking about the **memory management of the subscriptions**.
 
-Consider this example of [subscription mechanism](https://developer.apple.com/documentation/combine/receiving_and_handling_events_with_combine) in Combine framework:
+[RxSwift](https://github.com/ReactiveX/RxSwift) provides us with [DisposeBag](https://github.com/ReactiveX/RxSwift/blob/master/RxSwift/Disposables/DisposeBag.swift); it's competitor, [ReactiveSwift](https://github.com/ReactiveCocoa/ReactiveSwift), has a counterpart: [Lifetime](https://github.com/ReactiveCocoa/ReactiveSwift/blob/master/Sources/Lifetime.swift).
 
-```swift
-import Combine
-
-let subject = PassthroughSubject<Int, Never>()
-let subscription = subject
-    .sink { value in
-        print("New value: \(value)")
-    }
-subject.send(7)
-// "New value: 7" is printed out
-
-subscription.cancel()
-subject.send(8)
-// Nothing is printed out
-```
-
-The act of subscribing with the method `sink` returns a value of type `AnyCancellable`. This value is a **token** that manages the lifetime of the subscription.
-
-We can either call `cancel()` or allow the token to get deallocated for voiding the subscription.
-
-This means that to *prevent immediate termination* of the subscription in a programming module we need to retain the token and store it in an instance variable:
-
-```swift
-import Combine
-
-class ValueProvider {
-    // A value we want to observe:
-    let value = CurrentValueSubject<Int, Never>(0)
-}
-
-class ValueConsumer {
-
-    // A variable to keep the subscription alive:
-    private var subscription: AnyCancellable?
-
-    func consumeValues(from valueProvider: ValueProvider) {
-        // Subscribing on value updates and retaining the returned Cancellable token:
-        subscription = valueProvider.value
-            .sink { value in
-                print("New value: \(value)")
-            }
-    }
-}
-
-let provider = ValueProvider()
-let consumer = ValueConsumer()
-consumer.consumeValues(from: provider)
-```
-
-If we needed to subscribe to the second source of values, we'd have to define another instance variable for the new token as well:
+But what about Combine? The subscription returns a token of type [AnyCancellable](https://developer.apple.com/documentation/combine/anycancellable) that we cannot put anywhere except for storing in an instance variable:
 
 ```swift
 class ValueConsumer {
 
     private var subscription1: AnyCancellable?
     private var subscription2: AnyCancellable?
+    private var subscription3: AnyCancellable?
+    private let mySubject = CurrentValueSubject<Int, Never>(0)
+    private var myVar: Int = 0
 
-    func consumeValues(from valueProvider1: ValueProvider, valueProvider2: ValueProvider) {
-        subscription1 = valueProvider1.value
-            .sink { value in
-                print("New value1: \(value)")
-            }
-        subscription2 = valueProvider2.value
-            .sink { value in
-                print("New value2: \(value)")
-            }
+    func consumeValues(publisher1, ...) {
+        subscription1 = publisher1
+            .sink { print("New value: \($0)") }
+        subscription2 = mySubject
+            .subscribe(publisher2)
+        subscription3 = publisher3
+            .assign(to: \. myVar, on: self)
     }
 }
 ```
 
-Can you imagine how much boilerplate code this implies for production apps, where modules can carry a dozen subscriptions that define the presentation state and ultimately power the UI?
-
-**So, the problem here is that Apple didn't provide a convenient container for storing the subscriptions tokens, when subscriptions' lifetime has to be bound to the lifetime of the observer.**
-
-## The Solution
+--
 
 > Does Combine need a CancelBag after all?
 
-– The question asked by Michael Long in [his blog post](https://medium.com/better-programming/swift-5-1-and-combine-memory-management-a-problem-14a3eb49f7ae), for me has a clear answer: "Yes, Combine lacks it."
+– The question asked by [Michael Long](http://twitter.com/michaellong) in [his blog post](https://medium.com/better-programming/swift-5-1-and-combine-memory-management-a-problem-14a3eb49f7ae), for me has a clear answer: "Yes, Combine lacks it."
 
-Using the [**CancelBag.swift**](https://gist.github.com/nalexn/9b53421f2900631176d7617e12eaa359) (~40 lines of code), we can refactor the code above either in a traditional way [DisposeBag](https://github.com/ReactiveX/RxSwift/blob/master/RxSwift/Disposables/DisposeBag.swift) is employed in RxSwift:
+Here is how the code above could be refactored if we had a container for subscriptions:
 
 ```swift
 class ValueConsumer {
 
-﹢  private let cancelBag = CancelBag()
-
-    func consumeValues(from valueProvider1: ValueProvider, valueProvider2: ValueProvider) {
-        valueProvider1.value
-            .sink { value in
-                print("New value1: \(value)")
-            }
-﹢          .cancel(with: cancelBag)
-        valueProvider2.value
-            .sink { value in
-                print("New value2: \(value)")
-            }
-﹢          .cancel(with: cancelBag)
-    }
-}
-```
-
-...or take one step further and utilize the new [Variadic DisposeBag](https://medium.com/@michaellong/rxswifty-and-his-variadic-disposebag-1682ecceaf41) approach:
-
-```swift
-func consume(value1: ..., value2: ...) {
-    cancelBag.insert {
-        value1
-            .sink { print("New value1: \($0)") }
-        value2
-            .sink { print("New value2: \($0)") }
-    }
-}
-```
-The `insert` function above is using the new **@functionBuilder** syntax available in Swift 5.1, the same one that allows view containers from [SwiftUI](https://developer.apple.com/documentation/swiftui/), such as `VStack`, to take an array of elements without any (,) separators.
-
-Of course, this also works with all subscription APIs in **Combine** framework that return `Cancellable` token, including [value binding](https://developer.apple.com/documentation/combine/publisher/3235801-assign) with `assign(to:)` and `subscribe(_:)`:
-
-```swift
-func consume(value1: ..., value2: ..., value3: ...) {
-    cancelBag.insert {
-        value1
-            .sink { print("New value1: \($0)") }
-        value2
-            .sink { print("New value2: \($0)") }
-        myVariable
-            .subscribe(value3)
-        Timer.publish(every: 1, on: .main, in: .default)
-            .assign(to: \MyViewModel.date, on: viewModel)
-    }
-}
-```
-
-In a case when the lifetime of the subscription is shorter than the lifetime of the parent we can reset the `CancelBag` to terminate the observation:
-
-```swift
-class Cell: UITableViewCell {
     private var cancelBag = CancelBag()
     
-    func prepareForReuse() {
-        super.prepareForReuse()
-        cancelBag = CancelBag()
+    private let mySubject = CurrentValueSubject<Int, Never>(0)
+    private var myVar: Int = 0
+
+    func consumeValues(publisher1, ...) {
+        publisher1
+            .sink { print("New value: \($0)") }
+            .cancel(with: cancelBag)
+        subscription2 = mySubject
+            .subscribe(publisher2)
+            .cancel(with: cancelBag)
+        subscription3 = publisher3
+            .assign(to: \. myVar, on: self)
+            .cancel(with: cancelBag)
+    }
+}
+```
+Even though this looks cleaner, the number of lines stayed about the same.
+
+But how about taking one step further and implement [Variadic DisposeBag](https://medium.com/@michaellong/rxswifty-and-his-variadic-disposebag-1682ecceaf41)?
+
+
+```swift
+class ValueConsumer {
+
+    private var cancelBag = CancelBag()
+    
+    private let mySubject = CurrentValueSubject<Int, Never>(0)
+    private var myVar: Int = 0
+
+    func consumeValues(publisher1, ...) {
+        cancelBag.insert {
+            publisher1
+                .sink { print("New value: \($0)") }
+            mySubject
+                .subscribe(publisher2)
+            publisher3
+                .assign(to: \. myVar, on: self)
+        }
     }
 }
 ```
 
-I believe that using the `CancelBag` makes the code easier to read and support. Subscriptions can be grouped and put in different `CancelBags` based on their logical association, which ultimately contributes to the clarity of the code.
+The `insert` function above is using the new [`@functionBuilder`](https://blog.vihan.org/swift-function-builders/) attribute available in Swift 5.1, the same one that allows view containers from [SwiftUI](https://developer.apple.com/documentation/swiftui/), such as `VStack`, to take an array of elements without any (,) separators.
 
-The `CancelBag` gist is [available on Github](https://gist.github.com/nalexn/9b53421f2900631176d7617e12eaa359).
+So now we can collect all the subscriptions tokens without explicitly calling `.cancel(with: cancelBag)` or storing it in a variable!
+
+The full gist for the CancelBag implementation (~50 lines of code) can be [found on Github](https://gist.github.com/nalexn/9b53421f2900631176d7617e12eaa359).
