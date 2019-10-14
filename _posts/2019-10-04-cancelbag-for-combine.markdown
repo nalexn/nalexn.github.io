@@ -91,7 +91,7 @@ class ValueConsumer {
     private var myVar: Int = 0
 
     func consumeValues(publisher1, ...) {
-        cancelBag.insert {
+        cancelBag.collect {
             publisher1
                 .sink { print("New value: \($0)") }
             mySubject
@@ -103,7 +103,7 @@ class ValueConsumer {
 }
 ```
 
-The `insert` function above is using the new [`@functionBuilder`](https://blog.vihan.org/swift-function-builders/) attribute available in Swift 5.1, the same one that allows view containers from [SwiftUI](https://developer.apple.com/documentation/swiftui/), such as `VStack`, to take an array of elements without any (,) separators.
+The `collect` function above is using the new [`@functionBuilder`](https://blog.vihan.org/swift-function-builders/) attribute available in Swift 5.1, the same one that allows view containers from [SwiftUI](https://developer.apple.com/documentation/swiftui/), such as `VStack`, to take an array of elements without any (,) separators.
 
 So now we can collect all the subscriptions tokens without explicitly calling `.cancel(with: cancelBag)` or storing it in a variable!
 
