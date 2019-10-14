@@ -3,7 +3,7 @@ layout: post
 title: "CancelBag: a DisposeBag for Combine subscriptions"
 date: 2019-10-04 14:30:00 +0300
 description: "A container for holding Cancellable (including AnyCancellable) returned by Combine subscriptions. Inspired by DisposeBag from RxSwift"
-tags: [Cancellable,AnyCancellable,iOS,swift,SwiftUI,RxSwift]
+tags: [Cancellable,AnyCancellable,iOS,swift,SwiftUI,RxSwift,functionBuilder]
 comments: true
 sharing: true
 published: true
@@ -12,13 +12,13 @@ img: bag_001.jpg
 
 With the announce of [SwiftUI](https://developer.apple.com/documentation/swiftui/) and [Combine](https://developer.apple.com/documentation/combine) frameworks on WWDC2019 Apple has clearly outlined their vision on the future of the software development for their platforms, and that future is going to be *Reactive*.
 
-Just like it happened in the past with ARC for Objective-C, Autolayout, or Swift, there are only a couple years lag between the announce of the new Apple's technology, and it's pervasive use. So if one was still reluctant about learning functional reactive programming, now they are left with a choice to board the *Rocket* now or stay in the fading world of object-oriented UIKit.
+Just like it happened in the past with ARC for Objective-C, Autolayout, or Swift, there is only a couple years lag between the announce of the new Apple's technology, and it's pervasive use. So if one was still reluctant about learning functional reactive programming, now they are left with a choice to board the Rocket now or stay in the fading world of object-oriented UIKit.
 
 However, Apple has made a great job of making the transition as seamless as possible for developers: Combine is a masterpiece of simplicity, among other reactive frameworks.
 
 I always thought that despite great flexibility and universality of RxSwift, its APIs are heavily overloaded and redundant, which made it hard to adopt in production by many engineering teams around the globe.
 
-Combine, on the other hand, provides really concise and programmer-friendly API that's just enough for basic handling the "values over time". Given the power to extend existing frameworks, I anticipate the community to create hundreds of tiny extensions, helpers and wrappers that will make Combine even more convenient to use in production. One of such extensions I propose in this article.
+Combine, on the other hand, provides really concise and programmer-friendly API that's just enough for basic handling of the "values over time". Given the power to extend existing frameworks, I anticipate the community to create hundreds of tiny extensions, helpers and wrappers that will make Combine even more convenient to use. One of such extensions I propose in this article.
 
 ## The problem
 
@@ -106,7 +106,7 @@ Can you imagine how much boilerplate code this implies for production apps, wher
 
 – The question asked by Michael Long in [his blog post](https://medium.com/better-programming/swift-5-1-and-combine-memory-management-a-problem-14a3eb49f7ae), for me has a clear answer: "Yes, Combine lacks it."
 
-Here is how we'd want to refactor the code above following the way [DisposeBag](https://github.com/ReactiveX/RxSwift/blob/master/RxSwift/Disposables/DisposeBag.swift) is employed in RxSwift:
+Using the [**CancelBag.swift**](https://gist.github.com/nalexn/9b53421f2900631176d7617e12eaa359) (~40 lines of code), we can refactor the code above either in a traditional way [DisposeBag](https://github.com/ReactiveX/RxSwift/blob/master/RxSwift/Disposables/DisposeBag.swift) is employed in RxSwift:
 
 ```swift
 class ValueConsumer {
@@ -128,18 +128,38 @@ class ValueConsumer {
 }
 ```
 
-The **CancelBag** implementation for this case can be as small as just 30 lines of code ([full gist here](https://gist.github.com/nalexn/9b53421f2900631176d7617e12eaa359)), so you can just drop the *CancelBag.swift* file into your project.
-
-This approach works for [value binding](https://developer.apple.com/documentation/combine/publisher/3235801-assign) with `assign(to:)` as well:
+...or take one step further and utilize the new [Variadic DisposeBag](https://medium.com/@michaellong/rxswifty-and-his-variadic-disposebag-1682ecceaf41) approach:
 
 ```swift
-Timer.publish(every: 1, on: .main, in: .default)
-    .autoconnect()
-    .assign(to: \MyViewModel.date, on: viewModel)
-    .cancel(with: cancelBag)
+func consume(value1: ..., value2: ...) {
+    cancelBag.insert {
+        value1
+            .sink { print("New value1: \($0)") }
+        value2
+            .sink { print("New value2: \($0)") }
+    }
+}
+```
+The `insert` function above is using the new **@functionBuilder** syntax available in Swift 5.1, the same one that allows view containers from [SwiftUI](https://developer.apple.com/documentation/swiftui/), such as `VStack`, to take an array of elements without any (,) separators.
+
+Of course, this also works with all subscription APIs in **Combine** framework that return `Cancellable` token, including [value binding](https://developer.apple.com/documentation/combine/publisher/3235801-assign) with `assign(to:)` and `subscribe(_:)`:
+
+```swift
+func consume(value1: ..., value2: ..., value3: ...) {
+    cancelBag.insert {
+        value1
+            .sink { print("New value1: \($0)") }
+        value2
+            .sink { print("New value2: \($0)") }
+        myVariable
+            .subscribe(value3)
+        Timer.publish(every: 1, on: .main, in: .default)
+            .assign(to: \MyViewModel.date, on: viewModel)
+    }
+}
 ```
 
-In a case when the lifetime of the subscription is shorter than the lifetime of the parent we can follow the original approach and store the token directly in a variable, or reset the `CancelBag` to terminate the observation:
+In a case when the lifetime of the subscription is shorter than the lifetime of the parent we can reset the `CancelBag` to terminate the observation:
 
 ```swift
 class Cell: UITableViewCell {
@@ -152,4 +172,6 @@ class Cell: UITableViewCell {
 }
 ```
 
-I believe that using the `CancelBag` makes the code easier to read and support. Subscriptions can be grouped and put in different *CancelBags* based on their logical association, which ultimately contributes to the clarity of the code.
+I believe that using the `CancelBag` makes the code easier to read and support. Subscriptions can be grouped and put in different `CancelBags` based on their logical association, which ultimately contributes to the clarity of the code.
+
+The `CancelBag` gist is [available on Github](https://gist.github.com/nalexn/9b53421f2900631176d7617e12eaa359).
