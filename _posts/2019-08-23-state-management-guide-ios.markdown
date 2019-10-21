@@ -10,6 +10,10 @@ published: true
 img: state_001.jpg
 ---
 
+This guide takes a deep dive into the design of state management for UIKit-based production apps. SwiftUI is a game-changer in this regard; however, most of the concepts and statements in this article remain true even for the new Apple's UI framework. State management for SwiftUI-based apps is well covered in [these](https://medium.com/better-programming/understanding-swiftui-data-flow-79429a49ae35) [wonderful](https://medium.com/@ZoeWave/swiftui-19da16c1af0) [articles](https://medium.com/@alexobenauer/demystifying-data-flow-through-swiftui-697017aba7e0).
+
+---
+
 There are many challenges in software development, but there is one beast that tends to screw things up much more often than the others: the problem of app's state management and data propagation.
 
 So what can go wrong with the [state](https://en.wikipedia.org/wiki/State_(computer_science)), which is simply a data intended for reading and writing?
