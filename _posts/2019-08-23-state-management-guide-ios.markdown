@@ -10,22 +10,22 @@ published: true
 img: state_001.jpg
 ---
 
-There are many challenges in the software development, but there is one beast that tends to screw things up much more often than the others: the problem of app's state management and data propagation.
+There are many challenges in software development, but there is one beast that tends to screw things up much more often than the others: the problem of app's state management and data propagation.
 
 So what can go wrong with the [state](https://en.wikipedia.org/wiki/State_(computer_science)), which is simply a data intended for reading and writing?
 
 ### Common problems when working with the state
 
-1. **[Race condition](https://searchstorage.techtarget.com/definition/race-condition)** - unsynchronized access to the data in a concurrent environment. Leads to hard-to-find bugs, such as unexpected or incorrect results of computation, data corruption and even crashes of the app.
+1. **[Race condition](https://searchstorage.techtarget.com/definition/race-condition)** - unsynchronized access to the data in a concurrent environment. This leads to hard-to-find bugs, such as unexpected or incorrect results of computation, data corruption and even crashes of the app.
 2. **[Unexpected side effect](https://en.wikipedia.org/wiki/Side_effect_(computer_science))**. When multiple entities in the program share the state by keeping references to a single state value, a mutation of the state initiated by one of the entities may come unexpected for the other. This is usually a result of poor design with unrestricted data accessibility. The aftermath varies from glitches in the UI to the [dead-locks](https://en.wikipedia.org/wiki/Deadlock) and crashes.
 3. **[Connascence of Values](https://en.wikipedia.org/wiki/Connascence#Connascence_of_Values_(CoV))**. When multiple entities in the program share the state by storing their own copies of the state, a mutation of the local copy of the state does not automatically affect the other copies. This requires writing additional code for renewing the values when either copy gets updated. Failure to do it correctly makes the state copies go out of sync, which usually leads to an erroneous data displayed to the user with subsequent corruption of the app's state when the user or system itself interacts with the outdated data.
-4. **[Connascence of Type](https://en.wikipedia.org/wiki/Connascence#Connascence_of_Type_(CoT))** in languages with [dynamic typing](https://stackoverflow.com/questions/1517582/what-is-the-difference-between-statically-typed-and-dynamically-typed-languages), is when a variable during its lifetime is changing not only the value but also the type. Even though there are [practical applications](https://softwareengineering.stackexchange.com/questions/115520/should-i-reuse-variables) of this technique, in general, it is considered a [bad practice](https://softwareengineering.stackexchange.com/questions/187332/is-changing-the-type-of-a-variable-partway-through-a-procedure-in-a-dynamically). It makes the algorithm much harder to follow and understand and increases chances of human error when maintaining such code. Even seasoned programmers run the risk to unintentionally change the type by assigning the wrong variable by mistake. The outcome of such an error depends on the language, but you can tell that nothing good can happen.
+4. **[Connascence of Type](https://en.wikipedia.org/wiki/Connascence#Connascence_of_Type_(CoT))** in languages with [dynamic typing](https://stackoverflow.com/questions/1517582/what-is-the-difference-between-statically-typed-and-dynamically-typed-languages) is when a variable during its lifetime is changing not only the value but also the type. Even though there are [practical applications](https://softwareengineering.stackexchange.com/questions/115520/should-i-reuse-variables) of this technique, in general, it is considered a [bad practice](https://softwareengineering.stackexchange.com/questions/187332/is-changing-the-type-of-a-variable-partway-through-a-procedure-in-a-dynamically). It makes the algorithm much harder to follow and understand and increases the chances of human error when maintaining such code. Even seasoned programmers run the risk to unintentionally change the type by assigning the wrong variable by mistake. The outcome of such an error depends on the language, but you can tell that nothing good can happen.
 5. **[Connascence of Convention](https://en.wikipedia.org/wiki/Connascence#Connascence_of_Meaning_(CoM)_or_Connascence_of_Convention_(CoC))**. A misinterpretation of the value that was accidentally put in place of another parameter with the same primitive type. For example, if we have `UserID` and `BlogID` both represented as `String` type, it is possible to accidentally pass `UserID` to a function expecting `BlogID`. An incorrect value might be used in a server call, or stored in a local app state, either way - it is an erroneous situation. A solution to this could be using `struct` wrappers for primitive values, which allows the compiler to distinguish the types and warn about the type mismatch.
 6. **[Memory leak](https://en.wikipedia.org/wiki/Memory_leak)**. Just like any other resource in the program, when handled incorrectly, the state can stay in memory even after it is no longer intended to be used. Leaking big chunks of memory (hundreds of megabytes allocated for images, for example) can eventually lead to significant free memory deficit with subsequent crashing. When the state leaks, we probably lose a few KBs of memory at most, but who knows _how many times_ our program will leak it? The aftermath is slower performance and crashing.
-7. **[Limited testability](https://en.wikipedia.org/wiki/Software_testing)**. The state plays an essential role in [unit testing](https://en.wikipedia.org/wiki/Unit_testing). Sharing of the state by value or by reference [couples programming entities](https://en.wikipedia.org/wiki/Coupling_(computer_programming)), making their algorithms dependent on each other. Infelicitous design of the state management in the program can make tests less effective or even impossible to be written for poorly designed modules.
+7. **[Limited testability](https://en.wikipedia.org/wiki/Software_testing)**. The state plays an essential role in [unit testing](https://en.wikipedia.org/wiki/Unit_testing). Sharing of the state by value or by reference [couples programming entities](https://en.wikipedia.org/wiki/Coupling_(computer_programming)), making their algorithms dependent on each other. The infelicitous design of state management in the program can make tests less effective or even impossible to be written for poorly designed modules.
 
 ---
-There are always two questions arising for a developer when a new piece of state is introduced: _"Where to store the state data?"_ and _"How to notify the other entities in the app about the state updates?"_. Let's cover each one in details and see if there is a silver bullet to the problem.
+There are always two questions arising for a developer when a new piece of state is introduced: _"Where to store the state data?"_ and _"How to notify the other entities in the app about the state updates?"_. Let's cover each one in detail and see if there is a silver bullet to the problem.
 
 ## 1. Where to store the state data?
 
@@ -34,9 +34,9 @@ We can have a local variable in a method or instance variable in the class, or a
 When deciding _where_ to store the new variable,
 we need to consider the main characteristic of the state - its locality, or the accessibility scope.
 
-A general rule of thumb is to __always aim for the smallest accessibility scope possible__. A local variable defined within a method is preferred over a global variable, not only for avoiding unexpected data mutations from other scopes that we didn't notice at the first glance, but also for improving the testability of the modules that use that data.
+A general rule of thumb is to __always aim for the smallest accessibility scope possible__. A local variable defined within a method is preferred over a global variable, not only for avoiding unexpected data mutations from other scopes that we didn't notice at first glance, but also for improving the testability of the modules that use that data.
 
-The local screen's state, which is not shared with other screens, can safely be stored in the screen module itself. This only depends on the [architecture](https://medium.com/ios-os-x-development/ios-architecture-patterns-ecba4c38de52) you use for you screen module. For example, in case of [Model-View-Controller](https://ru.wikipedia.org/wiki/Model-View-Controller) this is the `ViewController`, for [Model-View-ViewModel](https://en.wikipedia.org/wiki/Model-view-viewmodel) it would be the `Model`.
+The local screen's state, which is not shared with other screens, can safely be stored in the screen module itself. This only depends on the [architecture](https://medium.com/ios-os-x-development/ios-architecture-patterns-ecba4c38de52) you use for your screen module. For example, in the case of [Model-View-Controller](https://ru.wikipedia.org/wiki/Model-View-Controller), this is the `ViewController`, for [Model-View-ViewModel](https://en.wikipedia.org/wiki/Model-view-viewmodel) it would be the `Model`.
 
 Things get much more complicated when we have the data meant to be transmitted or shared by multiple modules. There are two main scenarios:
 
@@ -47,7 +47,7 @@ In this article, I cover both cases, and it's logical to start from the first on
 
 Ok, the interaction between two subsequent screens (parent-child). In order to achieve [loose coupling](https://en.wikipedia.org/wiki/Loose_coupling) between the modules, we need to make sure that the data transfer we design does not introduce an unnecessary dependency by disclosing needless details about the parties passing or receiving the data. _The less they know about each other - the better._
 
-For passing data forward we have a practically standard technique - the [dependency injection](https://en.wikipedia.org/wiki/Dependency_injection) of the value itself or a reference to an entity with the read access to that data.
+For passing data forward, we have a practically standard technique - the [dependency injection](https://en.wikipedia.org/wiki/Dependency_injection) of the value itself or a reference to an entity with the read access to that data.
 
 The opposite movement of the data back to the caller side is a bit more tricky, and we can naturally transition to answering the second question about the state:
 
@@ -72,7 +72,7 @@ If we also introduce [Promise](https://nalexn.github.io/callbacks-part-3-promise
 
 Over the past few years I formed the following rules I follow when choosing the data propagation methods (you may have different preferences):
 
-* **[delegate](https://nalexn.github.io/callbacks-part-1-delegation-notificationcenter-kvo/#delegate)**. Even though this technique maintains its popularity in the iOS community, I'm a supporter of [the idea that closures](https://medium.cobeisfresh.com/why-you-shouldn-t-use-delegates-in-swift-7ef808a7f16b) are generally more flexible and convenient replacement for a `delegate`. They serve the same purpose, but using `Closures` result in writing less boilerplate code with a _much higher_ [cohesion](https://en.wikipedia.org/wiki/Cohesion_(computer_science)) at the same time.
+* **[delegate](https://nalexn.github.io/callbacks-part-1-delegation-notificationcenter-kvo/#delegate)**. Even though this technique maintains its popularity in the iOS community, I'm a supporter of [the idea that closures](https://medium.cobeisfresh.com/why-you-shouldn-t-use-delegates-in-swift-7ef808a7f16b) are generally more flexible and convenient replacement for a `delegate`. They serve the same purpose but the use of `Closures` results in writing less boilerplate code with a _much higher_ [cohesion](https://en.wikipedia.org/wiki/Cohesion_(computer_science)) at the same time.
 * **[Target-Action](https://nalexn.github.io/callbacks-part-2-closure-target-action-responder-chain/#Target-Action)**. Pretty much the same comments as for `delegate`. The only reason when I would still use it is when I subclass `UIControl` or `UIGestureRecognizer`, because `Target-Action` is naturally supported by them.
 * **[Closure](https://nalexn.github.io/callbacks-part-2-closure-target-action-responder-chain/#Closure_Block)**. This is my to-go choice for the simplest cases of interaction between two modules. If only there are any complications, such as subsequent asynchronous tasks also with `Closure` callbacks, or when I need to notify more than one module - I start to look at `Promise`, `Event` or `Stream`.
 * **[Promise](https://nalexn.github.io/callbacks-part-3-promise-event-stream/#Promise)** is my favorite tool for handling a chain of asynchronous tasks, such as subsequent backend API calls. `Stream of values` also can handle this, but `Promise` offers much less complicated API and suits for engineering teams avoiding `Rx` and other reactive tools for any reason.
@@ -102,7 +102,7 @@ If we don't care much about the user experience, we can freeze the UI until the 
 
 The race condition between the user editing the local copy and the networking request completing after a delay would force us to implement the logic for merging the document edits when there is a conflict.
 
-For this purpose we can intruduce a local database wrapper and rely on it as the single source of truth when it comes to providing the up-to-date list of tasks. This way we can avoid unnecessary complication of the program.
+For this purpose, we can introduce a local database wrapper and rely on it as a single source of truth when it comes to providing the up-to-date list of tasks. This way we can avoid unnecessary complications of the program.
 
 Once you unify the place to store the state, it becomes much easier to extend it or refactor as the project evolves: if later we decide that we need to add a separate editing screen for the task, in that screen we can safely read from that wrapper and be sure it always provides the newest data, regardless of who and when updated it.
 
@@ -114,7 +114,7 @@ On the other hand, if we introduce a wrapper for the mutation operation, then we
 
 In our example of the TODO list, that wrapper can be a facade that conceals both access to the local database as well as the backend calls, leaving the client code with a neat API telling nothing about where the data originated from and providing a simple gateway for the data mutation.
 
-### Unidirection data flow
+### Unidirectional data flow
 
 This is another restriction you can implement in your app that will greatly improve the clarity and stability of the whole system.
 
@@ -130,7 +130,7 @@ The approach with implementing the [unidirectional data flow](https://flaviocope
 
 All of this greatly contributes to the [principle of least astonishment](https://en.wikipedia.org/wiki/Principle_of_least_astonishment), making it easier for everyone on the project to quickly locate the state, all the possible conditions when it is mutated and the channels of the data distribution.
 
-There are many ways to comply with all three patterns at once. One example is [Redux](https://github.com/reduxjs/redux) library, initially created for JavaScript world that later inspired iOS community to build their own: [ReSwift](https://github.com/ReSwift/ReSwift).
+There are many ways to comply with all three patterns at once. One example is [Redux](https://github.com/reduxjs/redux) library, initially created for JavaScript world that later inspired the iOS community to build their own: [ReSwift](https://github.com/ReSwift/ReSwift).
 
 As you design your shared state management with these three concepts and decide to use `Stream of values` in your project, you can easily utilize [binding the UI with the state](https://github.com/ReactiveX/RxSwift/blob/master/Documentation/Examples.md#simple-ui-bindings), making the entire app super responsive to any state changes with clear declarative code for UI updates.
 
