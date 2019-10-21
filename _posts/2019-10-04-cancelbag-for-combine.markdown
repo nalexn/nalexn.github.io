@@ -2,7 +2,7 @@
 layout: post
 title: "CancelBag: a DisposeBag for Combine subscriptions"
 date: 2019-10-04 14:30:00 +0300
-description: "A container for holding Cancellable (including AnyCancellable) returned by Combine subscriptions. Inspired by DisposeBag from RxSwift"
+description: "Collecting AnyCancellable tokens in declarative SwiftUI fashion"
 tags: [Cancellable,AnyCancellable,iOS,swift,SwiftUI,RxSwift,functionBuilder]
 comments: true
 sharing: true
@@ -26,7 +26,7 @@ I understand that. But it feels like Combine is missing something fundamental, a
 
 [RxSwift](https://github.com/ReactiveX/RxSwift) provides us with [DisposeBag](https://github.com/ReactiveX/RxSwift/blob/master/RxSwift/Disposables/DisposeBag.swift); it's competitor, [ReactiveSwift](https://github.com/ReactiveCocoa/ReactiveSwift), has a counterpart: [Lifetime](https://github.com/ReactiveCocoa/ReactiveSwift/blob/master/Sources/Lifetime.swift).
 
-But what about Combine? The subscription returns a token of type [AnyCancellable](https://developer.apple.com/documentation/combine/anycancellable) that we cannot put anywhere except for storing in an instance variable:
+But what about Combine? The subscription returns a token of type [AnyCancellable](https://developer.apple.com/documentation/combine/anycancellable) that prior Xcode 11.1 we couldn't put anywhere except for storing in an instance variable:
 
 ```swift
 class ValueConsumer {
@@ -43,23 +43,17 @@ class ValueConsumer {
         subscription2 = mySubject
             .subscribe(publisher2)
         subscription3 = publisher3
-            .assign(to: \. myVar, on: self)
+            .assign(to: \.myVar, on: self)
     }
 }
 ```
 
---
-
-> Does Combine need a CancelBag after all?
-
-– The question asked by [Michael Long](http://twitter.com/michaellong) in [his blog post](https://medium.com/better-programming/swift-5-1-and-combine-memory-management-a-problem-14a3eb49f7ae), for me has a clear answer: "Yes, Combine lacks it."
-
-Here is how the code above could be refactored if we had a container for subscriptions:
+Xcode 11.1 added method `store(in: Set<AnyCancellable>)` in an extension for `AnyCancellable`, so the code now can be refactored this way:
 
 ```swift
 class ValueConsumer {
 
-    private var cancelBag = CancelBag()
+    private var cancelBag = Set<AnyCancellable>()
     
     private let mySubject = CurrentValueSubject<Int, Never>(0)
     private var myVar: Int = 0
@@ -67,13 +61,13 @@ class ValueConsumer {
     func consumeValues(publisher1, ...) {
         publisher1
             .sink { print("New value: \($0)") }
-            .cancel(with: cancelBag)
+            .store(in: &cancelBag)
         subscription2 = mySubject
             .subscribe(publisher2)
-            .cancel(with: cancelBag)
+            .store(in: &cancelBag)
         subscription3 = publisher3
-            .assign(to: \. myVar, on: self)
-            .cancel(with: cancelBag)
+            .assign(to: \.myVar, on: self)
+            .store(in: &cancelBag)
     }
 }
 ```
@@ -85,7 +79,7 @@ But how about taking one step further and implement [Variadic DisposeBag](https:
 ```swift
 class ValueConsumer {
 
-    private var cancelBag = CancelBag()
+    private var cancelBag = Set<AnyCancellable>()
     
     private let mySubject = CurrentValueSubject<Int, Never>(0)
     private var myVar: Int = 0
@@ -97,14 +91,14 @@ class ValueConsumer {
             mySubject
                 .subscribe(publisher2)
             publisher3
-                .assign(to: \. myVar, on: self)
+                .assign(to: \.myVar, on: self)
         }
     }
 }
 ```
 
-The `collect` function above is using the new [`@functionBuilder`](https://blog.vihan.org/swift-function-builders/) attribute available in Swift 5.1, the same one that allows view containers from [SwiftUI](https://developer.apple.com/documentation/swiftui/), such as `VStack`, to take an array of elements without any (,) separators.
+The `collect` function above is using the new [`@functionBuilder`](https://blog.vihan.org/swift-function-builders/) attribute available in Swift 5.1, the same one that allows view containers from [SwiftUI](https://developer.apple.com/documentation/swiftui/), such as `VStack`, to take an array of elements without any `,` separators.
 
-So now we can collect all the subscriptions tokens without explicitly calling `.cancel(with: cancelBag)` or storing it in a variable!
+So now we can collect all the subscriptions tokens without explicitly calling `.store(in: &cancelBag)`
 
-The full gist for the CancelBag implementation (~50 lines of code) can be [found on Github](https://gist.github.com/nalexn/9b53421f2900631176d7617e12eaa359).
+The full gist for the CancelBag implementation (~20 lines of code) can be [found on Github](https://gist.github.com/nalexn/33f14af1d163ea476ee499c0459824b2).
