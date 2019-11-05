@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Clean Architecture for SwiftUI"
-date: 2019-11-05 14:30:00 +0300
+date: 2019-11-04 14:30:00 +0300
 description: "Are VIPER, RIBs, MVVM or VIP suitable for SwiftUI project?"
 tags: [iOS,swift,SwiftUI,Combine,design,pattern]
 comments: true
