@@ -3,7 +3,7 @@ layout: post
 title: "Clean Architecture for SwiftUI"
 date: 2019-11-04 14:30:00 +0300
 description: "Are VIPER, RIBs, MVVM or VIP suitable for SwiftUI project?"
-tags: [iOS,swift,SwiftUI,Combine,design,pattern]
+tags: [iOS,swift,SwiftUI,Combine,design,pattern,redux,unidirectional,data,flow,best,practices]
 comments: true
 sharing: true
 published: true
@@ -128,6 +128,9 @@ I followed the [ELM Architecture](https://guide.elm-lang.org/architecture/) desc
 We saw this somewhere, didn't we?
 
 <div style="width:600px; display: block; margin-left: auto; margin-right: auto;"><img src="{{ site.url }}/assets/img/clean_swiftui_04.jpg"></div>
+
+We already have the `Model`, the `View` gets generated automatically from the `Model`, the only thing we can tweak is the way `Update` in delivered. We can go **REDUX** way and use the `Command` pattern for state mutation instead of letting SwiftUI’s views and other modules write to the state directly.
+Although I preferred using REDUX in my previous UIKit projects (ReSwift ❤), it’s questionable whether it’s needed for a SwiftUI app — the data flows are already under control and are easily traceable.
 
 # Clean Architecture. Again
 
