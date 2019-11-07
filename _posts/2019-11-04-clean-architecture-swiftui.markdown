@@ -103,9 +103,11 @@ The sample project I'm talking about in this article supports deep linking, so y
 
 There are a lot of great ideas and concepts we can borrow from these architectures, but ultimately the canonical implementation of either one doesn't make sense for the SwiftUI app.
 
-First, as you already know, there is no more practical need to have a Router.
+First, as you already know, there is no more practical need to have a `Router`.
 
-Secondly, the completely new design of the data flow in SwiftUI coupled with native support of view-state bindings makes it unnecessary to have separate `Presenter` and `Interactor`. I mean, you still can have both if you want, but it'd be an unnecessary complication, as the problems they aimed to solve don't exist anymore.
+Secondly, the completely new design of the data flow in SwiftUI coupled with native support of view-state bindings shrank the required setup code to the degree that `Presenter` becomes a goofy entity doing nothing useful. Along with the decreased number of modules in the pattern, we figure out that we don’t need `Builder` either.
+
+So basically, the whole pattern just falls apart, as the problems it aimed to solve don't exist anymore.
 
 # SwiftUI is conceptually an ELM Architecture
 
