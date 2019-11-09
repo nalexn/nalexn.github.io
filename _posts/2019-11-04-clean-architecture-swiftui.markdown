@@ -89,15 +89,7 @@ When the user selects a tab in the `TabView`, you don't get a callback. You simp
 
 The programmer can also assign a value to that `Binding` at any time - and the `TabView` will obey immediately.
 
-The programmatic navigation in SwiftUI is fully controlled by the state through `Bindings`. So if you'd asked:
-
-> "How can I deep link in a specific screen then?"
-
-My answer would be:
-
-> "Don't follow Apple's examples on using `@State` for presentation state. Instead, use `@Published` variable from the module accessible by the module where the deep link is received."
-
-The sample project I'm talking about in this article supports deep linking, so you can refer to the implementation, but a detailed article that covers this topic is coming soon!
+The programmatic navigation in SwiftUI is fully controlled by the state through `Bindings`. I dedicated a [separate article]({{ site.url }}/swiftui-deep-linking/) to this problem.
 
 # Are VIPER, RIBs and VIP applicable for SwiftUI?
 

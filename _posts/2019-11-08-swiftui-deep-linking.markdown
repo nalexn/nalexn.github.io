@@ -285,4 +285,4 @@ This bug could be fixed if we had access to the scroll offset of the `List` to a
 
 A hotfix to this issue I see right now is moving the target item to the first position in the array so the `List` could pick up the `NavigationLink` correctly. Or we could simply not rely on programmatic navigation through the `List`
 
-The sample project that supports deep links can be [found on Github](https://github.com/nalexn/clean-architecture-swiftui). It was initially created for illustration of the article [Clean Architecture for SwiftUI](https://nalexn.github.io/clean-architecture-swiftui/), I recommend you to check it out as well.
+The sample project that supports deep links can be [found on Github](https://github.com/nalexn/clean-architecture-swiftui). It was initially created for illustration of the article [Clean Architecture for SwiftUI]({{ site.url }}/clean-architecture-swiftui/), I recommend you to check it out as well.
