@@ -23,7 +23,7 @@ Now, it is all gone. SwiftUI is a declarative, state-driven framework. There is 
 
 The view is dehydrated to be a programming function. You provide it with input (the state) - it draws the output. And there is no way to directly mutate the view or dynamically change the input sources once the view is created - it all has to be declared in the construction of the view.
 
-<div style="width:600px; display: block; margin-left: auto; margin-right: auto;"><img src="{{ site.url }}/assets/img/clean_swiftui_02.jpg"></div>
+<div style="max-width:600px; display: block; margin-left: auto; margin-right: auto;"><img src="{{ site.url }}/assets/img/clean_swiftui_02.jpg"></div>
 
 # MVVM is the new standard architecture
 
@@ -31,7 +31,7 @@ SwiftUI comes with MVVM built-in. The attributes like `@Published` or `@State` a
 
 MVVM is, in fact, the new standard architecture Apple has declared as a successor of MVC for SwiftUI:
 
-<p align="center"><img src="{{ site.url }}/assets/img/clean_swiftui_03.jpg"></p>
+<div style="max-width:800px; display: block; margin-left: auto; margin-right: auto;"><img src="{{ site.url }}/assets/img/clean_swiftui_03.jpg"></div>
 
 > And well, you don't need a ViewController anymore.
 
@@ -105,7 +105,9 @@ So basically, the whole pattern just falls apart, as the problems it aimed to so
 
 Just watch a couple minutes from this talk "MCE 2017: Yasuhiro Inami, Elm Architecture in Swift" from 28:26
 
-<div style="width:600px; display: block; margin-left: auto; margin-right: auto;"><iframe width="560" height="315" src="https://www.youtube.com/embed/U805TqsDIV8?start=1706" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
+<div style="position: relative; width: 100%; padding-bottom: 56.25%; height: 0;">
+<iframe width="560" height="315" style="position: absolute; top:0; left: 0; width: 100%; height: 100%;" src="https://www.youtube.com/embed/U805TqsDIV8?start=1706" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</div>
 
 That guy had a WORKING prototype of SwiftUI in 2017! Of course, since it was backed by UIKit it had terrible performance, but still!
 
@@ -121,7 +123,7 @@ I followed the [ELM Architecture](https://guide.elm-lang.org/architecture/) desc
 
 We saw this somewhere, didn't we?
 
-<div style="width:600px; display: block; margin-left: auto; margin-right: auto;"><img src="{{ site.url }}/assets/img/clean_swiftui_04.jpg"></div>
+<div style="max-width:600px; display: block; margin-left: auto; margin-right: auto;"><img src="{{ site.url }}/assets/img/clean_swiftui_04.jpg"></div>
 
 We already have the `Model`, the `View` gets generated automatically from the `Model`, the only thing we can tweak is the way `Update` in delivered. We can go **REDUX** way and use the `Command` pattern for state mutation instead of letting SwiftUI’s views and other modules write to the state directly.
 Although I preferred using REDUX in my previous UIKit projects (ReSwift ❤), it’s questionable whether it’s needed for a SwiftUI app — the data flows are already under control and are easily traceable.
@@ -142,7 +144,7 @@ But in the most common scenario for a mobile app we'll need to have three layers
 
 So if we distilled the requirements of the Clean Architecture through the peculiarity of SwiftUI, we'd come up with something like this:
 
-<p align="center"><img src="https://github.com/nalexn/blob_files/blob/master/images/swiftui_arc_001.png?raw=true" alt="Diagram"/></p>
+<div style="max-width:800px; display: block; margin-left: auto; margin-right: auto;"><img src="https://github.com/nalexn/blob_files/blob/master/images/swiftui_arc_001.png?raw=true" alt="Diagram"/></div>
 
 There is a [demo project](https://github.com/nalexn/clean-architecture-swiftui) I've created to illustrate the use of this pattern. The app talks to the [restcountries.eu](https://github.com/nalexn/clean-architecture-swiftui/blob/master/restcountries.eu) REST API to show the list of countries and details about them.
 
