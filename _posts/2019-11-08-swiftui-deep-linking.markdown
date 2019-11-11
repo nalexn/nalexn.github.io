@@ -273,9 +273,9 @@ What is going on? We know the item with id 75 exists in the list, but for some r
 
 It turns out that the List's item we're pushing to **has to be currently visible** in the `List` in order for the programmatic navigation to work.
 
-Once you scroll the list to make the target item visible, you'll see an unappealing effect: the scrolling halts and the navigation view slides in the details view:
+Once you scroll the list to make the target item visible, you'll see an unappealing effect: the scrolling suddenly stops and details view appears without animation on the navigation stack:
 
-<p align="center"><img style="border:1px solid black;" src="{{ site.url }}/assets/img/deep_link_swiftui_04.gif"></p>
+<p align="center"><img style="border:1px solid #C2C0C0;" src="{{ site.url }}/assets/img/deep_link_swiftui_04.gif"></p>
 
 `List` is optimized the same way `UITableView` was, so it tracks the displayed items and **lazily** loads the content as needed.
 
