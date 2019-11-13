@@ -1407,40 +1407,22 @@ a.newer-posts:hover {
 /* Small Devices, Tablets */
 @media only screen and (max-width: 840px) {
   .sidebar {
-    position: relative;
-    display: -webkit-box;
-    display: -webkit-flex;
-    display: -ms-flexbox;
-    display: flex;
-    -webkit-box-orient: vertical;
-    -webkit-box-direction: normal;
-    -webkit-flex-direction: column;
-        -ms-flex-direction: column;
-            flex-direction: column;
-    -webkit-box-pack: justify;
-    -webkit-justify-content: space-between;
-        -ms-flex-pack: justify;
-            justify-content: space-between;
+    visibility: hidden;
     width: 100%;
-    padding: 10px;
-    background-color: #ffffff;
-    -webkit-box-shadow: 0 1px 1px 0 rgba(31, 35, 46, 0.15);
-            box-shadow: 0 1px 1px 0 rgba(31, 35, 46, 0.15);
+    padding: 0px;
   }
   .sidebar footer {
-    margin-bottom: 10px;
+    margin-bottom: 0px;
   }
   .about {
+    visibility: hidden;
     text-align: center;
     max-width: 480px;
-    margin: 10px auto auto;
+    margin: 0px auto auto;
   }
   .about img {
-    width: 100px;
-    height: 100px;
-    -webkit-border-radius: 100%;
-            border-radius: 100%;
-    margin-bottom: 10px;
+    width: 0px;
+    height: 0px;
   }
   .content-box {
     padding: 20px 10px;
