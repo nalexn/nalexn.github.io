@@ -1406,6 +1406,19 @@ a.newer-posts:hover {
 
 /* Small Devices, Tablets */
 @media only screen and (max-width: 840px) {
+  .post {
+    height: 7rem;
+  }
+  .post-title {
+    font-size: 18px;
+  }
+  .post .post-content {
+    padding: 0.5rem;
+  }
+  .post-date, .post-words {
+    bottom: 4px;
+    position: absolute;
+  }
   .sidebar {
     visibility: hidden;
     width: 100%;
