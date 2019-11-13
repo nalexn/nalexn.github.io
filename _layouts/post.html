@@ -11,7 +11,35 @@ layout: main
       {% if page.img %}<div class="page-image"><img class="page-image" src={{ "/assets/img/" | prepend: site.baseurl | append : page.img}} alt="{{page.title}}"></div>{% endif %}
       {{ content }}
       <hr>
-      <p>P.S. Add me on LinkedIn or follow on Twitter to be notified about the coming posts about practical hints and tricks in iOS engineering!</p>
+      <h2>Most recent articles</h2>
+      <div class="content-box clearfix" style="padding: 20px 10px;">
+        {% assign first_posts = site.posts | slice:0, 3 %}
+        {% for post in first_posts %}
+          {% if post.title != page.title %}
+          <article class="post">
+            {% if post.img %}
+              <a class="post-thumbnail" style="background-image: url({{"/assets/img/" | prepend: site.baseurl | append : post.img}})" href="{{post.url | prepend: site.baseurl}}"></a>
+            {% else %}
+            {% endif %}
+            <div class="post-content">
+              <h2 class="post-title"><a href="{{post.url | prepend: site.baseurl}}">{{post.title}}</a></h2>
+              <p></p>
+              <span class="post-date">{{post.date | date: '%Y, %b %d'}}&nbsp;&nbsp;&nbsp;—&nbsp;</span>
+              <span class="post-words">{% capture words %}{{ post.content | number_of_words }}{% endcapture %}{% unless words contains "-" %}{{ words | plus: 250 | divided_by: 250 | append: " minute read" }}{% endunless %}</span>
+            </div>
+          </article>
+          {% endif %}
+        {% endfor %}
+        <article class="post">
+          <a class="post-thumbnail" style="background-image: url({{"/assets/img/launch_001.jpg" | prepend: site.baseurl}})" href="{{"/" | prepend: site.baseurl}}"></a>
+          <div class="post-content">
+            <h2 class="post-title"><a href="{{"/" | prepend: site.baseurl}}">>>>&nbsp;Browse All Articles&nbsp;<<<</a></h2>
+            <p></p>
+          </div>
+        </article>
+      </div>
+      <hr>
+      <p>Add me on LinkedIn or follow on Twitter to be notified about the coming posts about practical hints and tricks in iOS engineering!</p>
       <div style="width:0px; height:15px; display: block;"></div>
       <div style="width:140px; display: block; margin-left: auto; margin-right: auto;"><a href="https://twitter.com/nallexn?ref_src=twsrc%5Etfw" class="twitter-follow-button" data-size="large" data-show-count="false">Follow @nallexn</a></div>
       <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
