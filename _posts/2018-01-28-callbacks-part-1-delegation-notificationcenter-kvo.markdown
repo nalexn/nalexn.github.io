@@ -1,8 +1,8 @@
 ---
 layout: post
-title: 'Callbacks, Part 1: Delegate, NotificationCenter, and KVO'
-description: Comparison of callback techniques in iOS
-tags: [delegate,delegation,notification center,key-value observing,kvo,programming,ios,development,best practices]
+title: "Callbacks, Part 1: Delegate, NotificationCenter, and KVO"
+description: "Comparison of callback techniques in iOS, pros & cons"
+tags: [delegate,delegation,notification,center,key,value, observing,kvo]
 date: 2018-01-28 21:30:00 +0600
 comments: true
 sharing: true

@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Lowering Development Costs Without Compromising On Quality"
+title: "Ways to reduce Development Costs without Compromising On Quality"
 date: 2019-08-16 21:30:00 +0600
 description: "Advice on optimizing human resources and team management"
 tags: [agile,software,development,project,management,mobile,application,business,finance,startup,digital,marketing,developer,lowering,costs,quality,human,resource]

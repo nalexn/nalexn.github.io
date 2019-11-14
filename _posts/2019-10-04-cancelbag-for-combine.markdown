@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "CancelBag: a DisposeBag for Combine subscriptions"
+title: "Variadic DisposeBag for Combine subscriptions"
 date: 2019-10-04 14:30:00 +0300
 description: "Collecting AnyCancellable tokens in declarative SwiftUI fashion"
 tags: [Cancellable,AnyCancellable,iOS,swift,SwiftUI,RxSwift,functionBuilder]

@@ -1,8 +1,8 @@
 ---
 layout: post
-title: 'Callbacks, Part 2: Closure, Target-Action, and Responder chain'
-description: Comparison of callback techniques in iOS
-tags: [closure,block,target action,responder chain,programming,ios,development,best practices]
+title: "Callbacks, Part 2: Closure, Target-Action, and Responder chain"
+description: "Comparison of callback techniques in iOS, pros & cons"
+tags: [closure,block,target,action,target-action,responder,chain]
 date: 2018-02-08 21:30:00 +0600
 comments: true
 sharing: true
