@@ -101,6 +101,8 @@ Secondly, the completely new design of the data flow in SwiftUI coupled with nat
 
 So basically, the whole pattern just falls apart, as the problems it aimed to solve don't exist anymore.
 
+There are [attempts](https://theswiftdev.com/2019/09/18/how-to-build-swiftui-apps-using-viper/) to stick with the beloved architectures no matter what, but please, don’t.
+
 # SwiftUI is conceptually ELM Architecture
 
 Just watch a couple minutes from this talk "MCE 2017: Yasuhiro Inami, Elm Architecture in Swift" from 28:26
