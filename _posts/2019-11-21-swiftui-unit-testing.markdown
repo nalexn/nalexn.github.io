@@ -119,7 +119,7 @@ Ok, it's time for some hacky stories!
 
 ## Creating a struct without calling `init()`
 
-There is one interesting SwiftUI view that provides the information about the view's container size: `GeometryReader`
+There is one interesting SwiftUI view that provides information about the view's container size: `GeometryReader`
 
 ```swift
 GeometryReader { geometry in
@@ -136,7 +136,7 @@ Ok, fortunately, `GeometryProxy` is a public struct... But it has no public init
 
 How can we construct a value without a factory?
 
-Well, fortunately, `GeometryProxy` is a struct. Value types, as opposed to objects, don't require storing pointers to the parent class for self-identification, meaning that they remain functional without `isa` pointers inside... I had one crazy idea in my mind, and I decided to try!
+Value types, as opposed to objects, don't require storing pointers to the parent class for self-identification, meaning that they remain functional without `isa` pointers inside... I had one crazy idea in my mind, and I decided to try!
 
 At first, I wanted to find out the number of bytes that `GeometryProxy` takes. Swift provides `MemoryLayout` for this purpose:
 
@@ -202,7 +202,7 @@ let array = ["0", "1", "2"]
 let view = ForEach(array, id: \.self) { Text($0) }
 ```
 
-My [BFG10K](https://quake.fandom.com/wiki/BFG10K_(Q3)) function `attributesTree(value:)` showed the following:
+My BFG10K function `attributesTree(value:)` showed the following:
 
 ```swift
 "view" of type ForEach<Array<String>, String, Text>
@@ -231,9 +231,9 @@ func extractContentOfForEach(view: Any) -> [Any] {
 }
 ```
 
-Hardcoding types `String` and `Text` of course wouldn't work for an arbitrary `ForEach`, so I needed to get the types from elsewhere.
+Hardcoding types `String` and `Text`, of course, wouldn't work for an arbitrary `ForEach`, so I needed to get the types from elsewhere.
 
-A naive attempt to obtain the type dynamically with `type(of: value)` did not make the compiler happy - it needs to know the types in compile time. Basically this is not a valid code: `let cased = value as? type(of: value)`
+A naive attempt to obtain the type dynamically with `type(of: value)` did not make the compiler happy - it needs to know the types in compile time. Basically this is not a valid code: `let casted = value as? type(of: value)`
 
 Ok, the Type information should be known at compile time. From where could we get it?
 
@@ -256,7 +256,7 @@ func extract<Element,Content>(view: Any,
 
 I didn't like this approach because it was bulky and inconvenient to use, so I appealed to the following hack.
 
-I've declared a type-erased middleware protocol and extended the `ForEach` to conform to that protocol. The trick is that in the extension of `ForEach` we have the inner type information required for the content extraction:
+I've declared a type-erased middleware protocol and extended the `ForEach` to conform to that protocol. The trick is that in the extension of the `ForEach` we have the inner type information required for the content extraction:
 
 ```swift
 protocol ForEachContentProvider {
@@ -298,20 +298,20 @@ While there was no practical problem with supporting `@ObservedObject` in the in
 
 When a view receives traditional DI injection through `.environmentObject(...)` it gets wrapped into a view of type `ModifiedContent`. This type of view is widely used throughout SwiftUI for applying various tweaks to the view, such as `.padding()`, `.blur(radius:)`, etc.
 
-`ModifiedContent` is quite transparent - one of its attributes, called `content`, provides the enclosed view, which could easily be extracted.
+`ModifiedContent` is quite transparent - one of its attributes, called `content`, provides the enclosed view, which could be easily extracted.
 
-The problem is with the other attribute: `modifier`, which usually refers to the value of a "semi-private" type, such as `_PaddingLayout`. I called it semi-private because Xcode recognizes these types if you type them in the source code, but its symbols are excluded from the public headers: if you control-click and select "Jump to Definition", Xcode won't be able to locate them.
+The problem is with the other attribute: `modifier`, which usually refers to the value of a "semi-private" type, such as `_PaddingLayout`. I called them semi-private because Xcode recognizes these types if you paste them in the source code, but their symbols are excluded from the public headers: if you control-click and select "Jump to Definition", Xcode won't be able to locate them.
 
-For some types, Xcode autocomplete shows a few instance methods, for example, `_PaddingLayout` has `var edges: Edge.Set` and `var insets: EdgeInsets?`
+For some types, Xcode Autocomplete shows a few instance vars, for example, `_PaddingLayout` has `var edges: Edge.Set` and `var insets: EdgeInsets?`
 
-So going back to the problem of injecting `@EnvironmentObject`: the view gets wrapped in a `ModifiedContent` which `modifier` has the type `_EnvironmentKeyWritingModifier<Optional<InjectedObject>>`.
+So going back to the problem of injecting `@EnvironmentObject`: the view gets wrapped in a `ModifiedContent` which `modifier` has the type `_EnvironmentKeyWritingModifier<InjectedObject?>`.
 
-That modifier has no public methods, and here is what reflection shows for it:
+That modifier has no public methods, and here is what reflection shows for it, when we inject an object of type `InjectedObject`:
 
 ```swift
-"modifier" of type _EnvironmentKeyWritingModifier<Optional<InjectedObject>>
+"modifier" of type _EnvironmentKeyWritingModifier<InjectedObject?>
    ↳ "keyPath" of type WritableKeyPath
-       ↳ value = WritableKeyPath<EnvironmentValues, ViewInspectorTests.ExternalState?>
+       ↳ value = WritableKeyPath<EnvironmentValues, InjectedObject?>
    ↳ "value" of type InjectedObject?
        ↳ value = InjectedObject(...)
 ```
@@ -327,15 +327,15 @@ struct ContentView: View {
     @EnvironmentObject var object: InjectedObject
     
     var body: some View {
-        Text(object.flag ? "Flag is on" : "Flag is off")
         DispatchQueue.main.async {
-            print("\(object.flag)")
+            print("\(self.object.flag)")
         }
+        return Text(object.flag ? "Flag is on" : "Flag is off")
     }
 }
 ```
 
-... and you'll see that asynchronous reading of `@EnvironmentObject` outside of the rendering cycle it prohibited - you'll get the same crash as if you never provided `InjectedObject` in `.environmentObject(...)` call.
+... and you'll see that asynchronous reading of `@EnvironmentObject` outside of the rendering cycle is prohibited - you'll get the same crash as if you never provided `InjectedObject` in `.environmentObject(...)` call.
 
 ## Design decisions behind the inspection framework
 
@@ -353,7 +353,7 @@ struct InspectableView<View> {
 }
 ```
 
-At first I thought I'll be using SwiftUI views as the `View` parameter, but quickly realized that most of the SwiftUI views have generic parameters as well, and constructions like `InspectableView<HStack<VStach<Text>>>` would be too cumbersome and fragile to operate.
+At first, I thought I'll be using SwiftUI views as the `View` parameter, but quickly realized that most of the SwiftUI views have generic parameters as well, and constructions like `InspectableView<HStack<VStach<Text>>>` would be too cumbersome and fragile to operate.
 
 Instead, I've created an empty `struct ViewType { }` that served as the base namespace for future view types: `ViewType.Button` being a representative for the `Button` view, for example.
 
@@ -365,8 +365,6 @@ protocol KnownViewType { }
 struct InspectableView<View> where View: KnownViewType {
     let view: Any
 }
-
-// -
 
 struct ViewType { }
 
@@ -413,7 +411,7 @@ Now every `ViewType` could declare its strategy of extracting the content.
 
 The last piece of the puzzle was to add methods, such as `.hStack` for extraction FROM the parent.
 
-This is easy - we simply extend `InspectableView` which `ViewType` conforms to `SingleViewContent` by adding a method named after the type of view we intend to extract:
+This one was easy - I just extended `InspectableView where View: SingleViewContent` with a method named after the type of view intended for extraction, allowing such views to continue the chain with `.hStack`, for example:
 
 ```swift
 public extension InspectableView where View: SingleViewContent {
@@ -427,7 +425,7 @@ public extension InspectableView where View: SingleViewContent {
 
 A similar extension is defined for `MultipleViewContent` as well.
 
-Finally, when we want, for example, the `ViewType.Button` to exclusively support the method `.tap()`, we could extend `InspectableView` specifically for `ViewType.Button`:
+Finally, for types like `ViewType.Button`, I could add exclusive support of the methods like `.tap()`
 
 ```swift
 extension InspectableView where View == ViewType.Button {
@@ -437,7 +435,7 @@ extension InspectableView where View == ViewType.Button {
 }
 ```
 
-With this approach `InspectableView` obtained a controlled set of methods available for each individual `ViewType`, eliminating the possible logical errors when working with the view extraction library.
+With this approach `InspectableView` obtained a controlled set of methods available for particular `ViewType`, eliminating the possible logical errors when working with the view extraction library.
 
 ---
 
