@@ -19,7 +19,7 @@ I'm talking about SwiftUI. It's not going anywhere. Like it or not, this is the 
 
 UIKit was an object-oriented, event-driven framework. We could reference each view in the hierarchy, update it's appearance when the view is loaded or as a reaction on an event (a touch-down on the button or a new data becoming available for display in UITableView). We used callbacks, delegates, target-actions for handling these events.
 
-Now, it is all gone. SwiftUI is a declarative, state-driven framework. There is almost no event handling tied to it anymore. Now, the events and business logic have to reside in an external module, so it has become practically impossible to build a "massive view controller" both responsible for the presentation and business logic handling at the same time.
+Now, it is all gone. SwiftUI is a declarative, state-driven framework. Event handling happens solely with closure callbacks, which offers higher cohesion for the business logic behind handling the input. So it has become easier to extract the business logic to an external module than it was with MVC: fixing "massive view" is a breeze compared to refactoring the "massive view controller".
 
 The view is dehydrated to be a programming function. You provide it with input (the state) - it draws the output. And there is no way to directly mutate the view or dynamically change the input sources once the view is created - it all has to be declared in the construction of the view.
 

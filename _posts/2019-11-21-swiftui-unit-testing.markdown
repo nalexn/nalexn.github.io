@@ -1,8 +1,8 @@
 ---
 layout: post
-title: "Unit testing SwiftUI views"
+title: "Hacking SwiftUI for Unit Testing and Runtime Inspection"
 date: 2019-11-21 8:30:00 +0300
-description: "Inspecting SwiftUI view hierarchy in runtime"
+description: "The story behind creating a Unit Testing framework"
 tags: [iOS,swift,test,xcode,exception,traverse,instance,variable,subview,child,view]
 comments: true
 sharing: true
