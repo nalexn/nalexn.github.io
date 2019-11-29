@@ -10,21 +10,21 @@ published: true
 img: swiftui_unit_testing_01.jpg
 ---
 
-Viktor Chernomyrdin, a Russian politician from 90s, once said this quillet:
+Viktor Chernomyrdin, a Russian politician from the ‘90s, once said:
 
 > Such has never happened before, and here it is again...
 
-The situation around SwiftUI: we have a brand new exciting technology, but with stability issues, incomplete API and scarce documentation... Never happened before.
+This reminds me of the situation we find ourselves in with SwiftUI: We have a brand-new, exciting technology — but with stability issues, an incomplete API, and scarce documentation. *Such has never happened before, and here it is again*.
 
-Anyway, things are not as bad as they could be, and teams already started adopting SwiftUI in production projects. Still, one of the main arguments against using it in production today was a complete inability to unit test the UI.
+Anyway, things are not as bad as they could be, and teams have already started adopting SwiftUI in production projects. Still, one of the main arguments against using it in production is a complete inability to unit test the UI.
 
 <div style="max-width:600px; display: block; margin-left: auto; margin-right: auto;"><img src="{{ site.url }}/assets/img/clean_swiftui_02.jpg"></div>
 
-A function of state should be really straightforward to test, with one "if" - we need to have access to the function's output.
+A function of state should be really straightforward to test — with one **if**. We need to have access to the function’s output.
 
-Views in SwiftUI are nested in one another, forming a statically typed hierarchy of structs without API to inspect the view's content.
+Views in SwiftUI are nested inside one another, forming a statically typed hierarchy of structs without an API to inspect the view’s content.
 
-One day Apple may release its unit testing tool for SwiftUI, but who knows, whether / when this will happen.
+One day Apple may release its unit testing tool for SwiftUI, but who knows whether/when this will happen.
 
 So I decided to build one.
 
