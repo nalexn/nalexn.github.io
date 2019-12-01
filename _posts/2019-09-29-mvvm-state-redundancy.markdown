@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Fighting state redundancy in Model-View-ViewModel"
-date: 2019-08-29 17:30:00 +0600
+date: 2019-09-29 17:30:00 +0600
 description: "A better way to represent the state of loading resource in MVVM"
 tags: [mvvm,model,view,viewmodel,view-model,state,frp,rxswift,functional,reactive,ios,swift]
 comments: true
