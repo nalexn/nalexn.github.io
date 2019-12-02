@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "KVO communication guide for Swift and Objective-C"
+title: "Quick Guide to KVO in Swift with code examples"
 date: 2019-09-20 17:30:00 +0600
 description: "Everything you need to know about Key-Value Observing"
 tags: [ios,swift,kvo]
@@ -10,15 +10,21 @@ published: true
 img: kvo_001.jpg
 ---
 
+## TL;DR
+
+For the **KVO code example** in Swift jump stright to the [KVO in Swift](https://nalexn.github.io/kvo-guide-for-key-value-coding/#kvo_swift) section.
+
+## The concept
+
 **KVO**, which stands for Key-Value Observing, is one of the techniques for observing the program state changes available in Objective-C and Swift.
 
-**The concept is simple**: when we have an object with some instance variables, KVO allows other objects to establish surveillance on changes for any of those instance variables.
+The concept is simple: when we have an object with some instance variables, KVO allows other objects to establish surveillance on changes for any of those instance variables.
 
-KVO is a practical example of the [Observer pattern](https://en.wikipedia.org/wiki/Observer_pattern). What makes Objective-C (and Obj-C bridged Swift) unique is that every instance variable that you add to the class becomes observable through KVO **right away**! (There are exceptions to this rule, I'll talk about them in the article).
+KVO is a practical example of the [Observer pattern](https://en.wikipedia.org/wiki/Observer_pattern). What makes Objective-C (and Obj-C bridged Swift) unique is that every instance variable that you add to the class becomes observable through KVO right away! (There are exceptions to this rule, I'll talk about them in the article).
 
 But in the majority of other programming languages, such a tool doesn't come out of the box - you usually need to write additional code in the variable's setter to notify the observers about the value changes.
 
-Ok, let's hop on some code examples!
+> Swift has inherited KVO from Objective-C, so for a full picture you need to understand how KVO works in Objective-C.
 
 ## KVO in Objective-C
 
@@ -156,7 +162,7 @@ Another way to break free from KVO is to not use `@property` in the first place,
 
 For such variables, Objective-C does not generate setter and getter, thus not enabling KVO.
 
-## KVO in Swift
+## <a name="kvo_swift">[KVO in Swift](#kvo_swift)</a>
 
 Swift has inherited the support for the KVO from Objective-C, but unlike the latter, KVO is disabled in Swift classes by default.
 
@@ -176,17 +182,17 @@ Let's start with the **new one**:
 ```swift
 class PersonObserver {
 
-    var observation: NSKeyValueObservation?
+    var kvoToken: NSKeyValueObservation?
     
     func observe(person: Person) {
-        person.observe(\.age, options: .new) { (person, change) in
+        kvoToken = person.observe(\.age, options: .new) { (person, change) in
             guard let age = change.new else { return }
             print("New age is: \(age)")
         }
     }
     
     deinit {
-        subscription?.invalidate()
+        kvoToken?.invalidate()
     }
 }
 ```
