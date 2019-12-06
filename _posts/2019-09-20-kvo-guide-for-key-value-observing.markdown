@@ -4,6 +4,8 @@ title: "Quick Guide to KVO in Swift with code examples"
 date: 2019-09-20 17:30:00 +0600
 description: "Everything you need to know about Key-Value Observing"
 tags: [ios,swift,kvo]
+redirect_from:
+  - kvo-guide-for-key-value-coding
 comments: true
 sharing: true
 published: true

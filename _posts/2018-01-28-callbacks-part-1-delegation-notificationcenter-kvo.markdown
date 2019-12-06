@@ -149,6 +149,8 @@ class Customer {
 
 # <a name="KeyValueObserving">[Key Value Observing](#KeyValueObserving)</a>
 
+There is a [dedicated post]({{ site.url }}/kvo-guide-for-key-value-observing) I've written about KVO in Swift 5 and Objective-C.
+
 `KVO` is a traditional [observer](https://en.wikipedia.org/wiki/Observer_pattern) pattern built-in any `NSObject` out of the box. With `KVO` observers can be notified of any changes of a `@property` values. It leverages _Objective-C runtime_ for automated notifications dispatch, and because of that for `Swift` class, you'd need to opt into _Objective-C dynamism_ by inheriting `NSObject` and marking the `var` you're going to observe with modifier `dynamic`. The observers should also be `NSObject` descendants because this is enforced by the `KVO` API.
 
 Sample code for `Key-Value Observing` a property `value` of the class `ObservedClass`:
