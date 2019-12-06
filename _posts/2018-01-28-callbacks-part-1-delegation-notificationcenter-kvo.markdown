@@ -157,26 +157,21 @@ Sample code for `Key-Value Observing` a property `value` of the class `ObservedC
 
 ```swift
 class ObservedClass : NSObject {
-  dynamic var value: CGFloat = 0
+  @objc dynamic var value: CGFloat = 0
 }
 
-class Observer : NSObject {
-  
-  func startObserving(object: ObservedClass) {
-    object.addObserver(self, forKeyPath: #keyPath(ObservedClass.value), options: [.new], context: nil)
-  }
-  
-  func stopObserving(object: ObservedClass) {
-    object.removeObserver(self, forKeyPath: #keyPath(ObservedClass.value))
-  }
-  
-  // This is a NSObject's method for handling any KVO subscriptions:
-  override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
-    if #keyPath(ObservedClass.value) == keyPath {
-      if let newValue = change?[.newKey] as? CGFloat {
-        // We got the newValue
+class Observer {
+  var kvoToken: NSKeyValueObservation?
+    
+  func observe(object: ObservedClass) {
+    kvoToken = object.observe(\.value, options: .new) { (object, change) in
+      guard let value = change.new else { return }
+        print("New value is: \(value)")
       }
     }
+    
+  deinit {
+    kvoToken?.invalidate()
   }
 }
 ```
