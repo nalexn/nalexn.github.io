@@ -172,7 +172,7 @@ This means that the creation of the hierarchy is **incredibly fast**, SwiftUI is
 * [Profiling file](https://github.com/nalexn/blob_files/raw/master/files/swiftui_profiling/StaticContent.trace.zip) for `Text`
 * [Profiling file](https://github.com/nalexn/blob_files/raw/master/files/swiftui_profiling/StaticContentAnyView.trace.zip) for `AnyView(Text)`
 
-## Test #2: Tweaking one element inside massive view
+## Test #2: Tweaking one element inside a massive view
 
 The purpose of this test was to see how SwiftUI can perform diffing of the hierarchy when 99.9% of content remains unchanged.
 
@@ -226,7 +226,7 @@ SwiftUI hierarchy receives constant refresh requests at a rate of 60 times a sec
 
 The test is constructed in a way that only one `ElementView` has to constantly toggle between `Text` and `Image`, while others stay `Text` all the time. Since all `ElementViews` are hooked on the update from `Binding`, it's the job of the SwiftUI engine to properly run diffing of all 1600 views for optimal rendering.
 
-The average time to for calling `.init()` + `.body` for the whole test view is again ~4 nanoseconds.
+The average time for calling `.init()` + `.body` for the test view is again ~4 nanoseconds.
 
 The results for `ConditionalView `:
 
@@ -377,6 +377,6 @@ When you access a `Binding`, `@State`, `@ObservedObject` or `@EnvironmentObject`
 
 One of the ways to improve the performance is to use `EquatableView`, which allows SwiftUI to take a shortcut and not call the `body` if your view says it did not change.
 
-And finally: **Premature optimization is the root of all evil**. Use SwiftUI Profiler in the Instruments for locating the real performance bottleneck insted of guessing, and don't trade the code clarity for a couple of nanoseconds of performance advantage.
+And finally: **Premature optimization is the root of all evil**. Use SwiftUI Profiler in the Instruments for locating the real performance bottleneck instead of guessing, and don't trade the code clarity for a couple of nanoseconds of performance advantage.
 
 The source code for the project can be found on [GitHub](https://github.com/nalexn/anyview-vs-group).

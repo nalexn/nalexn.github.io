@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Hacking SwiftUI for Unit Testing and Runtime Inspection"
+title: "Who said we cannot unit test SwiftUI views?"
 date: 2019-11-21 8:30:00 +0300
 description: "The story behind creating a Unit Testing framework"
 tags: [iOS,swift,test,xcode,exception,traverse,instance,variable,subview,child,view]
