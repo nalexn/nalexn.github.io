@@ -13,7 +13,7 @@ layout: main
       <hr>
       <h2>Most recent articles</h2>
       <div class="content-box clearfix" style="padding: 20px 10px;">
-        {% assign first_posts = site.posts | slice:0, 3 %}
+        {% assign first_posts = site.posts | slice:0, 5 %}
         {% for post in first_posts %}
           {% if post.title != page.title %}
           <article class="post">
