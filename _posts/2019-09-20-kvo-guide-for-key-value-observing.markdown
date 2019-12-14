@@ -14,7 +14,7 @@ img: kvo_001.jpg
 
 ## TL;DR
 
-For the **KVO code example** in Swift jump stright to the [KVO in Swift](https://nalexn.github.io/kvo-guide-for-key-value-coding/#kvo_swift) section.
+For the **KVO code example** in Swift jump stright to the [KVO in Swift](https://nalexn.github.io/kvo-guide-for-key-value-observing/#kvo_swift) section.
 
 ## The concept
 
