@@ -139,6 +139,7 @@ The first approach implies creating a shared app state that is injected in the v
 ```swift
 class AppState: ObservableObject {
     @Published var selectedTab: ContentView.Tab = .home
+    @Published var showActionSheet: Bool = false
 }
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
@@ -155,6 +156,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // Parse the deep link
         if /*Deep link leads to the More tab*/ {
             appState.selectedTab = .more
+            appState.showActionSheet = true
         }
     }
 }
@@ -165,7 +167,20 @@ struct ContentView: View {
     
     var body: some View {
         TabView(selection: $appState.selectedTab) {
+            MoreTabView().tag(ContentView.Tab.more)
             ...
+        }
+    }
+}
+
+struct MoreTabView: View {
+    
+    @EnvironmentObject var appState: AppState
+    
+    var body: some View {
+        Text("More Tab")
+        .actionSheet(isPresented: $appState.showActionSheet) {
+            ActionSheet(title: ...)
         }
     }
 }
@@ -178,6 +193,7 @@ The second approach is to use a `Publisher` from Combine to deliver the navigati
 ```swift
 struct NavigationCoordinator: EnvironmentKey {
     let selectedTab = PassthroughSubject<ContentView.Tab, Never>()
+    let showActionSheet = PassthroughSubject<Bool, Never>()
 }
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
@@ -194,6 +210,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // Parse the deep link
         if /*Deep link leads to the More tab*/ {
             navigation.selectedTab.send(.more)
+            navigation.showActionSheet.send(true)
         }
     }
 }
@@ -205,10 +222,27 @@ struct ContentView: View {
     
     var body: some View {
         TabView(selection: $selectedTab) {
+            MoreTabView().tag(ContentView.Tab.more)
             ...
         }
         .onReceive(navigation.selectedTab) {
             self.selectedTab = $0
+        }
+    }
+}
+
+struct MoreTabView: View {
+    
+    @Environment(\.navigationCoordinator) var navigation: NavigationCoordinator
+    @State var showActionSheet: Bool = false
+    
+    var body: some View {
+        Text("More Tab")
+        .actionSheet(isPresented: $showActionSheet) {
+            ActionSheet(title: ...)
+        }
+        .onReceive(navigation.showActionSheet) {
+            self.showActionSheet = $0
         }
     }
 }
@@ -222,7 +256,13 @@ This simply won't work with the second approach, unless you change `PassthroughS
 
 You don't need to reset the navigation state for the first approach, because App State, holing the navigation parameters, is the single source of truth for the entire program and SwiftUI will be updating those values as the user continues navigating in the app.
 
-Either way, for every "navigatable" view along the way to the deep link's target view, you need to allocate a separate navigation parameter in the AppState or in the broadcasted message.
+# Navigation through multiple views
+
+Using one of the approached described above you can programmatically navigate to a screen at any depth.
+
+The only requirement: for every "navigatable" view along the way to the deep link's target view, you need to allocate a separate navigation parameter in the AppState or in the broadcasted message.
+
+Then, inside the `scene(_ scene, openURLContexts:)` you need to toggle all the navigation parameters at once, and SwiftUI view hierarchy will transition to the target screen at one step.
 
 # `List` doesn't correctly support programmatic navigation
 
