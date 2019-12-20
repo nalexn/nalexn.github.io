@@ -213,10 +213,10 @@ Let's dive in:
 ```swift
 struct ContentView: View {
     
-    // The local view's state in encapsulation in one container:
+    // The local view's state encapsulated in one container:
     @State private var state = ViewState()
     
-    // The app state injection
+    // The app's state injection
     @Environment(\.injected) private var injected: AppState.Injection
     
     var body: some View {
@@ -231,7 +231,7 @@ struct ContentView: View {
     }
 }
 
-// Container for local view state encapsulation
+// Container for the local view state encapsulation
 private extension ContentView {
     struct ViewState: Equatable {
         var value: Int = 0
