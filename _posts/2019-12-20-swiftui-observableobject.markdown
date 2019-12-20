@@ -20,7 +20,7 @@ And here is where the problem lies.
 
 As I've been [exploring](https://nalexn.github.io/anyview-vs-group/) how SwiftUI performs under the high load, I've discovered that the performance of the SwiftUI refresh degrades dramatically the more views are subscribed on the state update.
 
-You may have 1,000,000 views on the screen with just one being subscribed - and the update will be rendered lightning-fast, even for a view deep inside the hierarchy.
+You may have a couple of thousands of views on the screen with just one being subscribed - and the update will be rendered lightning-fast, even for a view deep inside the hierarchy.
 
 But it's sufficient to have just a few hundreds of views subscribed on the same update and only one being factually affected - and you'll notice a significant performance drawdown.
 
