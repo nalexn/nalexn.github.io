@@ -10,7 +10,7 @@ published: true
 img: observable_001.jpg
 ---
 
-"Single source of truth" has become a buzzword in the iOS community after WWDC 2019 session [Data Flow Through SwiftUI](https://developer.apple.com/videos/play/wwdc2019/226/).
+"Single source of truth" has become a buzzword in the iOS community after WWDC 2019 [Data Flow Through SwiftUI](https://developer.apple.com/videos/play/wwdc2019/226/) session.
 
 SwiftUI framework is designed to encourage building the apps in the single-source-of-truth style, but this doesn't mean the app has to have only one central state for the entire app, you actually can [break it up](https://medium.com/better-programming/swiftui-microservices-c7002228710).
 
@@ -18,7 +18,7 @@ But in any case, you're very likely to end up using either `@ObservedObject` or 
 
 And here is where the problem lies.
 
-As I've been [exploring](https://nalexn.github.io/anyview-vs-group/) how SwiftUI performs under the high load, I've discovered that the performance of the SwiftUI refresh degrades dramatically the more views are subscribed on the state update.
+As I've been [exploring](https://nalexn.github.io/anyview-vs-group/?utm_source=medium_flawless) how SwiftUI performs under the high load, I've discovered that the performance of the SwiftUI refresh degrades dramatically the more views are subscribed on the state update.
 
 You may have a couple of thousands of views on the screen with just one being subscribed - and the update will be rendered lightning-fast, even for a view deep inside the hierarchy.
 
@@ -118,7 +118,7 @@ The problem of massive state updates was not so apparent, but I still used filte
 ```swift
 BehaviorRelay(value: AppState()) // produces all state updates
     .map { $0.value1 } // removing all unused state values
-    .distinctUntilChanged() // skipping events where "value1" did not change
+    .distinctUntilChanged() // remove duplicated "value1"
     .bind(to: ...)
 ```
 
@@ -288,6 +288,6 @@ let injected = AppState.Injection(appState: .init(AppState()))
 let contentView = ContentView().environment(\.injected, injected)
 ```
 
-That's it. I'll be shortly migrating my [Clean Architecture for SwiftUI](https://github.com/nalexn/clean-architecture-swiftui) sample project to use this approach, and I'll also provide a better support of it for my [SwiftUI Unit Testing](https://github.com/nalexn/ViewInspector) framework.
+That's it. I'll be shortly migrating my [Clean Architecture for SwiftUI](https://github.com/nalexn/clean-architecture-swiftui) sample project to use this approach, and I'll also provide better support for it in my [SwiftUI Unit Testing](https://github.com/nalexn/ViewInspector) framework.
 
 Follow me on [Twitter](https://twitter.com/nallexn) to stay tuned about the coming posts!
