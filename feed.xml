@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xml:lang="en-US" xmlns="http://www.w3.org/2005/Atom">
+  <id>nalexn.github.io</id>
+  <link rel="alternate" type="text/html" href="https://nalexn.github.io/"/>
+  <link rel="self" type="application/atom+xml" href="https://nalexn.github.io/"/>
+  <icon>https://nalexn.github.io/assets/img/favicon/favicon-114.png</icon>
+  <title>Alexey Naumov</title>
+  <author>
+    <name>Alexey Naumov</name>
+    <uri>https://nalexn.github.io</uri>
+  </author>
+  <subtitle>iOS development best practices, software architecture design, functional reactive programming, Swift, SwiftUI, Combine</subtitle>
+  <updated>2019-12-21T17:32:52+03:00</updated>
+  <entry>
+    <title type="html">Why I quit using the ObservableObject in SwiftUI</title>
+    <link href="https://nalexn.github.io/swiftui-observableobject/?utm_source=rss" rel="alternate" type="text/html"/>
+    <id>swiftui-observableobject</id>
+    <updated>2019-12-20T08:30:00+03:00</updated>
+    <content type="html">
+        &lt;p&gt;&lt;img src="https://nalexn.github.io/assets/img/observable_001.jpg" alt="Preview"&gt;&lt;/p&gt;
+        &lt;p&gt;I'm done using the ObservableObject in SwiftUI. &lt;a href="https://nalexn.github.io/swiftui-observableobject/?utm_source=rss"&gt;Here is why.&lt;/a&gt;&lt;/p&gt;
+    </content>
+  </entry>
+
+</feed>

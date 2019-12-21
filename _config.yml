@@ -1,8 +1,6 @@
 title: Alexey Naumov
 description: >
-  Software development in general and iOS in particular.
-  Programming best practices, software architecture design,
-  Functional Reactive Programming with Swift and more
+  iOS development best practices, software architecture design, functional reactive programming, Swift, SwiftUI, Combine, UIKit
 permalink: ':title/'
 baseurl: "" # the subpath of your site, e.g. /blog
 url: "http://nalexn.github.io"
