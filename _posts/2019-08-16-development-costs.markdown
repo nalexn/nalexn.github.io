@@ -7,6 +7,7 @@ tags: [agile,software,development,project,management,mobile,application,business
 comments: true
 sharing: true
 published: false
+image: assets/img/launch_001.jpg
 img: launch_001.jpg
 ---
 

@@ -9,6 +9,7 @@ redirect_from:
 comments: true
 sharing: true
 published: true
+image: assets/img/tools_002.jpg
 img: tools_002.jpg
 ---
 

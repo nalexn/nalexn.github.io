@@ -7,6 +7,7 @@ tags: [iOS,swift,anyview,performance,issue,bottleneck,ConditionalView,Group,equa
 comments: true
 sharing: true
 published: true
+image: assets/img/comparison_01.jpg
 img: comparison_01.jpg
 ---
 

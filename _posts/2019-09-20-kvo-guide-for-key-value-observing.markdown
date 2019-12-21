@@ -9,6 +9,7 @@ redirect_from:
 comments: true
 sharing: true
 published: true
+image: assets/img/kvo_001.jpg
 img: kvo_001.jpg
 ---
 

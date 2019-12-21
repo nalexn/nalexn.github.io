@@ -7,6 +7,7 @@ tags: [mvvm,model,view,viewmodel,view-model,state,frp,rxswift,functional,reactiv
 comments: true
 sharing: true
 published: true
+image: assets/img/state_002.jpg
 img: state_002.jpg
 ---
 

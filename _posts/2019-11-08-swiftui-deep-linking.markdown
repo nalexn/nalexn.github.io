@@ -7,6 +7,7 @@ tags: [iOS,swift,universal,link,deeplink,url,scheme,nsuseractivity,handoff,spotl
 comments: true
 sharing: true
 published: true
+image: assets/img/deep_link_swiftui_01.jpg
 img: deep_link_swiftui_01.jpg
 ---
 

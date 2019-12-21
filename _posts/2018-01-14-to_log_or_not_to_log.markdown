@@ -7,6 +7,7 @@ date: 2018-01-14 17:04:44 +0600
 comments: true
 sharing: true
 published: true
+image: assets/img/archive_01.jpg
 img: archive_01.jpg
 ---
 

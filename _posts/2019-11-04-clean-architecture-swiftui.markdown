@@ -7,6 +7,7 @@ tags: [iOS,swift,SwiftUI,Combine,design,pattern,redux,unidirectional,data,flow,b
 comments: true
 sharing: true
 published: true
+image: assets/img/clean_swiftui_01.jpg
 img: clean_swiftui_01.jpg
 ---
 Can you imagine, UIKit is 11 years old! Ever since the release of the iOS SDK in 2008 we were building our apps with it. And throughout this time the developers were in a relentless search for the best architecture to use for their apps. It all started with **MVC**, but later we witnessed the rise of **MVP**, **MVVM**, **VIPER**, **RIBs**, and **VIP**.
