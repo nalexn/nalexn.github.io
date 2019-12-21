@@ -7,7 +7,6 @@ tags: [iOS,Swift,SwiftUI,Combine,Redux,Publisher,ObservedObject,EnvironmentObjec
 comments: true
 sharing: true
 published: true
-image: assets/img/observable_001.jpg
 img: observable_001.jpg
 ---
 

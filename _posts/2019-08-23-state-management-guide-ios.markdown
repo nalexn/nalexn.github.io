@@ -7,7 +7,6 @@ tags: [reswift,redux,ios,swift,development,unidirectional,data,flow,flux]
 comments: true
 sharing: true
 published: true
-image: assets/img/state_001.jpg
 img: state_001.jpg
 ---
 

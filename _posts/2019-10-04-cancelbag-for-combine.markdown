@@ -7,7 +7,6 @@ tags: [Cancellable,AnyCancellable,iOS,swift,SwiftUI,RxSwift,functionBuilder]
 comments: true
 sharing: true
 published: true
-image: assets/img/bag_001.jpg
 img: bag_001.jpg
 ---
 

@@ -7,7 +7,6 @@ date: 2018-01-28 21:30:00 +0600
 comments: true
 sharing: true
 published: true
-image: assets/img/tools_001.jpg
 img: tools_001.jpg
 ---
 

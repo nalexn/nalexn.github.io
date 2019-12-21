@@ -7,7 +7,6 @@ tags: [iOS,swift,test,xcode,exception,traverse,instance,variable,subview,child,v
 comments: true
 sharing: true
 published: true
-image: assets/img/swiftui_unit_testing_01.jpg
 img: swiftui_unit_testing_01.jpg
 ---
 
