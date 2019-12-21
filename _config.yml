@@ -1,6 +1,6 @@
-title: designing software the ruthless way
+title: Alexey Naumov
 description: >
-  A blog about software development in general and iOS in particular.
+  Software development in general and iOS in particular.
   Programming best practices, software architecture design,
   Functional Reactive Programming with Swift and more
 permalink: ':title/'
@@ -16,7 +16,7 @@ social-twitter: nallexn
 social-stackoverflow: 2923345
 social-github: nalexn
 social-linkedin: nalexn
-social-email: alexey+blog@naumov.tech
+social-email: none
 
 # Disqus
 discus-identifier: nalexn
@@ -50,4 +50,4 @@ plugins:
 paginate: 8
 paginate_path: "/page/:num"
 
-exclude: ["node_modules", "gulpfile.js", "package.json", "yarn.lock"]
+exclude: ["gulpfile.js", "package.json", "README.md", "Gemfile", "Gemfile.lock", "LICENSE"]
