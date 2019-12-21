@@ -21,5 +21,114 @@
         &lt;p&gt;I'm done using the ObservableObject in SwiftUI. &lt;a href="https://nalexn.github.io/swiftui-observableobject/?utm_source=rss"&gt;Here is why.&lt;/a&gt;&lt;/p&gt;
     </content>
   </entry>
-
+  <entry>
+    <title type="html">Performance Battle: AnyView vs Group</title>
+    <link href="https://nalexn.github.io/anyview-vs-group/?utm_source=rss" rel="alternate" type="text/html"/>
+    <id>anyview-vs-group</id>
+    <updated>2019-12-05T08:30:00+03:00</updated>
+    <content type="html">
+        &lt;p&gt;&lt;img src="https://nalexn.github.io/assets/img/comparison_01.jpg" alt="Preview"&gt;&lt;/p&gt;
+        &lt;p&gt;&lt;a href="https://nalexn.github.io/anyview-vs-group/?utm_source=rss"&gt;Verifying the rumors&lt;/a&gt; about SwiftUI performance bottlenecks.&lt;/p&gt;
+    </content>
+  </entry>
+  <entry>
+    <title type="html">Who said we cannot unit test SwiftUI views?</title>
+    <link href="https://nalexn.github.io/swiftui-unit-testing/?utm_source=rss" rel="alternate" type="text/html"/>
+    <id>swiftui-unit-testing</id>
+    <updated>2019-11-21T08:30:00+03:00</updated>
+    <content type="html">
+        &lt;p&gt;&lt;img src="https://nalexn.github.io/assets/img/swiftui_unit_testing_01.jpg" alt="Preview"&gt;&lt;/p&gt;
+        &lt;p&gt;&lt;a href="https://nalexn.github.io/swiftui-unit-testing/?utm_source=rss"&gt;The story&lt;/a&gt; behind creating a &lt;a href="https://github.com/nalexn/ViewInspector"&gt;Unit Testing framework&lt;/a&gt;.&lt;/p&gt;
+    </content>
+  </entry>
+  <entry>
+    <title type="html">Programmatic navigation in SwiftUI project</title>
+    <link href="https://nalexn.github.io/swiftui-deep-linking/?utm_source=rss" rel="alternate" type="text/html"/>
+    <id>swiftui-deep-linking</id>
+    <updated>2019-11-08T08:30:00+03:00</updated>
+    <content type="html">
+        &lt;p&gt;&lt;img src="https://nalexn.github.io/assets/img/deep_link_swiftui_01.jpg" alt="Preview"&gt;&lt;/p&gt;
+        &lt;p&gt;Handling a &lt;a href="https://nalexn.github.io/swiftui-deep-linking/?utm_source=rss"&gt;deeplink&lt;/a&gt; in SwiftUI app.&lt;/p&gt;
+    </content>
+  </entry>
+  <entry>
+    <title type="html">Clean Architecture for SwiftUI</title>
+    <link href="https://nalexn.github.io/clean-architecture-swiftui/?utm_source=rss" rel="alternate" type="text/html"/>
+    <id>clean-architecture-swiftui</id>
+    <updated>2019-11-04T08:30:00+03:00</updated>
+    <content type="html">
+        &lt;p&gt;&lt;img src="https://nalexn.github.io/assets/img/clean_swiftui_01.jpg" alt="Preview"&gt;&lt;/p&gt;
+        &lt;p&gt;Are VIPER, RIBs, MVVM or VIP &lt;a href="https://nalexn.github.io/clean-architecture-swiftui/?utm_source=rss"&gt;suitable&lt;/a&gt; for a SwiftUI project?&lt;/p&gt;
+    </content>
+  </entry>
+  <entry>
+    <title type="html">Variadic DisposeBag for Combine subscriptions</title>
+    <link href="https://nalexn.github.io/cancelbag-for-combine/?utm_source=rss" rel="alternate" type="text/html"/>
+    <id>cancelbag-for-combine</id>
+    <updated>2019-10-04T08:30:00+03:00</updated>
+    <content type="html">
+        &lt;p&gt;&lt;img src="https://nalexn.github.io/assets/img/bag_001.jpg" alt="Preview"&gt;&lt;/p&gt;
+        &lt;p&gt;Collecting AnyCancellable tokens in &lt;a href="https://nalexn.github.io/cancelbag-for-combine/?utm_source=rss"&gt;declarative SwiftUI fashion&lt;/a&gt;&lt;/p&gt;
+    </content>
+  </entry>
+  <entry>
+    <title type="html">Fighting state redundancy in Model-View-ViewModel</title>
+    <link href="https://nalexn.github.io/mvvm-state-redundancy/?utm_source=rss" rel="alternate" type="text/html"/>
+    <id>mvvm-state-redundancy</id>
+    <updated>2019-09-29T08:30:00+03:00</updated>
+    <content type="html">
+        &lt;p&gt;&lt;img src="https://nalexn.github.io/assets/img/state_002.jpg" alt="Preview"&gt;&lt;/p&gt;
+        &lt;p&gt;A &lt;a href="https://nalexn.github.io/mvvm-state-redundancy/?utm_source=rss"&gt;better way&lt;/a&gt; to represent the state of loading resource in MVVM.&lt;/p&gt;
+    </content>
+  </entry>
+  <entry>
+    <title type="html">The Complete Guide to the State Management in iOS</title>
+    <link href="https://nalexn.github.io/state-management-guide-ios/?utm_source=rss" rel="alternate" type="text/html"/>
+    <id>state-management-guide-ios</id>
+    <updated>2019-08-23T08:30:00+03:00</updated>
+    <content type="html">
+        &lt;p&gt;&lt;img src="https://nalexn.github.io/assets/img/state_001.jpg" alt="Preview"&gt;&lt;/p&gt;
+        &lt;p&gt;Common problems when working with the program state and the &lt;a href="https://nalexn.github.io/state-management-guide-ios/?utm_source=rss"&gt;ways to address them&lt;/a&gt;.&lt;/p&gt;
+    </content>
+  </entry>
+  <entry>
+    <title type="html">Callbacks, Part 3: Promise, Event, and Stream (Functional Reactive Programming)</title>
+    <link href="https://nalexn.github.io/callbacks-part-3-promise-event-stream/?utm_source=rss" rel="alternate" type="text/html"/>
+    <id>callbacks-part-3-promise-event-stream</id>
+    <updated>2018-04-12T08:30:00+03:00</updated>
+    <content type="html">
+        &lt;p&gt;&lt;img src="https://nalexn.github.io/assets/img/tools_002.jpg" alt="Preview"&gt;&lt;/p&gt;
+        &lt;p&gt;This &lt;a href="https://nalexn.github.io/callbacks-part-3-promise-event-stream/?utm_source=rss"&gt;article&lt;/a&gt; continues the series of posts about callback techniques in Cocoa, their comparison and benchmarking.&lt;/p&gt;
+    </content>
+  </entry>
+  <entry>
+    <title type="html">Callbacks, Part 2: Closure, Target-Action, and Responder chain</title>
+    <link href="https://nalexn.github.io/callbacks-part-2-closure-target-action-responder-chain/?utm_source=rss" rel="alternate" type="text/html"/>
+    <id>callbacks-part-2-closure-target-action</id>
+    <updated>2018-02-08T08:30:00+03:00</updated>
+    <content type="html">
+        &lt;p&gt;&lt;img src="https://nalexn.github.io/assets/img/tools_003.jpg" alt="Preview"&gt;&lt;/p&gt;
+        &lt;p&gt;This &lt;a href="https://nalexn.github.io/callbacks-part-2-closure-target-action-responder-chain/?utm_source=rss"&gt;article&lt;/a&gt; continues the series of posts about callback techniques in Cocoa, their comparison and benchmarking.&lt;/p&gt;
+    </content>
+  </entry>
+  <entry>
+    <title type="html">Callbacks, Part 1: Delegate, NotificationCenter, and KVO</title>
+    <link href="https://nalexn.github.io/callbacks-part-1-delegation-notificationcenter-kvo/?utm_source=rss" rel="alternate" type="text/html"/>
+    <id>callbacks-part-1-delegation-notificationcenter-kvo</id>
+    <updated>2018-01-28T08:30:00+03:00</updated>
+    <content type="html">
+        &lt;p&gt;&lt;img src="https://nalexn.github.io/assets/img/tools_001.jpg" alt="Preview"&gt;&lt;/p&gt;
+        &lt;p&gt;This &lt;a href="https://nalexn.github.io/callbacks-part-1-delegation-notificationcenter-kvo/?utm_source=rss"&gt;article&lt;/a&gt; kicks off the series of posts about callback techniques in Cocoa, their comparison and benchmarking.&lt;/p&gt;
+    </content>
+  </entry>
+  <entry>
+    <title type="html">To log, or not to log?</title>
+    <link href="https://nalexn.github.io/to_log_or_not_to_log/?utm_source=rss" rel="alternate" type="text/html"/>
+    <id>to_log_or_not_to_log</id>
+    <updated>2018-01-14T08:30:00+03:00</updated>
+    <content type="html">
+        &lt;p&gt;&lt;img src="https://nalexn.github.io/assets/img/archive_01.jpg" alt="Preview"&gt;&lt;/p&gt;
+        &lt;p&gt;A &lt;a href="https://nalexn.github.io/to_log_or_not_to_log/?utm_source=rss"&gt;better way&lt;/a&gt; to use logs in the code.&lt;/p&gt;
+    </content>
+  </entry>
 </feed>
