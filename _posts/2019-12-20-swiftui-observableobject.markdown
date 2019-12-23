@@ -265,11 +265,8 @@ struct AppState {
 }
 
 extension AppState {
-
     struct Injection: EnvironmentKey {
-    
         let appState: CurrentValueSubject<AppState, Never>
-        
         static var defaultValue: Self {
             return .init(appState: .init(AppState()))
         }
@@ -277,7 +274,6 @@ extension AppState {
 }
 
 extension EnvironmentValues {
-
     var injected: AppState.Injection {
         get { self[AppState.Injection.self] }
         set { self[AppState.Injection.self] = newValue }
@@ -288,6 +284,33 @@ let injected = AppState.Injection(appState: .init(AppState()))
 let contentView = ContentView().environment(\.injected, injected)
 ```
 
-That's it. I'll be shortly migrating my [Clean Architecture for SwiftUI](https://github.com/nalexn/clean-architecture-swiftui) sample project to use this approach, and I'll also provide better support for it in my [SwiftUI Unit Testing](https://github.com/nalexn/ViewInspector) framework.
+I've tried several ways to implement the reversed data flow from the standard SwiftUI views back to the `AppState`. The one that finally worked well was wrapping the `Binding` submitted to the SwiftUI's view into the middleware that forwards the values to the `AppState`:
+
+```swift
+extension Binding where Value: Equatable {
+    func dispatched(to state: CurrentValueSubject<AppState, Never>,
+                    _ keyPath: WritableKeyPath<AppState, Value>) -> Self {
+        return .init(get: { () -> Value in
+            self.wrappedValue
+        }, set: { newValue in
+            self.wrappedValue = newValue
+            state.value[keyPath: keyPath] = value
+        })
+    }
+}
+
+var body: some View {
+    ...
+    .sheet(isPresented: viewState.showSheet.dispatched(
+                            to: appState, \.routing.showSheet),
+               content: { ... })
+}
+```
+
+There are some ways how this whole solution can be improved syntactically (most notably by using `keyPaths`), but conceptually it is a more performant alternative to both `@EnvironmentObject` and `@ObservedObject`.
+
+For the latter, you'd be injecting `CurrentValueSubject` as the `init` parameter of the view, in place of the object.
+
+I've already migrated my [Clean Architecture for SwiftUI](https://github.com/nalexn/clean-architecture-swiftui) sample project to use this approach, and I'll shortly update my [SwiftUI Unit Testing](https://github.com/nalexn/ViewInspector) framework for better supporting it.
 
 Follow me on [Twitter](https://twitter.com/nallexn) to stay tuned about the coming posts!

@@ -10,7 +10,7 @@
     <uri>https://nalexn.github.io</uri>
   </author>
   <subtitle>iOS development best practices, software architecture design, functional reactive programming, Swift, SwiftUI, Combine</subtitle>
-  <updated>2019-12-21T17:32:52+03:00</updated>
+  <updated>2019-12-23T08:30:00+03:00</updated>
   <entry>
     <title type="html">Why I quit using the ObservableObject in SwiftUI</title>
     <link href="https://nalexn.github.io/swiftui-observableobject/?utm_source=rss" rel="alternate" type="text/html"/>
