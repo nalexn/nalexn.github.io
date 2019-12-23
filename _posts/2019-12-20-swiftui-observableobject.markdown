@@ -294,7 +294,7 @@ extension Binding where Value: Equatable {
             self.wrappedValue
         }, set: { newValue in
             self.wrappedValue = newValue
-            state.value[keyPath: keyPath] = value
+            state.value[keyPath: keyPath] = newValue
         })
     }
 }
