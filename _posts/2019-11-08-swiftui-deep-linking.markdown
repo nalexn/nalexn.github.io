@@ -146,7 +146,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     lazy var appState = AppState()
 
-    func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
+    func scene(_ scene: UIScene, willConnectTo session: UISceneSession, 
+               options connectionOptions: UIScene.ConnectionOptions) {
         let contentView = ContentView()
             .environmentObject(appState)
         ...
@@ -200,7 +201,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     lazy var navigation = NavigationCoordinator()
 
-    func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
+    func scene(_ scene: UIScene, willConnectTo session: UISceneSession,
+               options connectionOptions: UIScene.ConnectionOptions) {
         let contentView = ContentView()
             .environment(\.navigationCoordinator, navigation)
         ...
