@@ -149,9 +149,8 @@ code,
 kbd,
 samp {
   font-family: monospace, monospace;
-  /* 1 */
   font-size: 1em;
-  /* 2 */
+  word-wrap: break-word;
 }
 
 /**
@@ -839,6 +838,7 @@ pre code {
 
 table {
   text-align: left;
+  width: max-content;
 }
 
 table td, table.blueTable th {
