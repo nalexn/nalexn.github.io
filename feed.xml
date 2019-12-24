@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xml:lang="en-US" xmlns="http://www.w3.org/2005/Atom">
-  <id>nalexn.github.io</id>
+  <id>https://nalexn.github.io/</id>
   <link rel="alternate" type="text/html" href="https://nalexn.github.io/"/>
-  <link rel="self" type="application/atom+xml" href="https://nalexn.github.io/"/>
+  <link rel="self" type="application/atom+xml" href="https://nalexn.github.io/feed.xml"/>
   <icon>https://nalexn.github.io/assets/img/favicon/favicon-114.png</icon>
   <title>Alexey Naumov</title>
   <author>
@@ -14,7 +14,7 @@
   <entry>
     <title type="html">Why I quit using the ObservableObject in SwiftUI</title>
     <link href="https://nalexn.github.io/swiftui-observableobject/?utm_source=rss" rel="alternate" type="text/html"/>
-    <id>swiftui-observableobject</id>
+    <id>https://nalexn.github.io/swiftui-observableobject/</id>
     <updated>2019-12-20T08:30:00+03:00</updated>
     <content type="html">
         &lt;p&gt;&lt;img src="https://nalexn.github.io/assets/img/observable_001.jpg" alt="Preview"&gt;&lt;/p&gt;
@@ -24,7 +24,7 @@
   <entry>
     <title type="html">Performance Battle: AnyView vs Group</title>
     <link href="https://nalexn.github.io/anyview-vs-group/?utm_source=rss" rel="alternate" type="text/html"/>
-    <id>anyview-vs-group</id>
+    <id>https://nalexn.github.io/anyview-vs-group/</id>
     <updated>2019-12-05T08:30:00+03:00</updated>
     <content type="html">
         &lt;p&gt;&lt;img src="https://nalexn.github.io/assets/img/comparison_01.jpg" alt="Preview"&gt;&lt;/p&gt;
@@ -34,7 +34,7 @@
   <entry>
     <title type="html">Who said we cannot unit test SwiftUI views?</title>
     <link href="https://nalexn.github.io/swiftui-unit-testing/?utm_source=rss" rel="alternate" type="text/html"/>
-    <id>swiftui-unit-testing</id>
+    <id>https://nalexn.github.io/swiftui-unit-testing/</id>
     <updated>2019-11-21T08:30:00+03:00</updated>
     <content type="html">
         &lt;p&gt;&lt;img src="https://nalexn.github.io/assets/img/swiftui_unit_testing_01.jpg" alt="Preview"&gt;&lt;/p&gt;
@@ -44,7 +44,7 @@
   <entry>
     <title type="html">Programmatic navigation in SwiftUI project</title>
     <link href="https://nalexn.github.io/swiftui-deep-linking/?utm_source=rss" rel="alternate" type="text/html"/>
-    <id>swiftui-deep-linking</id>
+    <id>https://nalexn.github.io/swiftui-deep-linking/</id>
     <updated>2019-11-08T08:30:00+03:00</updated>
     <content type="html">
         &lt;p&gt;&lt;img src="https://nalexn.github.io/assets/img/deep_link_swiftui_01.jpg" alt="Preview"&gt;&lt;/p&gt;
@@ -54,7 +54,7 @@
   <entry>
     <title type="html">Clean Architecture for SwiftUI</title>
     <link href="https://nalexn.github.io/clean-architecture-swiftui/?utm_source=rss" rel="alternate" type="text/html"/>
-    <id>clean-architecture-swiftui</id>
+    <id>https://nalexn.github.io/clean-architecture-swiftui/</id>
     <updated>2019-11-04T08:30:00+03:00</updated>
     <content type="html">
         &lt;p&gt;&lt;img src="https://nalexn.github.io/assets/img/clean_swiftui_01.jpg" alt="Preview"&gt;&lt;/p&gt;
@@ -64,7 +64,7 @@
   <entry>
     <title type="html">Variadic DisposeBag for Combine subscriptions</title>
     <link href="https://nalexn.github.io/cancelbag-for-combine/?utm_source=rss" rel="alternate" type="text/html"/>
-    <id>cancelbag-for-combine</id>
+    <id>https://nalexn.github.io/cancelbag-for-combine/</id>
     <updated>2019-10-04T08:30:00+03:00</updated>
     <content type="html">
         &lt;p&gt;&lt;img src="https://nalexn.github.io/assets/img/bag_001.jpg" alt="Preview"&gt;&lt;/p&gt;
@@ -74,7 +74,7 @@
   <entry>
     <title type="html">Fighting state redundancy in Model-View-ViewModel</title>
     <link href="https://nalexn.github.io/mvvm-state-redundancy/?utm_source=rss" rel="alternate" type="text/html"/>
-    <id>mvvm-state-redundancy</id>
+    <id>https://nalexn.github.io/mvvm-state-redundancy/</id>
     <updated>2019-09-29T08:30:00+03:00</updated>
     <content type="html">
         &lt;p&gt;&lt;img src="https://nalexn.github.io/assets/img/state_002.jpg" alt="Preview"&gt;&lt;/p&gt;
@@ -84,7 +84,7 @@
   <entry>
     <title type="html">The Complete Guide to the State Management in iOS</title>
     <link href="https://nalexn.github.io/state-management-guide-ios/?utm_source=rss" rel="alternate" type="text/html"/>
-    <id>state-management-guide-ios</id>
+    <id>https://nalexn.github.io/state-management-guide-ios/</id>
     <updated>2019-08-23T08:30:00+03:00</updated>
     <content type="html">
         &lt;p&gt;&lt;img src="https://nalexn.github.io/assets/img/state_001.jpg" alt="Preview"&gt;&lt;/p&gt;
@@ -94,7 +94,7 @@
   <entry>
     <title type="html">Callbacks, Part 3: Promise, Event, and Stream (Functional Reactive Programming)</title>
     <link href="https://nalexn.github.io/callbacks-part-3-promise-event-stream/?utm_source=rss" rel="alternate" type="text/html"/>
-    <id>callbacks-part-3-promise-event-stream</id>
+    <id>https://nalexn.github.io/callbacks-part-3-promise-event-stream/</id>
     <updated>2018-04-12T08:30:00+03:00</updated>
     <content type="html">
         &lt;p&gt;&lt;img src="https://nalexn.github.io/assets/img/tools_002.jpg" alt="Preview"&gt;&lt;/p&gt;
@@ -104,7 +104,7 @@
   <entry>
     <title type="html">Callbacks, Part 2: Closure, Target-Action, and Responder chain</title>
     <link href="https://nalexn.github.io/callbacks-part-2-closure-target-action-responder-chain/?utm_source=rss" rel="alternate" type="text/html"/>
-    <id>callbacks-part-2-closure-target-action</id>
+    <id>https://nalexn.github.io/callbacks-part-2-closure-target-action/</id>
     <updated>2018-02-08T08:30:00+03:00</updated>
     <content type="html">
         &lt;p&gt;&lt;img src="https://nalexn.github.io/assets/img/tools_003.jpg" alt="Preview"&gt;&lt;/p&gt;
@@ -114,7 +114,7 @@
   <entry>
     <title type="html">Callbacks, Part 1: Delegate, NotificationCenter, and KVO</title>
     <link href="https://nalexn.github.io/callbacks-part-1-delegation-notificationcenter-kvo/?utm_source=rss" rel="alternate" type="text/html"/>
-    <id>callbacks-part-1-delegation-notificationcenter-kvo</id>
+    <id>https://nalexn.github.io/callbacks-part-1-delegation-notificationcenter-kvo/</id>
     <updated>2018-01-28T08:30:00+03:00</updated>
     <content type="html">
         &lt;p&gt;&lt;img src="https://nalexn.github.io/assets/img/tools_001.jpg" alt="Preview"&gt;&lt;/p&gt;
@@ -124,7 +124,7 @@
   <entry>
     <title type="html">To log, or not to log?</title>
     <link href="https://nalexn.github.io/to_log_or_not_to_log/?utm_source=rss" rel="alternate" type="text/html"/>
-    <id>to_log_or_not_to_log</id>
+    <id>https://nalexn.github.io/to_log_or_not_to_log/</id>
     <updated>2018-01-14T08:30:00+03:00</updated>
     <content type="html">
         &lt;p&gt;&lt;img src="https://nalexn.github.io/assets/img/archive_01.jpg" alt="Preview"&gt;&lt;/p&gt;
