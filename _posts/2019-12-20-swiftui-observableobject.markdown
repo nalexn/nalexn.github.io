@@ -32,7 +32,7 @@ At first glance, `EquatableView` looks like the perfect candidate for solving th
 
 It allows for writing a custom diffing strategy for the views, specifically, comparing the state instead of comparing the `body`.
 
-But even if the [mystical undocumented behavior](https://swiftui-lab.com/equatableview/) of `EquatableView` will be addressed someday in the future, we still won't be able to compare views that reference mutating state objects, such as `EnvironmentObject` or `ObservedObject`.
+But even if the [mystical undocumented behavior](https://swiftui-lab.com/equatableview/) of `EquatableView` is addressed someday in the future, we still won't be able to compare views that reference mutating state objects, such as `EnvironmentObject` or `ObservedObject`.
 
 Let me explain why. Consider this simple example:
 
@@ -126,7 +126,7 @@ There is a function `distinctUntilChanged` is RxSwift (aka `skipRepeats` in Reac
 
 This approach would work for SwiftUI as well, but data bindings produced by `@State`, `@ObservedObject` and `@EnvironmentObject` don't have this filtering functionality.
 
-To me, it was surprising that `Publisher` from Combine is incompatible with `Binding` from SwiftUI, and there are literally just a couple weird ways to connect them.
+To me, it was surprising that `Publisher` from Combine is incompatible with `Binding` from SwiftUI, and there are literally just a couple of weird ways to connect them.
 
 ## Wrapping the ObservableObject in ObservableObject
 
@@ -311,6 +311,6 @@ There are some ways how this whole solution can be improved syntactically (most 
 
 For the latter, you'd be injecting `CurrentValueSubject` as the `init` parameter of the view, in place of the object.
 
-I've already migrated my [Clean Architecture for SwiftUI](https://github.com/nalexn/clean-architecture-swiftui) sample project to use this approach, and I'll shortly update my [SwiftUI Unit Testing](https://github.com/nalexn/ViewInspector) framework for better supporting it.
+I've already migrated my [Clean Architecture for SwiftUI](https://github.com/nalexn/clean-architecture-swiftui) sample project to use this approach, and updated my [SwiftUI Unit Testing](https://github.com/nalexn/ViewInspector) framework for better supporting it.
 
 Follow me on [Twitter](https://twitter.com/nallexn) to stay tuned about the coming posts!
