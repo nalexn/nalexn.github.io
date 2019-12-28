@@ -961,10 +961,13 @@ table tfoot td {
   background-color: #333030;
 }
 
+.about .cover-author-image img {
+  border: 1px solid #211F1E;
+}
+
 .about img {
   width: 100%;
   height: 100%;
-  border: 1px solid #211F1E;
   -webkit-border-radius: 50%;
           border-radius: 50%;
   -webkit-transition: -webkit-transform 0.35s;
