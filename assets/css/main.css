@@ -1020,6 +1020,11 @@ table tfoot td {
           align-items: stretch;
 }
 
+.content-box .post {
+  border: 1px solid #232120;
+  background-color: #232120;
+}
+
 .contact .contact-title {
   position: relative;
   color: #DFDFDF;

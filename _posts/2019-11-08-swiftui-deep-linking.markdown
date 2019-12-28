@@ -21,8 +21,6 @@ Among these integrations there are few techniques that allow for launching the a
 * [Home Screen Quick Actions](https://developer.apple.com/design/human-interface-guidelines/ios/extensions/home-screen-actions/)
 * [Handoff](https://developer.apple.com/handoff/)
 
-<p align="center"><img src="{{ site.url }}/assets/img/deep_link_swiftui_02.jpg"></p>
-
 While you could easily find a tutorial for either of these features, there is one topic I found unconsidered yet:
 
 > Following the deep link instruction, how can we programmatically navigate to a custom content screen in a SwiftUI app?
