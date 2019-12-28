@@ -70,6 +70,7 @@ figure {
  * 2. Show the overflow in Edge and IE.
  */
 hr {
+  border-color: #9E9E9E;
   -webkit-box-sizing: content-box;
           box-sizing: content-box;
   /* 1 */
@@ -1020,7 +1021,7 @@ table tfoot td {
           align-items: stretch;
 }
 
-.content-box .post {
+.recent .post {
   border: 1px solid #232120;
   background-color: #232120;
 }

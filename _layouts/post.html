@@ -10,9 +10,11 @@ layout: main
       </header>
       {% if page.img %}<div class="page-image"><img class="page-image" src={{ "/assets/img/" | prepend: site.baseurl | append : page.img}} alt="{{page.title}}"></div>{% endif %}
       {{ content }}
-      <hr>
+      <h2>Let's connect!</h2>
+      <p>You can find me on <a href="https://www.linkedin.com/in/nalexn/" target="_blank">LinkedIn</a> and <a href="https://twitter.com/nallexn" target="_blank">Twitter</a>. You can also subscribe to <a href="{{ site.url }}/feed.xml" target="_blank">RSS feed</a></p>
+      <div style="width:0px; height:30px; display: block;"></div>
       <h2>Most recent articles</h2>
-      <div class="content-box clearfix" style="padding: 20px 10px;">
+      <div class="content-box recent clearfix" style="padding: 20px 10px;">
         {% assign first_posts = site.posts | slice:0, 5 %}
         {% for post in first_posts %}
           {% if post.title != page.title %}
@@ -39,11 +41,6 @@ layout: main
           </div>
         </article>
       </div>
-      <hr>
-      <h2>Let's connect!</h2>
-      <p>You can find me on <a href="https://www.linkedin.com/in/nalexn/" target="_blank">LinkedIn</a> and <a href="https://twitter.com/nallexn" target="_blank">Twitter</a>. You can also subscribe to <a href="{{ site.url }}/feed.xml" target="_blank">RSS feed</a></p>
-      <div style="width:0px; height:30px; display: block;"></div>
-      {% include disqus.html %}
     </div> <!-- End Wrap Content -->
   </div> <!-- End Page Content -->
 </article> <!-- End Article Page -->
