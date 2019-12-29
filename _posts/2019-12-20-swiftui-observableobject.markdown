@@ -312,5 +312,3 @@ There are some ways how this whole solution can be improved syntactically (most 
 For the latter, you'd be injecting `CurrentValueSubject` as the `init` parameter of the view, in place of the object.
 
 I've already migrated my [Clean Architecture for SwiftUI](https://github.com/nalexn/clean-architecture-swiftui) sample project to use this approach, and updated my [SwiftUI Unit Testing](https://github.com/nalexn/ViewInspector) framework for better supporting it.
-
-Follow me on [Twitter](https://twitter.com/nallexn) to stay tuned about the coming posts!
