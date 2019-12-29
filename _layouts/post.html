@@ -10,8 +10,11 @@ layout: main
       </header>
       {% if page.img %}<div class="page-image"><img class="page-image" src={{ "/assets/img/" | prepend: site.baseurl | append : page.img}} alt="{{page.title}}"></div>{% endif %}
       {{ content }}
-      <h2>Let's connect!</h2>
-      <p>You can find me on <a href="https://www.linkedin.com/in/nalexn/" target="_blank">LinkedIn</a> and <a href="https://twitter.com/nallexn" target="_blank">Twitter</a>. You can also subscribe to <a href="{{ site.url }}/feed.xml" target="_blank">RSS feed</a></p>
+      <h2>Your appreciation is my inspiration!</h2>
+      <p>I have tons of unpublished kick-ass materials and ideas, but I need your help! Consider sharing this article on <a href="https://twitter.com/share?url={{site.url}}{{page.url}}?utm_source=share_tw&amp;text={{page.title}}&amp;hashtags=iosdev&amp;via=nallexn" title="Twitter" target="_blank" onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=300,width=500');return false;"><i class="fa fa-twitter share-button"></i></a>, <a href="https://www.facebook.com/sharer/sharer.php?u={{site.url}}{{page.url}}?utm_source=share_fb&amp;display=popup&amp;quote={{page.title}}&amp;hashtag=#iosdev" title="Facebook" target="_blank" onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=300,width=500');return false;"><i class="fa fa-facebook-f share-button"></i></a> or <a href="https://www.linkedin.com/sharing/share-offsite/?url={{site.url}}{{page.url}}?utm_source=share_in" title="LinkedIn" target="_blank" onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=300,width=500');return false;"><i class="fa fa-linkedin share-button"></i></a>. This tiny action helps to grow this blog and inspires me to post more! (Or if you are nuts, <a href="https://venmo.com/nallexn" target="_blank">Venmo</a> me a drink!)</p>
+      </p>
+      <p>You can subscribe to <a href="{{ site.url }}/feed.xml" target="_blank">RSS feed</a> or follow my <a src="https://twitter.com/nallexn" target="_blank">Twitter</a> for the new articles alerts.
+
       <div style="width:0px; height:30px; display: block;"></div>
       <h2>Most recent articles</h2>
       <div class="content-box recent clearfix" style="padding: 20px 10px;">

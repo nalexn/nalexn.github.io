@@ -1311,6 +1311,10 @@ a.newer-posts:hover {
   text-align: left;
 }
 
+.share-button {
+  font-size: 1.2em;
+}
+
 .page-footer .page-share a {
   display: inline-block;
   text-decoration: none;
