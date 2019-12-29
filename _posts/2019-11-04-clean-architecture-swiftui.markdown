@@ -148,7 +148,7 @@ So if we distilled the requirements of the Clean Architecture through the peculi
 
 <div style="max-width:800px; display: block; margin-left: auto; margin-right: auto;"><img src="https://github.com/nalexn/blob_files/blob/master/images/swiftui_arc_001.png?raw=true" alt="Diagram"/></div>
 
-There is a [demo project](https://github.com/nalexn/clean-architecture-swiftui) I've created to illustrate the use of this pattern. The app talks to the [restcountries.eu](https://github.com/nalexn/clean-architecture-swiftui/blob/master/restcountries.eu) REST API to show the list of countries and details about them.
+There is a [demo project](https://github.com/nalexn/clean-architecture-swiftui) I've created to illustrate the use of this pattern. The app talks to the [restcountries.eu](https://restcountries.eu/) REST API to show the list of countries and details about them.
 
 # AppState
 
