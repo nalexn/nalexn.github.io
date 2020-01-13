@@ -1,8 +1,8 @@
 ---
 layout: post
-title: "Why I quit using the ObservableObject in SwiftUI"
+title: "Why I quit using the ObservableObject"
 date: 2019-12-20 8:30:00 +0300
-description: "A better option than EnvironmentObject for Redux-style state-managed apps."
+description: "There is a better option for Redux-style state-managed apps."
 tags: [iOS,Swift,SwiftUI,Combine,Redux,Publisher,ObservedObject,EnvironmentObject,Snapshot,EquatableView,objectWillChange]
 comments: true
 sharing: true
@@ -12,17 +12,17 @@ img: observable_001.jpg
 
 "Single source of truth" has become a buzzword in the iOS community after WWDC 2019 [Data Flow Through SwiftUI](https://developer.apple.com/videos/play/wwdc2019/226/) session.
 
-SwiftUI framework is designed to encourage building the apps in the single-source-of-truth style, but this doesn't mean the app has to have only one central state for the entire app, you actually can [break it up](https://medium.com/better-programming/swiftui-microservices-c7002228710).
+SwiftUI framework was designed to encourage building the apps in the single-source-of-truth style, be that Redux-like centralized app state or ViewModels serving the data only to their views.
 
-But in any case, you're very likely to end up using either `@ObservedObject` or `@EnvironmentObject` for the state management of the views.
+It feels natural to use `@ObservedObject` or `@EnvironmentObject` for the state management of such views, as the `ObservableObjects` fit the design really well.
 
-And here is where the problem lies.
+But there is a little problem.
 
-As I've been [exploring](https://nalexn.github.io/anyview-vs-group/?utm_source=medium_flawless) how SwiftUI performs under the high load, I've discovered that the performance of the SwiftUI refresh degrades dramatically the more views are subscribed on the state update.
+As I've been [exploring](https://nalexn.github.io/anyview-vs-group/?utm_source=medium_flawless) how SwiftUI works under high load, I discovered severe degrade of the performance proportional to the number of views being subscribed on the state update.
 
-You may have a couple of thousands of views on the screen with just one being subscribed - and the update will be rendered lightning-fast, even for a view deep inside the hierarchy.
+We can have a couple of thousands of views on the screen with just one being subscribed - the update is rendered lightning-fast, even for a view deep inside the hierarchy.
 
-But it's sufficient to have just a few hundreds of views subscribed on the same update and only one being factually affected - and you'll notice a significant performance drawdown.
+But it's sufficient to have just a few hundreds of views **subscribed** on the same update (and not being factually changed) - and you'll notice a significant performance drawdown.
 
 This means if we're building a large SwiftUI app based on a Redux-like centralized state, we're likely to be in big trouble!
 
