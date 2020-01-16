@@ -2,7 +2,7 @@
 layout: post
 title: "Separation of Concerns in Software Design"
 date: 2020-01-16 8:30:00 +0300
-description: "Using the fundamental Computer Science principles for improving the quality of the software at all levels"
+description: "Applying the fundamental Computer Science principles for improving the quality of the software at all levels"
 tags: [iOS,swift,SOLID,Coupling,Cohesion,Loose,module,programming,pattern,principle,system,repository,computer,science,cs,realeasing,Zalgo]
 comments: true
 sharing: true
