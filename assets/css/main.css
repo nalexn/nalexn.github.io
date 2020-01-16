@@ -952,14 +952,40 @@ table tfoot td {
   text-align: center;
 }
 
-.about .cover-author-image {
+.author-logo { 
   width: 100px;
   height: 100px;
   margin: 0 auto 10px;
+  overflow: visible;
+  position: relative;
+}
+
+.hover-message {
+  pointer-events: none;
+  visibility: hidden;
+  background-color: #211F1E;
+  color: #DFDFDF;
+  text-align: center;
+  font-size: 0.8em;
+  border-radius: 6px;
+  width: 164px;
+  padding: 5px 0;
+  position: absolute;
+  transform: translate(-50%, -20%);
+  z-index: 1;
+}
+
+.about .cover-author-image {
+  width: 100px;
+  height: 100px;
+  overflow: hidden;
   -webkit-border-radius: 100%;
           border-radius: 100%;
-  overflow: hidden;
-  background-color: #333030;
+  background-color: #211F1E;
+}
+
+.author-logo:hover .hover-message {
+  visibility: visible;
 }
 
 .about .cover-author-image img {
@@ -983,7 +1009,7 @@ table tfoot td {
           transform: scale3d(0.9, 0.9, 1);
 }
 
-.about .author-name {
+.author-name {
   font-family: 'PT Serif', serif;
   margin: 0 0 10px;
   position: relative;
@@ -992,11 +1018,6 @@ table tfoot td {
   text-transform: uppercase;
   color: #DFDFDF;
   font-weight: 700;
-}
-
-.about p {
-  font-size: 16px;
-  margin: 0 0 10px;
 }
 
 .content-box {
