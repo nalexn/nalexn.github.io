@@ -30,32 +30,9 @@ So I decided to build one.
 
 ---
 
-Since there is no access to the inner [shadow Attribute Graph](https://worthdoingbadly.com/swiftui-html/) of SwiftUI, I tried to use Swift's reflection API. Xcode uses it for printing out the contents of variables when we stop on a breakpoint in the debugger. And I was surprised how much information was available inside SwiftUI views...
+Since there is no access to the inner [shadow Attribute Graph](https://worthdoingbadly.com/swiftui-html/) of SwiftUI, I tried to use Swift's reflection API. Xcode uses it for printing out the contents of variables when we stop on a breakpoint in the debugger.
 
-It turns out SwiftUI views have very ramified inner structure, so the first thing I had to implement was a recursive traversing of inner attributes:
-
-```swift
-static func attributesTree(value: Any) -> [String: Any] {
-    let mirror = Mirror(reflecting: value)
-    let attributes: [Any] = mirror.children.compactMap { attribute -> [String: Any]? in
-        guard let name = attribute.label else { return nil }
-        return [name: attributesTree(value: attribute.value)]
-    }
-    let description: Any = attributes.count > 0 ? attributes : String(describing: value)
-    return ["\(type(of: value))": description]
-}
-```
-
-If you call this function for a simple view hierarchy like this one:
-
-```swift
-let text = "Hello, world!"
-let view = AnyView(Text(text))
-let tree = attributesTree(value: view)
-dump(tree)
-```
-
-...you would get a pretty long output, which, however, could be restructured it in a more readable and concise way:
+I was surprised how much information is available inside SwiftUI views. You literally can see all the internals if you stop on a breakpoint and type `po dump(view)` for the `view` in the debugger console:
 
 ```swift
 "view" of type AnyView
@@ -77,8 +54,9 @@ And as it turned out, there were many pitfalls waiting for me on the way:
 3. Generic private structs and function types which are tricky to cast the value to
 4. Initializing a struct which all `init` methods are private
 5. SwiftUI dependency injection through `Environment`
-6. Significant variations of the hierarchy after a tiny tweak of the input. For example, `Text("Hi")` vs `Text(hiValue)`
-7. Overall obscurity and lack of information about the private structures
+6. Property wrappers, such as `@State`, with an elusive storage for values
+7. Significant variations of the hierarchy after a tiny tweak of the input. For example, `Text("Hi")` vs `Text(hiValue)`
+8. Overall obscurity and lack of information about the private structures
 
 In this article, I'll talk about interesting use cases I encountered and the ways I addressed the challenges, but before that, let me show you what I've got after a few days of trial and error: [ViewInspector on GitHub](https://github.com/nalexn/ViewInspector)
 
@@ -202,7 +180,7 @@ let array = ["0", "1", "2"]
 let view = ForEach(array, id: \.self) { Text($0) }
 ```
 
-My BFG10K function `attributesTree(value:)` showed the following:
+`dump` function showed the following:
 
 ```swift
 "view" of type ForEach<Array<String>, String, Text>
