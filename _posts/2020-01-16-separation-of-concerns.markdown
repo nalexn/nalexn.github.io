@@ -18,20 +18,20 @@ The principle is simple: don't write your program as one solid block, instead, b
 
 In this article, I elaborate on applying this profound principle at all levels of abstraction: from the programming code inside each function and the design of the modules to the overall app's architecture, all for achieving the characteristics of what we call a qualitative software.
 
-### SoC for programming functions
+## SoC for programming functions
 
 If we take the lowest level (the actual programming code),
 SoC instructs us to avoid writing long complex functions. When the function starts to [bloat up in size](https://martinfowler.com/bliki/FunctionLength.html), this is the red flag that the method is possibly taking care of too many things at once.
 
 In such a case SoC pushes us to [refactor](https://refactoring.guru/extract-method) it, turning into a more laconic and descriptive revision. During this process, parts of the original algorithm get exported and encapsulated in separate smaller functions with a private access level. We gain the code clarity, and chunks of the algorithm eventually become reusable by other parts, even if we initially didn't expect this to happen.
 
-### SoC for modules
+## SoC for modules
 
 At a bit higher level, this principle tells us to group the functions under self-contained modules, each responsible for the fulfillment of a single set of tasks that have a clear logical correlation.
 
 The process very much resembles what we had to do for functions: *estrange less-closely related functionality and group up the features serving the same distinct purpose*.
 
-### Cohesion and Coupling
+## Cohesion and Coupling
 
 The application of the Separation of Concerns involves two processes: reduction of [coupling](https://en.wikipedia.org/wiki/Coupling_(computer_programming)) and increasing [cohesion](https://en.wikipedia.org/wiki/Cohesion_(computer_science)).
 
@@ -67,7 +67,7 @@ With the callback-based API, the action and the result of the action are handled
 
 If we need to jump around between the functions or modules as we're following the logic of the algorithm, this means the code has **low cohesion**, which is often referred to as a [Spaghetti code](https://www.techopedia.com/definition/9476/spaghetti-code).
 
-### Benefits of the Loose Coupling and High Cohesion
+## Benefits of the Loose Coupling and High Cohesion
 
 Adherence to the principle of Separation of Concerns helps to improve numerous characteristics of the codebase:
 
@@ -77,9 +77,9 @@ Adherence to the principle of Separation of Concerns helps to improve numerous c
 4. Faster project evolution. Whether it's a new feature or an update of the existing one, isolation of the modules helps with scoping out the areas of the program that may be affected by the change, thus speeding up the development.
 5. It is easier to organize simultaneous development by multiple engineers. They just need to agree on which module they are working on to make sure they don't interfere with each other. Only the update of a module's API can be a flag for explicit notifying other developers, while most of the changes can be added without immediate attention from the other contributors. When coupled with good test coverage, the parallel development becomes as efficient as the cumulative productivity of each individual engineer working solely ([it is usually slower](https://en.wikipedia.org/wiki/The_Mythical_Man-Month)).
 
-As you can see, coupling and cohesion are the characteristics that ultimately affect the **convenience** of working with the code from the programmer's perspective.
+> As you can see, coupling and cohesion are the characteristics that ultimately affect the **convenience** of working with the code from the programmer's perspective.
 
-### SoC for the system's design
+## SoC for the system's design
 
 For a bunch of modules with distinct responsibilities and clear purpose we still need to outline a global strategy to how the modules should refer to each other.
 
