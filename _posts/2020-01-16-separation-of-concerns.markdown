@@ -87,7 +87,7 @@ If we don't introduce this strategy we may end up with a system with entangled r
 
 <div style="max-width:600px; display: block; margin-left: auto; margin-right: auto;"><img src="{{ site.url }}/assets/img/spaggeti-code_001.png"></div>
 
-The primary goal of the system's design is to outline the boundaries for the module's awareness about each other.
+The primary goal of the system's design is to outline the boundaries for the module's awareness of each other.
 
 Every existing architectural pattern provides this strategy. Take we, for example, the Model-View-Controller, we would see that the View is not allowed to interact with the Model directly and should use the Controller as the intermediary.
 
@@ -139,7 +139,7 @@ Imagine the CEO of your company is presenting the app on an important event for 
 
 The ideal way out would be: the app does not crash, but instead, gracefully shows a user-friendly error message. We're handing our boss another device with a build that runs in offline mode using mocked demo data, and the presentation continues, with the accident passed almost unnoticed.
 
-Offline demo mode? It sounds like a lot of work! But it's not if you've decoupled and abstracted away the data gateways.
+Offline demo mode? It sounds like a lot of work! But it's not if you've decoupled and abstracted away from the data gateways.
 
 When we have a business logic module that queries the data from elsewhere, we need to extract the concern of accessing that external data resources to a separate module and hide the unnecessary query details behind a facade.
 
