@@ -18,7 +18,7 @@ It feels natural to use `@ObservedObject` or `@EnvironmentObject` for the state 
 
 But there is a little problem.
 
-As I've been [exploring](https://nalexn.github.io/anyview-vs-group/?utm_source=medium_flawless) how SwiftUI works under high load, I discovered severe degrade of the performance proportional to the number of views being subscribed on the state update.
+As I've been [exploring](https://nalexn.github.io/anyview-vs-group/) how SwiftUI works under high load, I discovered severe degrade of the performance proportional to the number of views being subscribed on the state update.
 
 We can have a couple of thousands of views on the screen with just one being subscribed - the update is rendered lightning-fast, even for a view deep inside the hierarchy.
 
