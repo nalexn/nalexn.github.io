@@ -152,7 +152,7 @@ There is a [demo project](https://github.com/nalexn/clean-architecture-swiftui) 
 
 # AppState
 
-`AppState` is the only entity in the pattern that requires to be an object, specifically, an `ObservableObject`.
+`AppState` is the only entity in the pattern that requires to be an object, specifically, an `ObservableObject`. **Edit**: I’ve found a [better alternative](https://nalexn.github.io/swiftui-observableobject/).
 
 Works as the single source of truth and keeps the state for the entire app, including user's data, authentication tokens, screen navigation state (selected tabs, presented sheets) and system state (is active / is backgrounded, etc.)
 
@@ -246,6 +246,8 @@ struct RealCountriesInteractor: CountriesInteractor {
 `Repository` is an abstract gateway for reading / writing data.
 Provides access to a single data service, be that a web server or a local database.
 
+**Edit**: I have a [dedicated article](https://nalexn.github.io/separation-of-concerns/) explaining why extracting the Repository is essential.
+
 For example, if the app is using its backend, Google Maps APIs and writes something to a local database, there will be three Repositories: two for different web API providers and one for database IO operations.
 
 The repository is also stateless, doesn't have write access to the `AppState`, contains only the logic related to working with the data. It knows nothing about `View` or `Interactor`.
@@ -297,10 +299,6 @@ Since WebRepository takes URLSession as a constructor parameter, it is very easy
 
 # Final thoughts
 
-[The demo project](https://github.com/nalexn/clean-architecture-swiftui) now has **97% test coverage**, all thanks to the Clean Architecture's "dependency rule" and segregation of the app on multiple layers.
+[The demo project](https://github.com/nalexn/clean-architecture-swiftui) now has **98% test coverage**, all thanks to the Clean Architecture's "dependency rule" and segregation of the app on multiple layers.
 
 <div style="max-width:800px; display: block; margin-left: auto; margin-right: auto;"><img src="https://github.com/nalexn/blob_files/blob/master/images/countries_preview.png?raw=true" alt="Diagram"/></div>
-
-I'm planning a separate article for a detailed explanation of the technical design desitions made during its development, as well as numerous "gotchas!" I had with SwiftUI. Make sure to follow me on [Twitter](https://twitter.com/nallexn)!
-
-Shall we assign a name to this architecture? Something like "VIRS"? Propose your variant in the comments!
