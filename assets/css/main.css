@@ -895,6 +895,7 @@ table tfoot td {
 }
 
 .article-page {
+  font-size: 1.1em;
   width: 100%;
   max-width: 900px;
   margin-left: auto;
