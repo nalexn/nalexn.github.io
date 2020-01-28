@@ -17,17 +17,19 @@ I'm talking about SwiftUI. It's not going anywhere. Like it or not, this is the 
 
 # What are the conceptual changes?
 
-UIKit was an object-oriented, event-driven framework. We could reference each view in the hierarchy, update it's appearance when the view is loaded or as a reaction on an event (a touch-down on the button or a new data becoming available for display in UITableView). We used callbacks, delegates, target-actions for handling these events.
+UIKit was an **imperative, event-driven** framework. We could reference each view in the hierarchy, update it’s appearance when the view is loaded or as a reaction on an event (a touch-down on the button or a new data becoming available for display in UITableView). We used callbacks, delegates, target-actions for handling these events.
 
-Now, it is all gone. SwiftUI is a declarative, state-driven framework. Event handling happens solely with closure callbacks, which offers higher cohesion for the business logic behind handling the input. So it has become easier to extract the business logic to an external module than it was with MVC: fixing "massive view" is a breeze compared to refactoring the "massive view controller".
+Now, it is all gone. SwiftUI is a **declarative, state-driven** framework. We cannot reference any view in the hierarchy, neither can we directly mutate a view as a reaction to an event. Instead, we mutate the state bound to the view. Delegates, target-actions, responder chain, KVO, — the entire zoo of callback techniques have been replaced with closures and bindings.
 
-The view is dehydrated to be a programming function. You provide it with input (the state) - it draws the output. And there is no way to directly mutate the view or dynamically change the input sources once the view is created - it all has to be declared in the construction of the view.
+Every view in SwiftUI is a struct that can be created many times faster than an analogous UIView descendant. That struct keeps references to the state that it feeds to the function `body` for rendering the UI.
+
+So a view in SwiftUI is just a programming function. You provide it with input (the state) — it draws the output. The only way to change the output (the displayed UI) is to change the input: we cannot change the algorithm (the `body` function) by adding or removing subviews — they all have to be declared there from the outset and disabled by the state variables.
 
 <div style="max-width:600px; display: block; margin-left: auto; margin-right: auto;"><img src="{{ site.url }}/assets/img/clean_swiftui_02.jpg"></div>
 
 # MVVM is the new standard architecture
 
-SwiftUI comes with MVVM built-in. The attributes like `@Published` or `@State` allow us to bind the view with the state, while `@ObservableObject` can take the role of the ViewModel for encapsulation of the business logic and providing the bindable data.
+SwiftUI comes with MVVM built-in. The attributes like `@Published` or `@State` allow us to bind the view with the state, while `@ObservedObject` can take the role of the ViewModel for encapsulation of the business logic and providing the bindable data.
 
 MVVM is, in fact, the new standard architecture Apple has declared as a successor of MVC for SwiftUI:
 
@@ -97,9 +99,11 @@ There are a lot of great ideas and concepts we can borrow from these architectur
 
 First, as you already know, there is no more practical need to have a `Router`.
 
-Secondly, the completely new design of the data flow in SwiftUI coupled with native support of view-state bindings shrank the required setup code to the degree that `Presenter` becomes a goofy entity doing nothing useful. Along with the decreased number of modules in the pattern, we figure out that we don’t need `Builder` either.
+Secondly, the completely new design of the data flow in SwiftUI coupled with native support of view-state bindings shrank the required setup code to the degree that `Presenter` becomes a goofy entity doing nothing useful.
 
-So basically, the whole pattern just falls apart, as the problems it aimed to solve don't exist anymore.
+Along with the decreased number of modules in the pattern, we figure out that we don’t need `Builder` either. So basically, the whole pattern just falls apart, as **the problems it aimed to solve don't exist anymore**.
+
+SwiftUI introduced its own set of challenges in the system’s design, so the patterns we had for UIKit have to be re-designed from the ground up.
 
 There are [attempts](https://theswiftdev.com/2019/09/18/how-to-build-swiftui-apps-using-viper/) to stick with the beloved architectures no matter what, but please, don’t.
 
