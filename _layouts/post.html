@@ -17,7 +17,7 @@ layout: default
       <p>Consider <a href="https://twitter.com/share?url={{site.url}}{{page.url}}?utm_source=share_tw&amp;text={{page.title}}&amp;hashtags=iosdev&amp;via=nallexn" title="Twitter" target="_blank" onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=300,width=500');return false;">sharing this article on <i class="fa fa-twitter share-button"></i></a> or supporting the blog via <a href="https://github.com/sponsors/nalexn" target="_blank">Github</a> or <a href="https://venmo.com/nallexn" target="_blank">Venmo</a>.</p>
       <div style="width:0px; height:6px; display: block;"></div>
       <h2>Most recent articles</h2>
-      <div class="content-box recent clearfix" style="padding: 20px 10px;">
+      <div class="content-box recent clearfix" style="padding: 0px; margin-left: -12px; margin-right: -12px;">
         {% assign first_posts = site.posts | slice:0, 5 %}
         {% for post in first_posts %}
           {% if post.title != page.title %}
@@ -30,7 +30,7 @@ layout: default
               <h2 class="post-title"><a href="{{post.url | prepend: site.baseurl}}">{{post.title}}</a></h2>
               <p></p>
               <span class="post-date">{{post.date | date: '%Y, %b %d'}}&nbsp;&nbsp;&nbsp;—&nbsp;</span>
-              <span class="post-words">{% capture words %}{{ post.content | number_of_words }}{% endcapture %}{% unless words contains "-" %}{{ words | plus: 250 | divided_by: 250 | append: " minute read" }}{% endunless %}</span>
+              <span class="post-words">{% capture words %}{{ post.content | number_of_words }}{% endcapture %}{% unless words contains "-" %}{{ words | plus: 350 | divided_by: 350 | append: " minute read" }}{% endunless %}</span>
             </div>
           </article>
           {% endif %}
