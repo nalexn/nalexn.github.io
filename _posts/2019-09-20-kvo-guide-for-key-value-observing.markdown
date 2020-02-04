@@ -1,8 +1,8 @@
 ---
 layout: post
-title: "Quick Guide to KVO in Swift with code examples"
+title: "Guide to KVO in Swift 5 with code examples"
 date: 2019-09-20 17:30:00 +0600
-description: "Everything you need to know about Key-Value Observing"
+description: "Everything you need to know about Key-Value Observing in Swift and Objective-C"
 tags: [ios,swift,kvo]
 redirect_from:
   - kvo-guide-for-key-value-coding
