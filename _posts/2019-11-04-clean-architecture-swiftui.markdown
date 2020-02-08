@@ -19,11 +19,13 @@ I'm talking about SwiftUI. It's not going anywhere. Like it or not, this is the 
 
 UIKit was an **imperative, event-driven** framework. We could reference each view in the hierarchy, update it’s appearance when the view is loaded or as a reaction on an event (a touch-down on the button or a new data becoming available for display in UITableView). We used callbacks, delegates, target-actions for handling these events.
 
-Now, it is all gone. SwiftUI is a **declarative, state-driven** framework. We cannot reference any view in the hierarchy, neither can we directly mutate a view as a reaction to an event. Instead, we mutate the state bound to the view. Delegates, target-actions, responder chain, KVO, — the entire zoo of callback techniques have been replaced with closures and bindings.
+Now, it is all gone. SwiftUI is a **declarative, state-driven** framework. We cannot reference any view in the hierarchy, neither can we directly mutate a view as a reaction to an event. Instead, we mutate the state bound to the view. Delegates, target-actions, responder chain, KVO, — [the entire zoo of callback techniques](https://nalexn.github.io/callbacks-part-1-delegation-notificationcenter-kvo/) have been replaced with closures and bindings.
 
 Every view in SwiftUI is a struct that can be created many times faster than an analogous UIView descendant. That struct keeps references to the state that it feeds to the function `body` for rendering the UI.
 
-So a view in SwiftUI is just a programming function. You provide it with input (the state) — it draws the output. The only way to change the output (the displayed UI) is to change the input: we cannot change the algorithm (the `body` function) by adding or removing subviews — they all have to be declared there from the outset and disabled by the state variables.
+So a view in SwiftUI is just a programming function. You provide it with input (the state) — it draws the output. And the only way to change the output is to change the input: we cannot touch the algorithm (the body function) by adding or removing subviews — all the possible alterations in the displayed UI have to be declared in the body and cannot be changed in runtime.
+
+In terms of the SwiftUI we’re not adding or removing subviews, but enabling or disabling different pieces of the UI in the predefined flowchart algorithm.
 
 <div style="max-width:600px; display: block; margin-left: auto; margin-right: auto;"><img src="{{ site.url }}/assets/img/clean_swiftui_02.jpg"></div>
 
