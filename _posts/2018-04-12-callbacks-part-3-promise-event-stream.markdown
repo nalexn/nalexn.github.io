@@ -233,6 +233,3 @@ And again, if you want to learn more about FRP, here are a [couple](http://blog.
 * This has never been easier to massively leak the memory ever since the times we had manual reference counting in Objective-C (`[[object retain] autorelease]`, remember them?). Even when using `weak` and `unowned` for every reference inside the Closures, each time you start a Stream subscription you should explicitly limit its lifetime using `DisposeBag` from __RxSwift__ or `Lifetime` from __ReactiveSwift__, or you risk leaking this subscription (and possibly other objects too) and ultimately ruining the app performance. If you prefer using `unowned` over `weak`, be prepared for crashes as well.
 * FRP frameworks encourage the use of custom operators borrowed from other functional languages. This often looks unnatural in Swift and adds ambiguity, unless you have a few years of Haskell programming in your background.
 * Heavyweight frameworks with the core functionality ([15,000](https://github.com/ReactiveCocoa/ReactiveSwift) and [55,000](https://github.com/ReactiveX/RxSwift) lines of code for two most popular FRP frameworks). This not only increases the size of your app but also extends the app's launch time, just as with other dynamically loaded frameworks.
-
----
-Be safe, don't feed gremlins after midnight, and write clean code.

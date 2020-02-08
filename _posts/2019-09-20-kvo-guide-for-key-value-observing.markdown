@@ -253,6 +253,4 @@ There are quite a few other techniques in modern iOS development serving the sam
 
 The final post in that series of articles is the [**ultimate guide**](https://nalexn.github.io/state-management-guide-ios/) where I describe the practical situations where **one tool suits better than the others**.
 
-Finally, with the release of Apple's **Combine** framework, KVO now stands no chances to maintain its original popularity, but it is still important to know how it works! And I hope this article was helpful for you.
-
-Feel free to add me on [LinkedIn](https://www.linkedin.com/in/nalexn/) or [Twitter](https://twitter.com/nallexn) and ask questions! I also post new articles alerts there!
+Finally, with the release of Apple's **Combine** framework, KVO now stands no chances to maintain its original popularity, but it is still important to know how it works!

@@ -418,5 +418,3 @@ With this approach `InspectableView` obtained a controlled set of methods availa
 ---
 
 That's the story behind creating the [ViewInspector](https://github.com/nalexn/ViewInspector) framework. If you have a SwiftUI project you want to cover with Unit Tests - consider trying it out! I'm accepting pull requests and general feedback!
-
-If you want to better understand the inner SwiftUI mechanisms used under the hood, take that function `attributesTree(value:)` and crack those black-boxed views! 😈

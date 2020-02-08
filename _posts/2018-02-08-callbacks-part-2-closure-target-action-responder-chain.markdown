@@ -238,7 +238,4 @@ For the needs of calling back through a few layers of nested child view controll
 * It is quite confusing for the newcomers why they have to use obscure `responder chain` for such _simple_ thing as showing the on-screen keyboard in iOS
 
 
-To be continued...
-
----
-Be safe, brush your teeth, and write clean code.
+Continuation: [Callbacks, Part 3: Promise, Event, and Stream (Functional Reactive Programming)]({% post_url 2018-04-12-callbacks-part-3-promise-event-stream %})

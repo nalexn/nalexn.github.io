@@ -190,5 +190,4 @@ class Observer {
 * We have to call the `super` implementation of `observeValueForKeyPath` callback function to make sure we don't break the implementation of the superclass.
 * Relatively slow performance. Even when compiled with `-Os` optimization, for `Objective-C` one `KVO` notification is _30 times_ slower than a function call, for `Swift` it is _200 times_ slower. I have used [this project](https://github.com/nalexn/PerformanceTestTools) for benchmarking.
 
----
-Be safe, wash your hands before eating, and write clean code.
+Continuation: [Callbacks, Part 2: Closure, Target-Action, and Responder Chain]({% post_url 2018-02-08-callbacks-part-2-closure-target-action-responder-chain %})

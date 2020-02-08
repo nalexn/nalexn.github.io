@@ -162,6 +162,3 @@ Nevermore!
 If you think about it, Analytics is yet another logger! So why would you expose these intimate details that you're using Analytics to the client code - let it only know that there is `Logger`, which does all the magic.
 
 All you need to do is to update the implementation of the `Logger` to report only those events you need to the Analytics selectively. Yay!
-
----
-Be safe, listen to your mom, and write clean code.
