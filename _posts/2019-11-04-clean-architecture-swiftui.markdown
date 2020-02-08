@@ -23,11 +23,11 @@ Now, it is all gone. SwiftUI is a **declarative, state-driven** framework. We ca
 
 Every view in SwiftUI is a struct that can be created many times faster than an analogous UIView descendant. That struct keeps references to the state that it feeds to the function `body` for rendering the UI.
 
+<div style="max-width:600px; display: block; margin-left: auto; margin-right: auto;"><img src="{{ site.url }}/assets/img/clean_swiftui_02.jpg"></div>
+
 So a view in SwiftUI is just a programming function. You provide it with input (the state) — it draws the output. And the only way to change the output is to change the input: we cannot touch the algorithm (the body function) by adding or removing subviews — all the possible alterations in the displayed UI have to be declared in the body and cannot be changed in runtime.
 
 In terms of the SwiftUI we’re not adding or removing subviews, but enabling or disabling different pieces of the UI in the predefined flowchart algorithm.
-
-<div style="max-width:600px; display: block; margin-left: auto; margin-right: auto;"><img src="{{ site.url }}/assets/img/clean_swiftui_02.jpg"></div>
 
 # MVVM is the new standard architecture
 
