@@ -1127,7 +1127,7 @@ table tfoot td {
   padding: 0px;
 }
 
-.go-home a, a:visited {
+.go-home a, .go-home a:visited {
   color: #DFDFDF;
 }
 
