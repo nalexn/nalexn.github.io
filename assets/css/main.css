@@ -1121,10 +1121,20 @@ table tfoot td {
           transform: scale(1.2);
 }
 
-footer .copyright {
-  font-size: 14px;
+.go-home {
+  font-size: 1.4em;
   text-align: center;
-  margin: 0;
+  padding: 0px;
+}
+
+.go-home a, a:visited {
+  color: #DFDFDF;
+}
+
+.copyright {
+  font-size: 0.5em;
+  text-align: center;
+  padding-bottom: 4px;
 }
 
 .post {
@@ -1481,7 +1491,7 @@ a.newer-posts:hover {
         -ms-flex-align: stretch;
             align-items: stretch;
   }
-  .contact-title, .copyright {
+  .contact-title {
     display: none;
   }
 }
