@@ -301,7 +301,7 @@ extension RealCountriesWebRepository {
 }
 ```
 
-Since WebRepository takes URLSession as a constructor parameter, it is very easy to test it by [mocking the networking calls](https://github.com/nalexn/clean-architecture-swiftui/blob/master/UnitTests/Mocks/RequestMocking.swift) with a custom `URLProtocol`
+Since WebRepository takes URLSession as a constructor parameter, it is very easy to test it by [mocking the networking calls](https://github.com/nalexn/clean-architecture-swiftui/blob/master/UnitTests/NetworkMocking/RequestMocking.swift) with a custom `URLProtocol`
 
 # Final thoughts
 
