@@ -1131,6 +1131,10 @@ table tfoot td {
   color: #DFDFDF;
 }
 
+.go-home a:hover, .go-home a:visited:hover {
+  color: #6789CF;
+}
+
 .copyright {
   font-size: 0.5em;
   text-align: center;
