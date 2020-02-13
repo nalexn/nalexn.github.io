@@ -10,7 +10,17 @@
     <uri>https://nalexn.github.io</uri>
   </author>
   <subtitle>iOS development best practices, software architecture design, functional reactive programming, Swift, SwiftUI, Combine</subtitle>
-  <updated>2020-01-16T08:30:00+03:00</updated>
+  <updated>2020-02-13T18:30:00+03:00</updated>
+  <entry>
+    <title type="html">SwiftUI Environment Overrides</title>
+    <link href="https://github.com/nalexn/EnvironmentOverrides" rel="alternate" type="text/html"/>
+    <id>https://github.com/nalexn/EnvironmentOverrides</id>
+    <updated>2020-02-13T18:30:00+03:00</updated>
+    <content type="html">
+        &lt;p&gt;&lt;img src="https://nalexn.github.io/assets/img/EnvironmentOverrides2.png" alt="Preview"&gt;&lt;/p&gt;
+        &lt;p&gt;I've created a &lt;a href="https://github.com/nalexn/EnvironmentOverrides"&gt;tool&lt;/a&gt; for changing the localization, accessibility settings and color theme for a running SwiftUI app. Your QA team will be happy!&lt;/p&gt;
+    </content>
+  </entry>
   <entry>
     <title type="html">Separation of Concerns in Software Design</title>
     <link href="https://nalexn.github.io/separation-of-concerns/?utm_source=rss" rel="alternate" type="text/html"/>
