@@ -117,7 +117,7 @@ Just watch a couple minutes from this talk "MCE 2017: Yasuhiro Inami, Elm Archit
 <iframe width="560" height="315" style="position: absolute; top:0; left: 0; width: 100%; height: 100%;" src="https://www.youtube.com/embed/U805TqsDIV8?start=1706" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 </div>
 
-That guy had a WORKING prototype of SwiftUI in 2017! Of course, since it was backed by UIKit it had terrible performance, but still!
+That guy had a WORKING prototype of SwiftUI in 2017!
 
 Does it feel like we're on a reality show where SwiftUI, a half-orphan kid, has just got to know who his father is?
 
