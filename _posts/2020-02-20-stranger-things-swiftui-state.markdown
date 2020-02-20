@@ -217,4 +217,4 @@ If you didn't know the story above, the logical answer would be "abc", but now y
 
 ## Do you have more?
 
-What's your most confusing part of the SwiftUI? Was it related to the state, or something else? Tag me on [Twitter](https://twitter.com/nallexn), and I'll append the article!
+What's your most confusing part of the SwiftUI? Was it related to the state, or something else? Let's discuss this in [Twitter](https://twitter.com/nallexn)!
