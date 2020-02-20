@@ -14,7 +14,7 @@ Like many other developers, I began my practical acquaintance with SwiftUI from 
 
 As it appeared to me later, SwiftUI has many tricky topics that can be a challenge to figure out quickly; even experienced developers [say](https://twitter.com/a_grebenyuk/status/1229064810962259968?s=20) it feels like learning everything from scratch.
 
-In this article, I collected my top most confusing aspects of SwiftUI related to state management. It'd saved me hours of painful troubleshooting if I had this article on hands...
+In this article, I collected my top confusing aspects of SwiftUI related to state management. It'd saved me hours of painful troubleshooting if I had this article on hands...
 
 Let's get started!
 

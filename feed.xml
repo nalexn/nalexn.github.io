@@ -10,7 +10,17 @@
     <uri>https://nalexn.github.io</uri>
   </author>
   <subtitle>iOS development best practices, software architecture design, functional reactive programming, Swift, SwiftUI, Combine</subtitle>
-  <updated>2020-02-13T18:30:00+03:00</updated>
+  <updated>2020-02-20T10:30:00+03:00</updated>
+  <entry>
+    <title type="html">Stranger things around SwiftUI's state</title>
+    <link href="https://nalexn.github.io/stranger-things-swiftui-state/?utm_source=rss" rel="alternate" type="text/html"/>
+    <id>https://nalexn.github.io/stranger-things-swiftui-state/</id>
+    <updated>2020-02-20T10:30:00+03:00</updated>
+    <content type="html">
+        &lt;p&gt;&lt;img src="https://nalexn.github.io/assets/img/forest_001.jpg" alt="Preview"&gt;&lt;/p&gt;
+        &lt;p&gt;In this &lt;a href="https://nalexn.github.io/stranger-things-swiftui-state/?utm_source=rss"&gt;article&lt;/a&gt;, I collected my top confusing aspects of SwiftUI related to state management. It'd saved me hours of painful troubleshooting if I had this article on hands!&lt;/p&gt;
+    </content>
+  </entry>
   <entry>
     <title type="html">SwiftUI Environment Overrides</title>
     <link href="https://github.com/nalexn/EnvironmentOverrides" rel="alternate" type="text/html"/>
