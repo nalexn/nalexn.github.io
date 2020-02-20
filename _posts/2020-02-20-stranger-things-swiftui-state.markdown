@@ -203,7 +203,7 @@ After that, when the view is about to be displayed on screen for the first time,
 
 What happens next? Right! The `onReceive` closure gets called *again*! Why is that?
 
-When `MyView` mutated its state inside `onAppear`, SwiftUI followed its internal logic for the view refresh and decided to recreate the view! This is really the case - you can add `init` to see this.
+When `MyView` mutated its state inside `onAppear`, SwiftUI had to create a new view for comparing the state change! This is required for proper diffing of the view hierarchy.
 
 Upon the second creation, the view traditionally got subscribed to the `Publisher`, and that guy joyfully pushed the current value.
 
