@@ -26,7 +26,7 @@ So I was confused why these new "keywords" allow the variable to morph depending
 
 `value`, `_value`, and `$value` are representing three completely different things!
 
-I lacked understanding that these named attributes are nothing more than just a few structs declared in the SwiftUI framework and are not part of the language.
+I lacked the understanding that these named attributes are nothing more than just a few structs declared in the SwiftUI framework and are not part of the language.
 
 What is indeed part of the language is the new feature of SwiftUI 5.1: [property wrappers](https://github.com/apple/swift-evolution/blob/master/proposals/0258-property-wrappers.md).
 
@@ -34,7 +34,7 @@ Only after [reading](https://docs.swift.org/swift-book/LanguageGuide/Properties.
 
 Got confused even more? No worries - I'll explain that in a minute.
 
-The generalized picture appeared very clear: when we have a variable "attributed" with SwiftUI's `@Something`, for example, `@State var value: Int = 0`, the Swift compiler generates three (!) variables for us:
+The generalized picture appeared very clear: when we have a variable "attributed" with SwiftUI's `@Something`, for example, `@State var value: Int = 0`, the Swift compiler generates three (!) variables for us (two of which are computed variables):
 
 `value` - the wrapped original value (`wrappedValue`) of the type we declared, `Int` in our example.
 
@@ -112,9 +112,9 @@ struct MyView: View {
 }
 ```
 
-Why are we allowed to mutate the value inside the `@State` even though it is immutable struct, just like `self`?
+Why are we allowed to mutate the value inside the `@State` even though it is an immutable struct, just like `self`?
 
-Here is a [detailed explanation](https://forums.swift.org/t/why-i-can-mutate-state-var-how-does-state-property-wrapper-work-inside/27209) of how SwiftUI handles the value mutation in this scenario, but I want to outline one important fact: **SwiftUI uses hidden external state storage** for keeping the actual values of `@State` variables.
+Here is a [detailed explanation](https://forums.swift.org/t/why-i-can-mutate-state-var-how-does-state-property-wrapper-work-inside/27209) of how SwiftUI handles the value mutation in this scenario, but I want to note one important fact: **SwiftUI uses hidden external state storage** for keeping the actual values of `@State` variables.
 
 `@State` is a proxy: it has an internal variable `_location` for accessing that external storage.
 
