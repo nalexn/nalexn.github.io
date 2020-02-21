@@ -107,7 +107,7 @@ struct MyView: View {
     var body: some View {
         Button(action: {
             self.counter += 1 // mutating an immutable struct!
-        }, label: { Text("Press me!") })
+        }, label: { Text("Tap me!") })
     }
 }
 ```
