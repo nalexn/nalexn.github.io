@@ -28,7 +28,7 @@ So I was confused why these new "keywords" allow the variable to morph depending
 
 I lacked the understanding that these named attributes are nothing more than just a few structs declared in the SwiftUI framework and are not part of the language.
 
-What is indeed part of the language is the new feature of SwiftUI 5.1: [property wrappers](https://github.com/apple/swift-evolution/blob/master/proposals/0258-property-wrappers.md).
+What is indeed part of the language is the feature of Swift 5.1: [property wrappers](https://github.com/apple/swift-evolution/blob/master/proposals/0258-property-wrappers.md).
 
 Only after [reading](https://docs.swift.org/swift-book/LanguageGuide/Properties.html) about property wrappers I could finally understand that there is absolutely no mystery behind `@State` or `@Published`. These wrappers grant "superpowers" to the original variables, such as *nonmutating mutability* for `@State` or *Rx-ness* for `@Published`.
 
@@ -203,7 +203,7 @@ After that, when the view is about to be displayed on screen for the first time,
 
 What happens next? Right! The `onReceive` closure gets called *again*! Why is that?
 
-When `MyView` mutated its state inside `onAppear`, SwiftUI had to create a new view for comparing the state change! This is required for proper diffing of the view hierarchy.
+When `MyView` mutated its state inside `onAppear`, SwiftUI had to create a new view for comparing them after the state change! This is required for proper diffing of the view hierarchy.
 
 Upon the second creation, the view traditionally got subscribed to the `Publisher`, and that guy joyfully pushed the current value.
 
