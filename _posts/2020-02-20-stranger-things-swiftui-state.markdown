@@ -90,7 +90,17 @@ struct MyView: View {
 
 These two expressions ultimately represent values of different types: `Publisher` and `Binding`, respectively.
 
-I cannot see a practical use of the former one, but the latter expression is used for obtaining the Binding when passing the state access to another view.
+Both have a practical use:
+
+```swift
+var body: some View {
+    OtherView(binding: $viewModel.value)     // Binding
+        .onReceive(viewModel.$value) { value // Publisher
+            // do something that does not
+            // require the view update
+        }
+}
+```
 
 # Schrödinger's @State
 
