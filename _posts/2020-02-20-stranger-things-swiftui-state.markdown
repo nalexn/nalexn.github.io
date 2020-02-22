@@ -20,13 +20,13 @@ Let's get started!
 
 # @State, @Published, @ObservedObject, etc.
 
-This one is really stupid. In the beginning, I perceived these `@Something` as a bunch of brand new *language attributes*, like `weak` or `lazy`, introduced specifically for SwiftUI.
+In the beginning, I perceived these `@Something` as a bunch of brand new *language attributes*, like `weak` or `lazy`, introduced specifically for SwiftUI.
 
 So I was confused why these new "keywords" allow the variable to morph depending on the prefix:
 
-`value`, `_value`, and `$value` are representing three completely different things!
+`value`, `$value`, and `_value` are representing three completely different things!
 
-I lacked the understanding that these named attributes are nothing more than just a few structs declared in the SwiftUI framework and are not part of the language.
+I lacked the understanding that these `@Things` are nothing more than just a few structs declared in the SwiftUI framework and are not part of the language.
 
 What is indeed part of the language is the feature of Swift 5.1: [property wrappers](https://github.com/apple/swift-evolution/blob/master/proposals/0258-property-wrappers.md).
 
@@ -38,7 +38,7 @@ The generalized picture appeared very clear: when we have a variable "attributed
 
 `value` - the wrapped original value (`wrappedValue`) of the type we declared, `Int` in our example.
 
-`$value` - an "additional" `projectedValue` that has an arbitrary type defined by the property wrapper we used. `@State`'s projectedValue has the type `Binding<Value>`, so for the example above we get `Binding<Int>`
+`$value` - an "additional" `projectedValue` that has an arbitrary type defined by the property wrapper we used. `@State`'s `projectedValue` has the type `Binding<Value>`, so for the example above we get `Binding<Int>`
 
 `_value` - references the property wrapper struct itself. This might be useful in the view initialization:
 
@@ -86,9 +86,9 @@ struct MyView: View {
 }
 ```
 
-`MyView` can refer to `viewModel.$value` and `$viewModel.value` - both expressions are correct. Quite confusing, isn't it?
+`MyView` can refer to `$viewModel.value` and `viewModel.$value` - both expressions are correct. Quite confusing, isn't it?
 
-These two expressions ultimately represent values of different types: `Publisher` and `Binding`, respectively.
+These two expressions ultimately represent values of different types: `Binding` and `Publisher`, respectively.
 
 Both have a practical use:
 
@@ -146,7 +146,7 @@ The trick here is that the view is not always connected to that state store: Swi
 
 In the same manner, there is no guarantee that the `@State` mutation inside a `DispatchQueue.main.async` would work: sometimes it does. Still, if you introduce a delay, the store might get disconnected at the moment the closure is executed, and the state mutation won't take effect.
 
-The traditional async dispatch is unsafe for SwiftUI view - you're playing with fire when you do this.
+The traditional async dispatch is unsafe for a SwiftUI view - you're playing with fire when you do this.
 
 # Phantom state updates
 
@@ -160,9 +160,9 @@ There is just a couple of ways these frameworks can be connected for interoperat
 
 The first touchpoint is `ObservableObject` - a protocol [declared](https://developer.apple.com/documentation/combine/observableobject) in Combine but used extensively with SwiftUI views.
 
-The second one is the `.onReceive()` view modifier, the only API that allows you to connect an arbitrary data Publisher with the view (the method `assign(to:)` does not suit this purpose).
+The second one is the `.onReceive()` view modifier, the only API that allows you to connect an arbitrary data Publisher with the view.
 
-So my next big point of confusion was related to this `.onReceive()` modifier. Consider this example:
+So my next big point of confusion was related to this modifier. Consider this example:
 
 ```swift
 struct MyView: View {
@@ -221,7 +221,7 @@ The right answer is 2.
 
 Can you imagine my confusion when I was debugging these "fantom" updates delivered to `onReceive` while I was specifically [trying to filter out](https://nalexn.github.io/swiftui-observableobject/) the duplicated updates?
 
-The last question for you: which text will be displayed if inside `onAppear` we set `self.value = "abc"`?
+The last question for you: which text will be displayed if inside `onAppear` we set `self.text = "abc"`?
 
 If you didn't know the story above, the logical answer would be "abc", but now you are armed with the knowledge: no matter where and when you assign a new value to the `text`, the `onReceive` callback will always be chasing you, erasing the value you just assigned with the most recent one from the `CurrentValueSubject`.
 
