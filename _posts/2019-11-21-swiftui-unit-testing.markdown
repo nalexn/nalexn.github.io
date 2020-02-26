@@ -26,9 +26,45 @@ Views in SwiftUI are nested inside one another, forming a statically typed hiera
 
 One day Apple may release its unit testing tool for SwiftUI, but who knows whether/when this will happen.
 
-So I decided to build one.
+So I decided to build one: [ViewInspector](https://github.com/nalexn/ViewInspector).
+
+By now, the framework has evolved into a fully-fledged tool that allows you to inspect and unit test any view hierarchy in SwiftUI for iOS, macOS, and watchOS.
+
+With this library you can dig into the hierarchy and read the actual state values on any SwiftUI view:
+
+```swift
+func testVStackOfTexts() throws {
+    let view = VStack {
+        Text("1")
+        Text("2")
+        Text("3")
+    }
+    let values = try view.inspect().map { try $0.text().string() }
+    XCTAssertEqual(values, ["1", "2", "3"])
+}
+```
+
+You can also simulate the user interaction by programmatically triggering system-controls callbacks:
+
+```swift
+let button = try view.inspect().hStack().button(1)
+try button.tap()
+
+let list = try view.inspect().list()
+try list[5].view(RowItemView.self).callOnAppear()
+```
+
+And it's possible to extract and evaluate the state of any custom view that uses `@Binding`, `@State`, `@ObservedObject` or `@EnvironmentObject`:
+
+```swift
+let sut = try view.inspect().tabView().navigationView()
+    .overlay().anyView().view(CustomView.self).actualView()
+XCTAssertTrue(sut.viewModel.isUserLoggedIn)
+```
 
 ---
+
+Now, the story.
 
 Since there is no access to the inner [shadow Attribute Graph](https://worthdoingbadly.com/swiftui-html/) of SwiftUI, I tried to use Swift's reflection API. Xcode uses it for printing out the contents of variables when we stop on a breakpoint in the debugger.
 
@@ -58,42 +94,9 @@ And as it turned out, there were many pitfalls waiting for me on the way:
 7. Significant variations of the hierarchy after a tiny tweak of the input. For example, `Text("Hi")` vs `Text(hiValue)`
 8. Overall obscurity and lack of information about the private structures
 
-In this article, I'll talk about interesting use cases I encountered and the ways I addressed the challenges, but before that, let me show you what I've got after a few days of trial and error: [ViewInspector on GitHub](https://github.com/nalexn/ViewInspector)
+In this article, I'll talk about interesting use cases I encountered and the ways I addressed the challenges.
 
-With this library you can extract your custom views from the hierarchy and evaluate its state in unit tests:
-
-```swift
-let customView = try view.inspect().anyView().hStack().view(CustomView.self)
-let sut = customView.actualView()
-XCTAssertTrue(sut.isToggleOn)
-```
-
-You can read the actual values from the standard SwiftUI views, such as `String` value of `Text`
-
-```swift
-let view = ContentView()
-let value = try view.inspect().text().string()
-XCTAssertEqual(value, "Hello, world!")
-```
-
-And it is also possible to programmatically trigger side effects on behalf of the user:
-
-```swift
-let view = ContentView()
-let button = try view.inspect().hStack().button(1)
-try button.tap()
-
-let textField = try view.inspect().hStack().textField(0)
-try textField.callOnCommit()
-```
-
-By now, the framework supports the majority of views available in SwiftUI for iOS and macOS, as well as views ported from UIKit with `UIViewRepresentable`:
-
->  `AnyView`, `Button`, `DatePicker`, `Divider`, `EquatableView`, `ForEach`, `Form`, `GeometryReader`, `Group`, `GroupBox`, `HSplitView`, `HStack`, `Image`, `List`, `ModifiedContent`, `NavigationLink`, `NavigationView`, `Picker`, `ScrollView`, `Section`, `SecureField`, `Slider`, `Stepper`, `TabView`, `Text`, `TextField`, `Toggle`, `VSplitView`, `VStack`, `ZStack`
-
-I did eventually hit a few unbreakable walls, but overall, I'm satisfied with the result.
-
-Ok, it's time for some hacky stories!
+It's time for some hacky stories!
 
 ## Creating a struct without calling `init()`
 
