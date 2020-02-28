@@ -58,15 +58,15 @@ I elaborate more on this topic in the [state management guide](https://nalexn.gi
 
 # Testability
 
-There are different points of view regarding the usefulness of tests. Tests can be a top priority in [TDD](https://www.guru99.com/test-driven-development.html) workflow, just as they could be fully neglected for a prototype or an MVP, especially in a case of a tight timeline.
+There are different points of view regarding the usefulness of tests. Tests can be the top priority in [TDD](https://www.guru99.com/test-driven-development.html) workflow, just as they could be fully neglected for a prototype or an MVP, especially in a case of a tight timeline.
 
-In a scenario when you choose not to write the tests, you still should structure the project so the tests could be added later if you choose to.
+In a scenario when you choose not to write the tests, you still should structure the project so the tests could be added later if you want to.
 
 Testability is the trait that does not only allow the presence of the tests but ultimately contributes to the reusability of the components and clearer [separation of concerns](https://nalexn.github.io/separation-of-concerns/) in the project.
 
 A way to achieve testability in the project:
 
-* Break down the modules with more than one responsibility ([SRP](https://en.wikipedia.org/wiki/Single_responsibility_principle))
+* Break up the modules with more than one responsibility ([SRP](https://en.wikipedia.org/wiki/Single_responsibility_principle))
 * [Avoid](https://www.swiftbysundell.com/articles/avoiding-singletons-in-swift/) using any global variables, references to objects (including Singletons), and [inject the dependencies](https://ilya.puchka.me/dependency-injection-in-swift/) instead.
 
 # Static code analysis
@@ -95,7 +95,7 @@ Alamofire and other libraries are wrappers around URLSession anyway, so why to b
 
 # Dependencies
 
-Since I touched the topic of the third-party dependencies in the project, here is an advice for you: always think twice before adding any new dependency. There are many reasons why you want to have a few of these as possible in your project:
+Since I touched the topic of the third-party dependencies in the project, here is an advice for you: always think twice before adding any new dependency. There are many reasons why you want to have as few of these as possible in your project:
 
 * Often times the frameworks are overengineered to cover a broader range of use cases
 * Massive dynamic libraries and frameworks increase the launch time of the app
