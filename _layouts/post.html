@@ -18,7 +18,7 @@ layout: default
       <div style="width:0px; height:10px; display: block;"></div>
       <h2>Most recent articles</h2>
       <div class="content-box recent clearfix" style="padding: 0px; margin-left: -12px; margin-right: -12px;">
-        {% assign first_posts = site.posts | slice:0, 5 %}
+        {% assign first_posts = site.posts | slice:0, 7 %}
         {% for post in first_posts %}
           {% if post.title != page.title %}
           <article class="post">
@@ -36,7 +36,7 @@ layout: default
           {% endif %}
         {% endfor %}
       </div>
-      <div class="go-home"><a href="{{"/" | prepend: site.baseurl}}"><i class="fa fa-home" aria-hidden="true"></i> Homewards</a></div>
+      <div class="go-home"><a href="{{"/" | prepend: site.baseurl}}"><i class="fa fa-home" aria-hidden="true"></i> Browse all articles</a></div>
     </div> <!-- End Wrap Content -->
     <div class="copyright">2020 © Alexey Naumov</div>
   </div> <!-- End Page Content -->
