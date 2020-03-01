@@ -122,7 +122,7 @@ What you want to do is to handle the `applicationDidEnterBackground` and free up
 
 # State restoration
 
-Of course, even if you freed up all the memory possible preparing for the background mode, there will no guarantee the system won't kill the app.
+Of course, even if you freed up all the memory possible preparing for the background mode, there is no guarantee the system won't kill the app.
 
 A way to mitigate the problem is to [restore the state](https://developer.apple.com/documentation/uikit/view_controllers/preserving_your_app_s_ui_across_launches) when the user comes back.
 
