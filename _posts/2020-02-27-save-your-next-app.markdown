@@ -98,8 +98,8 @@ Alamofire and other libraries are wrappers around URLSession anyway, so why to b
 Since I touched the topic of the third-party dependencies in the project, here is an advice for you: always think twice before adding any new dependency. There are many reasons why you want to have as few of these as possible in your project:
 
 * Often times the frameworks are overengineered to cover a broader range of use cases
-* Massive dynamic libraries and frameworks increase the launch time of the app
-* Your app bloats up in size
+* Massive dynamic libraries and frameworks [increase](https://engineering.fb.com/data-infrastructure/messenger/) the launch time of the app
+* Your app bloats up in size.
 * Xcode has to spend more time on the compilation, DerivedData folder becomes a gigantic dump of the build artifacts
 * Third-party code often has a mediocre quality, poor test coverage, and bugs
 * You cannot expect every dependency to be migrated to the new Swift or iOS version quickly. Many libraries become abandoned over time
