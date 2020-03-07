@@ -78,7 +78,7 @@ I simply put a breakpoint and ran `po dump(view)` to see what's kept inside a si
           ↳ value = "Hello, world!"
 ```
 
-I knew that `po` uses reflection, a public API available in Swift. That meant I could get access to these values as well. What if this trick could work for cracking every SwiftUI view?
+I knew that `dump` uses reflection, a public API available in Swift. That meant I could get access to these values as well. What if this trick could work for cracking every SwiftUI view?
 
 I had a gut feeling it just cannot be that simple, there had to be a wall that I won't be able to get through with using just reflection, but I was curious how far I can dig.
 
@@ -102,7 +102,7 @@ There is one interesting SwiftUI view that provides information about the view's
 ```swift
 GeometryReader { geometry in
     Text("Hello, world!")
-        .padding(geometry.size.width)
+        .padding(geometry.size.width * 0.1)
 }
 ```
 
@@ -180,7 +180,7 @@ let array = ["0", "1", "2"]
 let view = ForEach(array, id: \.self) { Text($0) }
 ```
 
-`dump` function showed the following:
+`dump` showed the following:
 
 ```swift
 "view" of type ForEach<Array<String>, String, Text>
