@@ -26,11 +26,11 @@ Views in SwiftUI are nested inside one another, forming a statically typed hiera
 
 One day Apple may release its unit testing tool for SwiftUI, but who knows whether/when this will happen.
 
-So I decided to build one: [ViewInspector](https://github.com/nalexn/ViewInspector).
+So I decided to build [ViewInspector](https://github.com/nalexn/ViewInspector), a library that allows for inspecting the SwiftUI view hierarchy at runtime.
 
-By now, the framework has evolved into a fully-fledged tool that allows you to inspect and unit test any view hierarchy in SwiftUI for iOS, macOS, and watchOS.
+By now, the framework has evolved into a fully-fledged tool that allows you to inspect and unit test SwiftUI hierarchy for iOS, macOS, and watchOS.
 
-With this library you can dig into the hierarchy and read the actual state values on any SwiftUI view:
+You can dig into the hierarchy and read the actual state values on any SwiftUI view:
 
 ```swift
 func testVStackOfTexts() throws {
@@ -61,14 +61,13 @@ let sut = try view.inspect().tabView().navigationView()
     .overlay().anyView().view(CustomView.self).actualView()
 XCTAssertTrue(sut.viewModel.isUserLoggedIn)
 ```
+## SwiftUI internals
 
----
+I should start with a note that I'm a developer and not a hacker: I hardly ever had to reverse-engineer something, explore how jailbreak works, or mess with assembly code ever since my studying at a university.
 
-Now, the story.
+But SwiftUI appeared to be a black box I had difficulties in getting it to work properly. There was some minor issue I couldn't get around, and after many hours of trial and error, I gave up searching the web for the solution and decided to look inside that box for getting any clue.
 
-Since there is no access to the inner [shadow Attribute Graph](https://worthdoingbadly.com/swiftui-html/) of SwiftUI, I tried to use Swift's reflection API. Xcode uses it for printing out the contents of variables when we stop on a breakpoint in the debugger.
-
-I was surprised how much information is available inside SwiftUI views. You literally can see all the internals if you stop on a breakpoint and type `po dump(view)` for the `view` in the debugger console:
+I simply put a breakpoint and ran `po dump(view)` to see what's kept inside a simple `Text("Hello, world!")` view. To my surprise, there were plenty of information available in runtime:
 
 ```swift
 "view" of type AnyView
@@ -80,6 +79,8 @@ I was surprised how much information is available inside SwiftUI views. You lite
               ↳ "verbatim" of type String
                   ↳ value = "Hello, world!"
 ```
+
+I knew that `po` uses reflection, a public API available in Swift. That meant I could get access to these values as well. What if this trick could work for cracking every SwiftUI view?
 
 I had a gut feeling it just cannot be that simple, there had to be a wall that I won't be able to get through with using just reflection, but I was curious how far I can dig.
 
@@ -94,9 +95,7 @@ And as it turned out, there were many pitfalls waiting for me on the way:
 7. Significant variations of the hierarchy after a tiny tweak of the input. For example, `Text("Hi")` vs `Text(hiValue)`
 8. Overall obscurity and lack of information about the private structures
 
-In this article, I'll talk about interesting use cases I encountered and the ways I addressed the challenges.
-
-It's time for some hacky stories!
+In this piece, I want to share abnormal use cases and hacky tricks I had to appeal to when building this library using just the standard capabilities of Swift language.
 
 ## Creating a struct without calling `init()`
 
