@@ -72,7 +72,7 @@ I simply put a breakpoint and ran `po dump(view)` to see what's kept inside a si
 ```swift
 "view" of type Text
   ↳ "modifiers" of type Array<Modifier>
-    ↳ value = []
+      ↳ value = []
   ↳ "storage" of type Storage
       ↳ "verbatim" of type String
           ↳ value = "Hello, world!"
