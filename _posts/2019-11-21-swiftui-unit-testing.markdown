@@ -70,14 +70,12 @@ But SwiftUI appeared to be a black box I had difficulties in getting it to work 
 I simply put a breakpoint and ran `po dump(view)` to see what's kept inside a simple `Text("Hello, world!")` view. To my surprise, there were plenty of information available in runtime:
 
 ```swift
-"view" of type AnyView
-  ↳ "storage" of type AnyViewStorage<Text>
-      ↳ "view" of type Text
-          ↳ "modifiers" of type Array<Modifier>
-              ↳ value = []
-          ↳ "storage" of type Storage
-              ↳ "verbatim" of type String
-                  ↳ value = "Hello, world!"
+"view" of type Text
+  ↳ "modifiers" of type Array<Modifier>
+    ↳ value = []
+  ↳ "storage" of type Storage
+      ↳ "verbatim" of type String
+          ↳ value = "Hello, world!"
 ```
 
 I knew that `po` uses reflection, a public API available in Swift. That meant I could get access to these values as well. What if this trick could work for cracking every SwiftUI view?
