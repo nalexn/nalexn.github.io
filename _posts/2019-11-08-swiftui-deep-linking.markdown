@@ -258,7 +258,7 @@ You don't need to reset the navigation state for the first approach, because App
 
 # Navigation through multiple views
 
-Using one of the approaches described above you can programmatically navigate to a screen at any depth.
+Using one of the approaches described above you can programmatically navigate to a screen at any depth ([example](https://github.com/nalexn/clean-architecture-swiftui/blob/master/CountriesSwiftUI/System/AppEnvironment.swift#L21)).
 
 The only requirement: for every "navigatable" view along the way to the deep link's target view, you need to allocate a separate navigation parameter in the AppState or in the broadcasted message.
 
