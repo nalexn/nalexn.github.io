@@ -311,4 +311,6 @@ There are some ways how this whole solution can be improved syntactically (most 
 
 For the latter, you'd be injecting `CurrentValueSubject` as the `init` parameter of the view, in place of the object.
 
-I've already migrated my [Clean Architecture for SwiftUI](https://github.com/nalexn/clean-architecture-swiftui) sample project to use this approach, and updated my [SwiftUI Unit Testing](https://github.com/nalexn/ViewInspector) framework for better supporting it.
+You can refer to the [sample project](https://github.com/nalexn/clean-architecture-swiftui) where I use the described approach.
+
+If you're trying to wrap your head around SwiftUI's `ObservableObject`, `@ObservedObject` and other fancy constructions, I'd highly recommend you my other article ["Stranger things around SwiftUI's state"](https://nalexn.github.io/stranger-things-swiftui-state/).

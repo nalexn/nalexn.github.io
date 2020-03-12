@@ -2,8 +2,8 @@
 layout: post
 title: "Clean Architecture for SwiftUI"
 date: 2019-11-04 14:30:00 +0300
-description: "Are VIPER, RIBs, MVVM or VIP suitable for SwiftUI project?"
-tags: [iOS,swift,SwiftUI,Combine,design,pattern,redux,unidirectional,data,flow,best,practices]
+description: "Are VIPER, RIBs, MVVM, VIP or MVC suitable for SwiftUI project?"
+tags: [iOS,swift,SwiftUI,Combine,design,pattern,redux,unidirectional,data,flow,model,state,management]
 comments: true
 sharing: true
 published: true
@@ -136,9 +136,9 @@ We saw this somewhere, didn't we?
 We already have the `Model`, the `View` gets generated automatically from the `Model`, the only thing we can tweak is the way `Update` in delivered. We can go **REDUX** way and use the `Command` pattern for state mutation instead of letting SwiftUI’s views and other modules write to the state directly.
 Although I preferred using REDUX in my previous UIKit projects (ReSwift ❤), it’s questionable whether it’s needed for a SwiftUI app — the data flows are already under control and are easily traceable.
 
-# Clean Architecture. Again
+# Clean Architecture
 
-Let's not play the architect and just refer to the [Uncle Bob's Clean Architecture](https://blog.cleancoder.com/uncle-bob/2012/08/13/the-clean-architecture.html), the progenitor of VIP.
+Let's refer to [Uncle Bob's Clean Architecture](https://blog.cleancoder.com/uncle-bob/2012/08/13/the-clean-architecture.html), the progenitor of VIP.
 
 > By separating the software into layers, and conforming to The Dependency Rule, you will create a system that is intrinsically testable, with all the benefits that imply.
 
@@ -158,11 +158,11 @@ There is a [demo project](https://github.com/nalexn/clean-architecture-swiftui) 
 
 # AppState
 
-`AppState` is the only entity in the pattern that requires to be an object, specifically, an `ObservableObject`. **Edit**: I’ve found a [better alternative](https://nalexn.github.io/swiftui-observableobject/).
+AppState is the only entity in the pattern that requires to be an object, specifically, an `ObservableObject`. [Alternatively](https://nalexn.github.io/swiftui-observableobject/), it can be a struct wrapped in a `CurrentValueSubject` from Combine.
 
-Works as the single source of truth and keeps the state for the entire app, including user's data, authentication tokens, screen navigation state (selected tabs, presented sheets) and system state (is active / is backgrounded, etc.)
+Just like with **Redux**, AppState works as the single source of truth and keeps the state for the entire app, including user's data, authentication tokens, screen navigation state (selected tabs, presented sheets) and system state (is active / is backgrounded, etc.)
 
-AppState knows nothing about any other layer and does not have any business logic.
+AppState knows nothing about any other layer and does not contain any business logic.
 
 An example of the [AppState](https://github.com/nalexn/clean-architecture-swiftui/blob/master/CountriesSwiftUI/Injected/AppState.swift) from the Countries demo project:
 
@@ -252,7 +252,7 @@ struct RealCountriesInteractor: CountriesInteractor {
 `Repository` is an abstract gateway for reading / writing data.
 Provides access to a single data service, be that a web server or a local database.
 
-**Edit**: I have a [dedicated article](https://nalexn.github.io/separation-of-concerns/) explaining why extracting the Repository is essential.
+I have a [dedicated article](https://nalexn.github.io/separation-of-concerns/) explaining why extracting the Repository is essential.
 
 For example, if the app is using its backend, Google Maps APIs and writes something to a local database, there will be three Repositories: two for different web API providers and one for database IO operations.
 
@@ -308,3 +308,5 @@ Since WebRepository takes URLSession as a constructor parameter, it is very easy
 [The demo project](https://github.com/nalexn/clean-architecture-swiftui) now has **98% test coverage**, all thanks to the Clean Architecture's "dependency rule" and segregation of the app on multiple layers.
 
 <div style="max-width:800px; display: block; margin-left: auto; margin-right: auto;"><img src="https://github.com/nalexn/blob_files/blob/master/images/countries_preview.png?raw=true" alt="Diagram"/></div>
+
+If you're trying to wrap your head around SwiftUI's `ObservableObject`, `@ObservedObject` and other fancy constructions, I'd recommend you reading my other article ["Stranger things around SwiftUI's state"](https://nalexn.github.io/stranger-things-swiftui-state/)
