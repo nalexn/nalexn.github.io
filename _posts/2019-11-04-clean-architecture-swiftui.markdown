@@ -3,7 +3,7 @@ layout: post
 title: "Clean Architecture for SwiftUI"
 date: 2019-11-04 14:30:00 +0300
 description: "Are VIPER, RIBs, MVVM, VIP or MVC suitable for SwiftUI project?"
-tags: [iOS,swift,SwiftUI,Combine,design,pattern,redux,unidirectional,data,flow,model,state,management]
+tags: [MVVM,viewmodel,iOS,swift,SwiftUI,Combine,design,pattern,redux,unidirectional,data,flow,model,state,management]
 comments: true
 sharing: true
 published: true
@@ -31,23 +31,33 @@ In terms of the SwiftUI we’re not adding or removing subviews, but enabling or
 
 # MVVM is the new standard architecture
 
-SwiftUI comes with MVVM built-in. The attributes like `@Published` or `@State` allow us to bind the view with the state, while `@ObservedObject` can take the role of the ViewModel for encapsulation of the business logic and providing the bindable data.
+SwiftUI comes with MVVM built-in.
 
-MVVM is, in fact, the new standard architecture Apple has declared as a successor of MVC for SwiftUI:
+In the simplest case, where the `View` does not rely on any external state, its local `@State` variables take the role of the `ViewModel`, providing the subscription mechanism (`Binding`) for refreshing the UI whenever the state changes.
+
+For more complex scenarios, `Views` can reference an external `ObservableObject`, which in this case can be a distinct `ViewModel`.
+
+(As a side note, if you're trying to wrap your head around `ObservableObject`, `@ObservedObject` and other fancy constructions intruduced with SwiftUI and Combine, I'd recommend you reading my other article ["Stranger things around SwiftUI's state"](https://nalexn.github.io/stranger-things-swiftui-state/).)
+
+One way or another, if we don't add more modules, the way SwiftUI views work with the state very much resembles the classical MVVM.
 
 <div style="max-width:800px; display: block; margin-left: auto; margin-right: auto;"><img src="{{ site.url }}/assets/img/clean_swiftui_03.jpg"></div>
 
 > And well, you don't need a ViewController anymore.
 
-So if you choose to design the architecture for your SwiftUI app in an MVVM style, you'd come up with something like this:
+Let's consider this quick example of the MVVM module for a SwiftUI app.
+
+**Model**: a data container
 
 ```swift
-// Model
 struct Country {
     let name: String
 }
+```
 
-// View
+**View**: a SwiftUI view
+
+```swift
 struct CountriesList: View {
     
     @ObservedObject var viewModel: ViewModel
@@ -55,13 +65,17 @@ struct CountriesList: View {
     var body: some View {
         List(viewModel.countries) { country in
             Text(country.name)
-        }.onAppear {
+        }
+        .onAppear {
             self.viewModel.loadCountries()
         }
     }
 }
+```
 
-// ViewModel
+**ViewModel**: an `ObservableObject` that encapsulates the business logic and allows the `View` to observe changes of the state
+
+```swift
 extension CountriesList {
     class ViewModel: ObservableObject {
         @Published private(set) var countries: [Country] = []
@@ -77,39 +91,22 @@ extension CountriesList {
 }
 ```
 
-When the View appears on the screen, the `onAppear` callback triggers the `viewModel.loadCountries()`, which ultimately pushes the updated list of countries through `@Published` variable. As simple as that.
+In this simplified example, when the `View` appears on the screen, the `onAppear` callback calls `loadCountries()` on the `ViewModel`, triggering the networking call for loading the data inside `WebService`. `ViewModel` receives the data in the callback and pushes the updates through `@Published` variable `countries`, observed by the `View`.
 
-# Router is history
+<div style="max-width:900px; display: block; margin-left: auto; margin-right: auto;"><img src="https://github.com/nalexn/blob_files/blob/master/images/swiftui_arc_002_d.png?raw=true" alt="Diagram"/></div>
+<div style="width:0px; height:20px; display: block;"></div>
 
-Router (aka Coordinator) was an essential part of VIPER, RIBs and MVVM-R architectures. Allocation of a separate module for screen navigation was well justified in UIKit apps – the direct routing from one ViewController to another led to their tight coupling, not to mention the coding hell of deep linking to a screen deeply inside the ViewController's hierarchy.
+As a complement to this article, I've built a [sample project](https://github.com/nalexn/clean-architecture-swiftui/tree/mvvm) illustrating the use of MVVM pattern with SwiftUI. The project's key features:
 
-Well, SwiftUI made Router needless.
+* Vanilla SwiftUI + Combine implementation
+* Decoupled Presentation, Business Logic, and Data Access layers
+* Full test coverage, including the UI (thanks to the [ViewInspector](https://github.com/nalexn/ViewInspector))
+* Redux-like centralized AppState as the single source of truth
+* Programmatic navigation (deep links support)
+* Simple yet flexible networking layer built on Generics
+* Handling of the system events (blurring the view hierarchy when the app is inactive)
 
-Every view that alters the displayed hierarchy, be that `NavigationView`, `TabView` or `.sheet()`, now uses `Binding` to control what's displayed.
-
-`Binding` is an "unpossessed" form of a state variable - you can read and write it, but the factual value belongs to another module.
-
-When the user selects a tab in the `TabView`, you don't get a callback. You simply cannot. What happens instead, is that the `TabView` unilaterally changes the value through `Binding` to "displayedTab = .userFavorites".
-
-The programmer can also assign a value to that `Binding` at any time - and the `TabView` will obey immediately.
-
-The programmatic navigation in SwiftUI is fully controlled by the state through `Bindings`. I dedicated a [separate article]({{ site.url }}/swiftui-deep-linking/) to this problem.
-
-# Are VIPER, RIBs and VIP applicable for SwiftUI?
-
-There are a lot of great ideas and concepts we can borrow from these architectures, but ultimately the canonical implementation of either one doesn't make sense for the SwiftUI app.
-
-First, as you already know, there is no more practical need to have a `Router`.
-
-Secondly, the completely new design of the data flow in SwiftUI coupled with native support of view-state bindings shrank the required setup code to the degree that `Presenter` becomes a goofy entity doing nothing useful.
-
-Along with the decreased number of modules in the pattern, we figure out that we don’t need `Builder` either. So basically, the whole pattern just falls apart, as **the problems it aimed to solve don't exist anymore**.
-
-SwiftUI introduced its own set of challenges in the system’s design, so the patterns we had for UIKit have to be re-designed from the ground up.
-
-There are [attempts](https://theswiftdev.com/2019/09/18/how-to-build-swiftui-apps-using-viper/) to stick with the beloved architectures no matter what, but please, don’t.
-
-# SwiftUI is conceptually ELM Architecture
+# Under the hood, SwiftUI is based on ELM
 
 Just watch a couple minutes from this talk "MCE 2017: Yasuhiro Inami, Elm Architecture in Swift" from 28:26
 
@@ -136,6 +133,36 @@ We saw this somewhere, didn't we?
 We already have the `Model`, the `View` gets generated automatically from the `Model`, the only thing we can tweak is the way `Update` in delivered. We can go **REDUX** way and use the `Command` pattern for state mutation instead of letting SwiftUI’s views and other modules write to the state directly.
 Although I preferred using REDUX in my previous UIKit projects (ReSwift ❤), it’s questionable whether it’s needed for a SwiftUI app — the data flows are already under control and are easily traceable.
 
+# Coordinator is history
+
+Coordinator (aka Router) was an essential part of VIPER, RIBs and MVVM-R architectures. Allocation of a separate module for screen navigation was well justified in UIKit apps – the direct routing from one ViewController to another led to their tight coupling, not to mention the coding hell of deep linking to a screen deeply inside the ViewController's hierarchy.
+
+Well, SwiftUI made Coordinator needless.
+
+Every view that alters the displayed hierarchy, be that `NavigationView`, `TabView` or `.sheet()`, now uses `Binding` to control what's displayed.
+
+`Binding` is an "unpossessed" form of a state variable - you can read and write it, but the factual value belongs to another module.
+
+When the user selects a tab in the `TabView`, you don't get a callback. You simply cannot. What happens instead, is that the `TabView` unilaterally changes the value through `Binding` to "displayedTab = .userFavorites".
+
+The programmer can also assign a value to that `Binding` at any time - and the `TabView` will obey immediately.
+
+The programmatic navigation in SwiftUI is fully controlled by the state through `Bindings`. I dedicated a [separate article]({{ site.url }}/swiftui-deep-linking/) to this problem.
+
+# Are VIPER, RIBs and VIP applicable for SwiftUI?
+
+There are a lot of great ideas and concepts we can borrow from these architectures, but ultimately the canonical implementation of either one doesn't make sense for the SwiftUI app.
+
+First, as you already know, there is no more practical need to have a `Router`.
+
+Secondly, the completely new design of the data flow in SwiftUI coupled with native support of view-state bindings shrank the required setup code to the degree that `Presenter` becomes a goofy entity doing nothing useful.
+
+Along with the decreased number of modules in the pattern, we figure out that we don’t need `Builder` either. So basically, the whole pattern just falls apart, as **the problems it aimed to solve don't exist anymore**.
+
+SwiftUI introduced its own set of challenges in the system’s design, so the patterns we had for UIKit have to be re-designed from the ground up.
+
+There are [attempts](https://theswiftdev.com/2019/09/18/how-to-build-swiftui-apps-using-viper/) to stick with the beloved architectures no matter what, but please, don’t.
+
 # Clean Architecture
 
 Let's refer to [Uncle Bob's Clean Architecture](https://blog.cleancoder.com/uncle-bob/2012/08/13/the-clean-architecture.html), the progenitor of VIP.
@@ -152,7 +179,7 @@ But in the most common scenario for a mobile app we'll need to have three layers
 
 So if we distilled the requirements of the Clean Architecture through the peculiarity of SwiftUI, we'd come up with something like this:
 
-<div style="max-width:800px; display: block; margin-left: auto; margin-right: auto;"><img src="https://github.com/nalexn/blob_files/blob/master/images/swiftui_arc_001.png?raw=true" alt="Diagram"/></div>
+<div style="max-width:720px; display: block; margin-left: auto; margin-right: auto;"><img src="https://github.com/nalexn/blob_files/blob/master/images/swiftui_arc_001_d.png?raw=true" alt="Diagram"/></div>
 
 There is a [demo project](https://github.com/nalexn/clean-architecture-swiftui) I've created to illustrate the use of this pattern. The app talks to the [restcountries.eu](https://restcountries.eu/) REST API to show the list of countries and details about them.
 
@@ -222,6 +249,8 @@ protocol CountriesInteractor {
     func load(countryDetails: Binding<Loadable<Country.Details>>, country: Country)
 }
 
+// MARK: - Implemetation
+
 struct RealCountriesInteractor: CountriesInteractor {
     
     let webRepository: CountriesWebRepository
@@ -263,11 +292,12 @@ The factual Repository should be hidden behind a protocol so that the `Interacto
 [CountriesWebRepository](https://github.com/nalexn/clean-architecture-swiftui/blob/master/CountriesSwiftUI/Repositories/CountriesWebRepository.swift) from the demo project:
 
 ```swift
-
 protocol CountriesWebRepository: WebRepository {
     func loadCountries() -> AnyPublisher<[Country], Error>
     func loadCountryDetails(country: Country) -> AnyPublisher<Country.Details.Intermediate, Error>
 }
+
+// MARK: - Implemetation
 
 struct RealCountriesWebRepository: CountriesWebRepository {
     
@@ -289,6 +319,8 @@ struct RealCountriesWebRepository: CountriesWebRepository {
     }
 }
 
+// MARK: - API
+
 extension RealCountriesWebRepository {
     enum API: APICall {
         case allCountries
@@ -305,8 +337,6 @@ Since WebRepository takes URLSession as a constructor parameter, it is very easy
 
 # Final thoughts
 
-[The demo project](https://github.com/nalexn/clean-architecture-swiftui) now has **98% test coverage**, all thanks to the Clean Architecture's "dependency rule" and segregation of the app on multiple layers.
+[The demo project](https://github.com/nalexn/clean-architecture-swiftui) now has **97% test coverage**, all thanks to the Clean Architecture's "dependency rule" and segregation of the app on multiple layers.
 
 <div style="max-width:800px; display: block; margin-left: auto; margin-right: auto;"><img src="https://github.com/nalexn/blob_files/blob/master/images/countries_preview.png?raw=true" alt="Diagram"/></div>
-
-If you're trying to wrap your head around SwiftUI's `ObservableObject`, `@ObservedObject` and other fancy constructions, I'd recommend you reading my other article ["Stranger things around SwiftUI's state"](https://nalexn.github.io/stranger-things-swiftui-state/)

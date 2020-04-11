@@ -54,7 +54,7 @@ In order to address this problem, we can appeal to the "single source of truth" 
 
 Unidirectional data flow, used in [Clean Swift](https://clean-swift.com/) and [Redux](https://github.com/ReSwift/ReSwift), has proven to be an extremely scalable solution for managing the state with a growing app's complexity.
 
-I elaborate more on this topic in the [state management guide](https://nalexn.github.io/state-management-guide-ios/) for UIKit.
+I elaborate more on this topic in the [state management guide](https://nalexn.github.io/state-management-guide-ios/) for UIKit, and [Clean Architecture for SwiftUI](https://nalexn.github.io/clean-architecture-swiftui/).
 
 # Testability
 
