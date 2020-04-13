@@ -39,7 +39,7 @@ For more complex scenarios, `Views` can reference an external `ObservableObject`
 
 (As a side note, if you're trying to wrap your head around `ObservableObject`, `@ObservedObject` and other fancy constructions intruduced with SwiftUI and Combine, I'd recommend you reading my other article ["Stranger things around SwiftUI's state"](https://nalexn.github.io/stranger-things-swiftui-state/).)
 
-One way or another, if we don't add more modules, the way SwiftUI views work with the state very much resembles the classical MVVM.
+One way or another, the way SwiftUI views work with the state very much resembles the classical MVVM (unless we introduce a more complex graph of programming entities).
 
 <div style="max-width:800px; display: block; margin-left: auto; margin-right: auto;"><img src="{{ site.url }}/assets/img/clean_swiftui_03.jpg"></div>
 
@@ -96,7 +96,7 @@ In this simplified example, when the `View` appears on the screen, the `onAppear
 <div style="max-width:900px; display: block; margin-left: auto; margin-right: auto;"><img src="https://github.com/nalexn/blob_files/blob/master/images/swiftui_arc_002_d.png?raw=true" alt="Diagram"/></div>
 <div style="width:0px; height:20px; display: block;"></div>
 
-As a complement to this article, I've built a [sample project](https://github.com/nalexn/clean-architecture-swiftui/tree/mvvm) illustrating the use of MVVM pattern with SwiftUI. The project's key features:
+Although this article is dedicated to Clean Architecture, I was receiving many questions about the application of MVVM in SwiftUI, so I took the original [sample project](https://github.com/nalexn/clean-architecture-swiftui) and ported it to MVVM in a [separate branch](https://github.com/nalexn/clean-architecture-swiftui/tree/mvvm). You can compare the two and choose which suits your needs best. The project's key features:
 
 * Vanilla SwiftUI + Combine implementation
 * Decoupled Presentation, Business Logic, and Data Access layers
