@@ -343,4 +343,6 @@ Since WebRepository takes URLSession as a constructor parameter, it is very easy
 
 [The demo project](https://github.com/nalexn/clean-architecture-swiftui) now has **97% test coverage**, all thanks to the Clean Architecture's "dependency rule" and segregation of the app on multiple layers.
 
+It offers fully setup persistence layer with CoreData, deep linking from a Push Notification, and other non-trivial yet practical examples.
+
 <div style="max-width:800px; display: block; margin-left: auto; margin-right: auto;"><img src="https://github.com/nalexn/blob_files/blob/master/images/countries_preview.png?raw=true" alt="Diagram"/></div>
