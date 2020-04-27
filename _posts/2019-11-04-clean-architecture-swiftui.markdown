@@ -37,8 +37,6 @@ In the simplest case, where the `View` does not rely on any external state, its 
 
 For more complex scenarios, `Views` can reference an external `ObservableObject`, which in this case can be a distinct `ViewModel`.
 
-(As a side note, if you're trying to wrap your head around `ObservableObject`, `@ObservedObject` and other fancy constructions intruduced with SwiftUI and Combine, I'd recommend you reading my other article ["Stranger things around SwiftUI's state"](https://nalexn.github.io/stranger-things-swiftui-state/).)
-
 One way or another, the way SwiftUI views work with the state very much resembles the classical MVVM (unless we introduce a more complex graph of programming entities).
 
 <div style="max-width:800px; display: block; margin-left: auto; margin-right: auto;"><img src="{{ site.url }}/assets/img/clean_swiftui_03.jpg"></div>
@@ -137,7 +135,13 @@ Although I preferred using REDUX in my previous UIKit projects (ReSwift ❤), it
 
 Coordinator (aka Router) was an essential part of VIPER, RIBs and MVVM-R architectures. Allocation of a separate module for screen navigation was well justified in UIKit apps – the direct routing from one ViewController to another led to their tight coupling, not to mention the coding hell of deep linking to a screen deeply inside the ViewController's hierarchy.
 
-Well, SwiftUI made Coordinator needless.
+Unlike with the views in UIKit, we cannot take a SwiftUI view and ask it to layout subviews, or render onto an image context. A SwiftUI view is absolutely useless without the render engine, which also owns the state, and the views only receive a reference to that state at render time, [even when they use a local @State](https://nalexn.github.io/stranger-things-swiftui-state/)).
+
+**A SwiftUI View is nothing more than a drawing algorithm**. That's why it's very difficult to extract routing off the SwiftUI view: **routing is an integral part of this algorithm**.
+
+We should not fight its nature. Instead, we should structure the program so that major pieces of this drawing algorithm would reside in separate views, with business logic extracted in a plain-struct modules that are easy to test in isolation.
+
+I believe that SwiftUI made the router (aka coordinator) needless.
 
 Every view that alters the displayed hierarchy, be that `NavigationView`, `TabView` or `.sheet()`, now uses `Binding` to control what's displayed.
 
