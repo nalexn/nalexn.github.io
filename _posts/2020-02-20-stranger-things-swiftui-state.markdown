@@ -3,7 +3,7 @@ layout: post
 title: "Stranger things around SwiftUI's state"
 date: 2020-02-20 10:30:00 +0300
 description: "How do @Published, @State, @Binding, ObserveableObject, @ObservedObject, and @EnvironmentObject relate to each other?"
-tags: [property wrapper,wrappedValue,projectedValue]
+tags: [observableObject,observedObject,published,state,binding,property wrapper,wrappedValue,projectedValue]
 comments: true
 sharing: true
 published: true
