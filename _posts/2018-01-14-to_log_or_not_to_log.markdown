@@ -59,7 +59,7 @@ Depending on which logging framework you choose, you can find the following bene
 
 # Which level would you use?
 
-There is one significant drawback with using logging frameworks: each time you want to log something you'll have to make a decision which log level to assign to the message, and it can be [not that easy](http://stackoverflow.com/questions/7839565/logging-levels-logback-rule-of-thumb-to-assign-log-levels).
+There is one significant drawback with using logging frameworks: each time you want to log something you'll have to make a decision which log level to assign to the message, and it can be [not that easy](https://stackoverflow.com/questions/7839565/logging-levels-logback-rule-of-thumb-to-assign-log-levels).
 For the error and warning messages this is just obvious, but for _informational_ messages, would you be using _verbose_, _debug_ or _info_, when there is no tangible difference between them?
 
 If you work on a project in a team, you and your teammates may have _different flavor_ to what and how thoroughly to log (_logging depth_). For example, you may prefer to log each step of the algorithm, while the other guy logs only the results of bigger code blocks or functions. But the __worst case__ is when you and your teammate assigns __different log levels for the similar cases__ you worked on independently. This can certainly happen one day if you don't do the code reviews, which eventually can lead you to have long entertaining debug sessions.

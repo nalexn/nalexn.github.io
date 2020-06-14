@@ -137,13 +137,13 @@ class Customer {
 
 ## <a name="NotificationCenter_disadvantages">[Disadvantages of using NotificationCenter](#NotificationCenter_disadvantages)</a>
 
-* Global access point. Yes, this is also a disadvantage. Any globally accessible stuff breaks the testability of your code and even `singleton` as a design pattern [many people consider](http://stackoverflow.com/questions/137975/what-is-so-bad-about-singletons) as an anty-pattern.
+* Global access point. Yes, this is also a disadvantage. Any globally accessible stuff breaks the testability of your code and even `singleton` as a design pattern [many people consider](https://stackoverflow.com/questions/137975/what-is-so-bad-about-singletons) as an anty-pattern.
 * Inability to step-in with a debugger. The only way you can debug `NotificationCenter` is by placing breakpoints
 * Non-obvious control flow. If you are trying to understand the business logic of the program and see a place where a `Notification` is sent - the only way to continue exploration is by finding all the recipients manually with a _text search_ in the entire project - because they can be anywhere!
 * Transferring data is very error-prone because of boxing and unboxing with a `Dictionary` (`NSDictionary`). Even when used from type-safe Swift, the compiler cannot check the types as well as the structure of the `Dictionary`.
 * Recipients must unsubscribe when they are about to deallocate or the app may crash. This requirement has been removed only in iOS 8, but this will haunt iOS developers in their nightmares for years.
 * The sender cannot get a non-`void` result, as opposed to the `delegate` and `closure`
-* Third-party libs may rely on the same notifications as your code and interfere with each other. Great example is the `NSManagedObjectContextDidSaveNotification` from __CoreData__ framework - every party should [properly handle](http://stackoverflow.com/questions/17568667/ios-googleanalytic-continuously-produce-an-exception/27739971#27739971) this notification or the app can crash.
+* Third-party libs may rely on the same notifications as your code and interfere with each other. Great example is the `NSManagedObjectContextDidSaveNotification` from __CoreData__ framework - every party should [properly handle](https://stackoverflow.com/questions/17568667/ios-googleanalytic-continuously-produce-an-exception/27739971#27739971) this notification or the app can crash.
 * There is no control over who is eligible of sending the particular notification. A junior developer on your team may come up to send a system notification like `UIApplicationWillEnterForegroundNotification` to fix a weird bug in his code, and the entire system can get screwed up. Funny, huh?
 * When overused, `NotificationCenter` can turn your project into hell because of the previous points
 
@@ -184,7 +184,7 @@ class Observer {
 * Notification can be configured to deliver not only the most recent value of the observed `@property` but also the previous value.
 
 ## <a name="KeyValueObserving_disadvantages">[Disadvantages of using Key-Value Observing](#KeyValueObserving_disadvantages)</a>
-* One of the worst APIs across Cocoa. This point could be easily broken up in several - [so](https://www.mikeash.com/pyblog/key-value-observing-done-right.html) [bad](http://khanlou.com/2013/12/kvo-considered-harmful/) [it](https://ianthehenry.com/2014/5/4/kvo-101/) [is](http://nshipster.com/key-value-observing/). Good for us there are [nicer](https://github.com/facebook/KVOController) [alternative](https://github.com/postmates/PMKVObserver) implementations of the `KVO`.
+* One of the worst APIs across Cocoa. This point could be easily broken up in several - [so](https://www.mikeash.com/pyblog/key-value-observing-done-right.html) [bad](https://khanlou.com/2013/12/kvo-considered-harmful/) [it](https://ianthehenry.com/2014/5/4/kvo-101/) [is](https://nshipster.com/key-value-observing/). Good for us there are [nicer](https://github.com/facebook/KVOController) [alternative](https://github.com/postmates/PMKVObserver) implementations of the `KVO`.
 * _keyPath_ used for subscription is a string, and it cannot be statically verified. Luckily this has a solution in Swift (`#keyPath` directive), but in Objective-C, if the observed party changes the name of the `@property` - there won't be a compiler warning about this, so the app will just crash in runtime.
 * Each observer has to explicitly unsubscribe on `deinit` - otherwise crash is unavoidable.
 * We have to call the `super` implementation of `observeValueForKeyPath` callback function to make sure we don't break the implementation of the superclass.

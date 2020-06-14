@@ -3,7 +3,7 @@ description: >
   iOS development best practices, software architecture design, functional reactive programming, Swift, SwiftUI, Combine, UIKit
 permalink: ':title/'
 baseurl: "" # the subpath of your site, e.g. /blog
-url: "http://nalexn.github.io"
+url: "https://nalexn.github.io"
 site-twitter: #if your site has a twitter account, enter it here
 
 # Author Settings

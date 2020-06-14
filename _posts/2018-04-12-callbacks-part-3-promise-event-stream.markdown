@@ -75,7 +75,7 @@ firstly {
 
 As you can see, there are a few chained async operations written in a natural order of how they are performed. The code is more declarative and explanatory than with nested Closure callbacks.
 
-Pure `Cocoa` doesn't provide us with a native citizen for Promises, so the code above uses [PromiseKit](http://promisekit.org/) library, but there are also [BrightFutures](https://github.com/Thomvis/BrightFutures) and [Bolts](https://github.com/BoltsFramework/Bolts-ObjC), you can choose your favorite.
+Pure `Cocoa` doesn't provide us with a native citizen for Promises, so the code above uses [PromiseKit](https://promisekit.org/) library, but there are also [BrightFutures](https://github.com/Thomvis/BrightFutures) and [Bolts](https://github.com/BoltsFramework/Bolts-ObjC), you can choose your favorite.
 
 ## <a name="Promise_advantages">[Advantages of using Promises](#Promise_advantages)</a>
 * Great alternative to traditional Closure callbacks, addresses many of their problems:
@@ -90,10 +90,10 @@ Pure `Cocoa` doesn't provide us with a native citizen for Promises, so the code 
 
 ## <a name="Promise_disadvantages">[Disadvantages of using Promises](#Promise_disadvantages)</a>
 * Until you master your skills of using the Promises, every now and then the compiler would complain it cannot understand the code you just wrote with the promises. And don't expect to see any meaningful explanation from the Swift compiler. So you have to be prepared to spend some time getting used to the syntax. This is definitely harder to use for newbies who are still not confident with Closures.
-* As mentioned in the advantages, promises are resolved once and then dismissed. This also implies you [cannot easily use](http://promisekit.org/docs/cookbook/wrapping-delegation/) Promises as an alternative to callbacks intended to be called _multiple_ times, such as with _delegate_ or _NotificationCenter_.
+* As mentioned in the advantages, promises are resolved once and then dismissed. This also implies you [cannot easily use](https://promisekit.org/docs/cookbook/wrapping-delegation/) Promises as an alternative to callbacks intended to be called _multiple_ times, such as with _delegate_ or _NotificationCenter_.
 * The cancellation isn't that tasteful as the error handling. Depending on realization, you'd have to check the cancellation status in each promise (Bolts) or handle a special type of `Error` in the error handling code (PromiseKit).
 * The syntax still isn't that great as it could be with [async-await](https://gist.github.com/lattner/31ed37682ef1576b16bca1432ea9f782#part-1-asyncawait-beautiful-asynchronous-apis), which is still not supported as of Swift version 5.0. 😒
-* Promises are __100 times__ slower than any other callback technique ([I've done benchmarking](https://github.com/nalexn/PerformanceTestTools)). This is because each consequent promise in the chain has to be scheduled through `dispatch_async` and performed _asynchronously_, which is a necessary evil: otherwise, promises can unintentionally cause [deadlocks](https://en.wikipedia.org/wiki/Deadlock). This problem has its own name - ["releasing Zalgo"](http://blog.izs.me/post/59142742143/designing-apis-for-asynchrony). So it's ok to use Promises for the networking layer, where the performance drop won't be noticed, but I would think twice before using Promises elsewhere in the app.
+* Promises are __100 times__ slower than any other callback technique ([I've done benchmarking](https://github.com/nalexn/PerformanceTestTools)). This is because each consequent promise in the chain has to be scheduled through `dispatch_async` and performed _asynchronously_, which is a necessary evil: otherwise, promises can unintentionally cause [deadlocks](https://en.wikipedia.org/wiki/Deadlock). This problem has its own name - ["releasing Zalgo"](https://blog.izs.me/post/59142742143/designing-apis-for-asynchrony). So it's ok to use Promises for the networking layer, where the performance drop won't be noticed, but I would think twice before using Promises elsewhere in the app.
 * Debugging the promises is a pain. As you learned from the previous point, each consequent promise in the chain is _always_ performed asynchronously. That means our favorite step-over debugging is simply not possible, you have to put breakpoints all over the place to be able to follow the execution flow.
 * Any crash reporting tool, such as [Crashlytics](https://try.crashlytics.com/), are almost useless with Promises because when a code scheduled through `dispatch_async` crashes, your printed call stack trace is almost empty. You'd expect to see the full promise chain in the stack, but instead, there will be only the last promise that crashed, leaving you with no clue on where the source of the problem was.
 
@@ -176,7 +176,7 @@ class DataConsumer {
 We just talked about _Event_, so in this case, the _Stream_ is the "Event on steroids":
 
 * It remembers all the values that have been sent through during its lifetime
-* It can be combined with other streams in [many fancy ways](http://rxmarbles.com/)
+* It can be combined with other streams in [many fancy ways](https://rxmarbles.com/)
 * It has significant incline towards writing functional-style code
 * It has deep integration with Cocoa classes (via supplementary frameworks¹)
 * It has more generic use cases than just _observation_
@@ -204,7 +204,7 @@ If you never worked with FRP libraries, you might not know what `flatMap` does, 
 
 From a developer's standpoint, _Stream_ is the most challenging "callback" technique to learn among those discussed in this post' series; but as the outcome, you get significantly bigger opportunities.
 
-And again, if you want to learn more about FRP, here are a [couple](http://blog.scottlogic.com/2015/04/24/first-look-reactive-cocoa-3.html) [usefull](https://gist.github.com/staltz/868e7e9bc2a7b8c1f754) links for you to get started, and a [comparison](<https://www.raywenderlich.com/126522/reactivecocoa-vs-rxswift>) of ReactiveSwift and RxSwift if you want to decide which one to use in your project.
+And again, if you want to learn more about FRP, here are a [couple](https://blog.scottlogic.com/2015/04/24/first-look-reactive-cocoa-3.html) [usefull](https://gist.github.com/staltz/868e7e9bc2a7b8c1f754) links for you to get started, and a [comparison](<https://www.raywenderlich.com/126522/reactivecocoa-vs-rxswift>) of ReactiveSwift and RxSwift if you want to decide which one to use in your project.
 
 ## <a name="Stream_advantages">[Advantages of using Streams](#Stream_advantages)</a>
 * Generally universal tool that can be used wherever you need to "call back" to other programming entities. The stream is able to replace all the traditional callback techniques available in Cocoa, and does it gracefully.
@@ -228,7 +228,7 @@ And again, if you want to learn more about FRP, here are a [couple](http://blog.
 * Considerably higher required skill-level than with other techniques. This is not a tool like Event, which works out of the box for you, you need to learn (a lot) how to cook it first.
 * Many sources of confusion even for seasoned developers:
   * Hot & cold signals (streams). You need to understand the difference as this dramatically impacts how they should be used. In __RxSwift__ Hot & Cold signals are syntactically indistinguishable, which can lead to hard-to-find bugs.
-  * [Long list](https://github.com/Reactive-Extensions/RxJS/blob/master/doc/api/core/observable.md) of [exotic functions](http://rxmarbles.com/) applicable to the Stream makes developers look up for the definition and carefully read about the semantics of the method in order to avoid misusage.
+  * [Long list](https://github.com/Reactive-Extensions/RxJS/blob/master/doc/api/core/observable.md) of [exotic functions](https://rxmarbles.com/) applicable to the Stream makes developers look up for the definition and carefully read about the semantics of the method in order to avoid misusage.
   * It is impossible to predict the behavior of the Stream - how many events (and of which type) it will generate. You cannot guarantee the Stream will send one or many _value_ events before it completes. An example is a networking request - the client code may expect to receive the response once, but instead, there can be multiple _value_ events if the request streams the data, or if the networking code automatically requests next pages of a paginated list. With __RxSwift__ this is also impossible to declare a Stream that cannot generate an _error_ event, which means you always have to implement error handlers or expose your app for potential bugs if you choose to ignore errors.
 * This has never been easier to massively leak the memory ever since the times we had manual reference counting in Objective-C (`[[object retain] autorelease]`, remember them?). Even when using `weak` and `unowned` for every reference inside the Closures, each time you start a Stream subscription you should explicitly limit its lifetime using `DisposeBag` from __RxSwift__ or `Lifetime` from __ReactiveSwift__, or you risk leaking this subscription (and possibly other objects too) and ultimately ruining the app performance. If you prefer using `unowned` over `weak`, be prepared for crashes as well.
 * FRP frameworks encourage the use of custom operators borrowed from other functional languages. This often looks unnatural in Swift and adds ambiguity, unless you have a few years of Haskell programming in your background.
