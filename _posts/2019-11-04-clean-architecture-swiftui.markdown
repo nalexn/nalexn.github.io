@@ -17,7 +17,7 @@ I'm talking about SwiftUI. It's not going anywhere. Like it or not, this is the 
 
 # What are the conceptual changes?
 
-UIKit was an **imperative, event-driven** framework. We could reference each view in the hierarchy, update it’s appearance when the view is loaded or as a reaction on an event (a touch-down on the button or a new data becoming available for display in UITableView). We used callbacks, delegates, target-actions for handling these events.
+UIKit was an **imperative, event-driven** framework. We could reference each view in the hierarchy, update its appearance when the view is loaded or as a reaction on an event (a touch-down on the button or a new data becoming available for display in UITableView). We used callbacks, delegates, target-actions for handling these events.
 
 Now, it is all gone. SwiftUI is a **declarative, state-driven** framework. We cannot reference any view in the hierarchy, neither can we directly mutate a view as a reaction to an event. Instead, we mutate the state bound to the view. Delegates, target-actions, responder chain, KVO, — [the entire zoo of callback techniques](https://nalexn.github.io/callbacks-part-1-delegation-notificationcenter-kvo/) have been replaced with closures and bindings.
 
