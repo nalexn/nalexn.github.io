@@ -53,7 +53,7 @@ If we fail to do so, no wonder the framework gets monolithically baked into the 
 
 *APIs of both UIKit and SwiftUI are sticky for the codebase. These frameworks are pushing developers to make them super central, tied to everything, used directly in places that are not UI at all!*
 
-Take we, for example, `@FetchRequest` in SwiftUI. It blends `CoreData` model details right in the presentation layer. It looks convenient. But at the same time, this is a major violation of multiple software design principles and best practices in CS. Such code saves time in the short term, but may cause significant harm to the project in the long run.
+Take we, for example, `@FetchRequest` in SwiftUI. It blends `CoreData` model details right in the presentation layer. It looks convenient. But at the same time, this is a major violation of multiple software design principles and best practices in CS. Such code saves time in the short term but may cause significant harm to the project in the long run.
 
 How about `@AppStorage`? Data IO operations right in the UI layer. How do you test it? Can you easily identify key name collisions in the container? Can you migrate it seamlessly to another data storage type, such as Keychain?
 
@@ -61,7 +61,7 @@ Again, the speed of the development is maximized, with quality assurance, mainta
 
 And what about the screen routing?
 
-UIKit always whispered us: "Psss, man! Just use `presentViewController(:, animated:, completion:)`, don't bother with those nasty coordinators!"
+UIKit always whispered to us: "Psss, man! Just use `presentViewController(:, animated:, completion:)`, don't bother with those nasty coordinators!"
 
 SwiftUI, on the other hand, is not whispering. It is SCREAMING at us: "Listen here, boy. You either do it THE WAY I WANT, or I'll kill your family the most elaborate way!" (*)
 
@@ -79,15 +79,15 @@ As you can see, frameworks have traps everywhere.
 
 The more hooks you bite the harder it would be to step back from using this framework for a specific screen or entire app.
 
-If we want the system to be solid enough to survive transition from UIKit to SwiftUI (or vice versa) we need to make sure the boundary between UI and the rest of the system is not a wooden fence, but The Great Wall!
+If we want the system to be solid enough to survive the transition from UIKit to SwiftUI (or vice versa) we need to make sure the boundary between UI and the rest of the system is not a wooden fence, but The Great Wall!
 
 Nothing should sneak in, even string formatting.
 
 Are you able to convert a float 5434.35 to "$5,434.35" without UIKit or SwiftUI? Perfect - let's do it elsewhere!
 
-Does framework's API for screen routing impose view's tight coupling? We need to introduce a boundary for isolating them.
+Does the framework's API for screen routing impose the view's tight coupling? We need to introduce a boundary for isolating them.
 
-Not only do we need to extract as much logic as possible from the UI layer, but we also need to make UIKit component and its SwiftUI counterpart fully compatible with the socket they are plugged in.
+Not only do we need to extract as much logic as possible from the UI layer, but we also need to make the UIKit component and its SwiftUI counterpart fully compatible with the socket they are plugged in.
 
 How do we bring UIKit and SwiftUI to a common denominator?
 
@@ -349,9 +349,9 @@ In the sample project I built for this article, I used the traditional Coordinat
 
 ## Conclusion
 
-If we want to control the risks related to using a specific UI framework we should put additional effort in controlling its expantion in the codebase.
+If we want to control the risks related to using a specific UI framework we should put additional effort into controlling its expansion in the codebase.
 
-Existing problems with SwiftUI should not stop you from at least preparing your project for migration to this framework in a foreseable future.
+Existing problems with SwiftUI should not stop you from at least preparing your project for migration to this framework in a foreseeable future.
 
 Extract as much business logic as possible from the UI layer and make your UIKit screens data-driven. This way it'll be a breeze to migrate to SwiftUI.
 
