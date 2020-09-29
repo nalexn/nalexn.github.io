@@ -10,7 +10,17 @@
     <uri>https://nalexn.github.io</uri>
   </author>
   <subtitle>iOS development best practices, software architecture design, functional reactive programming, Swift, SwiftUI, Combine</subtitle>
-  <updated>2020-02-27T19:30:00+03:00</updated>
+  <updated>2020-09-29T23:50:00+03:00</updated>
+  <entry>
+    <title type="html">UIKit or SwiftUI: what to use in production?</title>
+    <link href="https://nalexn.github.io/uikit-switfui/?utm_source=rss" rel="alternate" type="text/html"/>
+    <id>https://nalexn.github.io/uikit-switfui/</id>
+    <updated>2020-09-29T23:50:00+03:00</updated>
+    <content type="html">
+        &lt;p&gt;&lt;img src="https://nalexn.github.io/assets/img/leaf_001.jpg" alt="Preview"&gt;&lt;/p&gt;
+        &lt;p&gt;&lt;a href="https://nalexn.github.io/uikit-switfui/?utm_source=rss"&gt;Designing&lt;/a&gt; data-driven interfaces compatible with both frameworks. Connecting SwiftUI with RxSwift and UIKit with Combine.&lt;/p&gt;
+    </content>
+  </entry>
   <entry>
     <title type="html">Save your next app from rebuilding from scratch</title>
     <link href="https://nalexn.github.io/save-your-next-app/?utm_source=rss" rel="alternate" type="text/html"/>
