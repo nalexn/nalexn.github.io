@@ -28,7 +28,7 @@ One day Apple may release its unit testing tool for SwiftUI, but who knows wheth
 
 So I decided to build [ViewInspector](https://github.com/nalexn/ViewInspector), a library that allows for inspecting the SwiftUI view hierarchy at runtime.
 
-By now, the framework has evolved into a fully-fledged tool that allows you to inspect and unit test SwiftUI hierarchy for iOS, macOS, and watchOS.
+By now, the framework has evolved into a fully-fledged tool that allows you to inspect and unit test SwiftUI hierarchy for iOS, macOS, and tvOS.
 
 You can dig into the hierarchy and read the actual state values on any SwiftUI view:
 
