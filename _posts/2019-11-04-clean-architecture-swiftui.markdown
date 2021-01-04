@@ -9,6 +9,8 @@ sharing: true
 published: true
 img: clean_swiftui_01.jpg
 ---
+This article is also available in [Korean](https://gon125.github.io/posts/SwiftUI를-위한-클린-아키텍처/).
+
 Can you imagine, UIKit is 11 years old! Ever since the release of the iOS SDK in 2008 we were building our apps with it. And throughout this time the developers were in a relentless search for the best architecture to use for their apps. It all started with **MVC**, but later we witnessed the rise of **MVP**, **MVVM**, **VIPER**, **RIBs**, and **VIP**.
 
 But something has happened recently. This "something" is so significant, that the majority of the architectural patterns used for iOS will soon become history.
