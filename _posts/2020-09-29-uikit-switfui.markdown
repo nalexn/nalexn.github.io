@@ -3,7 +3,7 @@ layout: post
 title: "UIKit or SwiftUI: what to use in production?"
 date: 2020-09-29 23:50:00 +0300
 description: "Designing data-driven interfaces compatible with both frameworks. Connecting SwiftUI with RxSwift and UIKit with Combine."
-tags: [swift,swiftui,uikit,rxswift,combine,observable,driver,publisher,published,bridge,connect,convert,production,code,viewmodel,mvvm,mvvm-r,coordinator,router,data,driven]
+tags: [swift,swiftui,uikit,vs,rxswift,combine,observable,driver,publisher,published,bridge,connect,convert,production,code,viewmodel,mvvm,mvvm-r,coordinator,router,data,driven]
 comments: true
 sharing: true
 published: true
@@ -14,11 +14,11 @@ Apple has recently released iOS 14, which means SwiftUI already has a required 1
 
 Literally everyone says writing SwiftUI code is **fun**, but is SwiftUI a toy or a professional tool? If we want to take it seriously, we need to consider its stability and flexibility as a tool, not as a toy.
 
-> "When is the right time to start using SwiftUI in the production code?"
+> "Is SwiftUI ready for production?"
 
 This question is rather tricky to answer if you're starting a new major project in between 2020 and... possibly 2022!
 
-With all the innovation that SwiftUI brought in, even by iOS 14 we [still have bugs and a lack of flexibility for customization](https://steipete.com/posts/state-of-swiftui/).
+The SwiftUI vs UIKit battle is only gaining traction. With all the innovation that SwiftUI brought in, even by iOS 14 we [still have bugs and a lack of flexibility for customization](https://steipete.com/posts/state-of-swiftui/).
 
 While this can be mitigated by situationally appealing to UIKit, can you estimate how much code will eventually be written in UIKit? Could SwiftUI become a burden in the long run, where you'd better off just wrote everything in UIKit?
 
