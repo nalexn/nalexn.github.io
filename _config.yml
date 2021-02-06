@@ -48,4 +48,4 @@ plugins:
 paginate: 12
 paginate_path: "/page/:num"
 
-exclude: ["gulpfile.js", "package.json", "README.md", "Gemfile", "Gemfile.lock", "LICENSE"]
+exclude: [vendor, "gulpfile.js", "package.json", "README.md", "Gemfile", "Gemfile.lock", "LICENSE"]

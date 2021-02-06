@@ -1,6 +1,8 @@
 _site
 .sass-cache
 .jekyll-metadata
+.bundle
+vendor
 yarn.lock
 Gemfile.lock
 package-lock.json
