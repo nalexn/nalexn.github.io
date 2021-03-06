@@ -133,33 +133,37 @@ We saw this somewhere, didn't we?
 We already have the `Model`, the `View` gets generated automatically from the `Model`, the only thing we can tweak is the way `Update` in delivered. We can go **REDUX** way and use the `Command` pattern for state mutation instead of letting SwiftUI’s views and other modules write to the state directly.
 Although I preferred using REDUX in my previous UIKit projects (ReSwift ❤), it’s questionable whether it’s needed for a SwiftUI app — the data flows are already under control and are easily traceable.
 
-# Coordinator is history
+# Coordinator is SwiftUI
 
 Coordinator (aka Router) was an essential part of VIPER, RIBs and MVVM-R architectures. Allocation of a separate module for screen navigation was well justified in UIKit apps – the direct routing from one ViewController to another led to their tight coupling, not to mention the coding hell of deep linking to a screen deeply inside the ViewController's hierarchy.
 
-Unlike with the views in UIKit, we cannot take a SwiftUI view and ask it to layout subviews, or render onto an image context. A SwiftUI view is absolutely useless without the render engine, which also owns the state, and the views only receive a reference to that state at render time, [even when they use a local @State](https://nalexn.github.io/stranger-things-swiftui-state/)).
+Adding a Coordinator in UIKit was quite easy because UIView (and UIViewController) are environment-independent instances that you could toss over by adding / removing from the hierarchy at any time.
 
-**A SwiftUI View is nothing more than a drawing algorithm**. That's why it's very difficult to extract routing off the SwiftUI view: **routing is an integral part of this algorithm**.
+When it comes to SwiftUI, such dynamism is not possible by design: the hierarchy is static and all the possible navigations are defined and fixed at compile time. There is no way to make tweaks to the hierarchy structure at runtime: instead, navigation is fully controlled by the state changing through `Bindings`: take you `NavigationView`, `TabView` or `.sheet()`, every time you'll see an `init` that takes the `Binding` parameter for routing.
 
-We should not fight its nature. Instead, we should structure the program so that major pieces of this drawing algorithm would reside in separate views, with business logic extracted in a plain-struct modules that are easy to test in isolation.
+"Views are a function of state", remember? The key word here is **function**. An algorithm of converting state data to a rendered picture.
 
-I believe that SwiftUI made the router (aka coordinator) needless.
+This explains why extracting routing off the SwiftUI view is quite a challenge: **routing is an integral part of this static drawing algorithm**.
 
-Every view that alters the displayed hierarchy, be that `NavigationView`, `TabView` or `.sheet()`, now uses `Binding` to control what's displayed.
+Coordinators aimed to solve these two problems: isolation of the ViewControllers from each other, when one has to link to another for navigation purposes, and programmatic navigation (opending a specific screen for a deeplink).
 
-`Binding` is an "unpossessed" form of a state variable - you can read and write it, but the factual value belongs to another module.
+SwiftUI has a built-in mechanism for programmatic navigation through aforementioned `Bindings` (I have a [dedicated article]({{ site.url }}/swiftui-deep-linking/) about it), and Views **will be** statically linked to each other at compile time.
 
-When the user selects a tab in the `TabView`, you don't get a callback. You simply cannot. What happens instead, is that the `TabView` unilaterally changes the value through `Binding` to "displayedTab = .userFavorites".
+> If you don't want the view `A` to refer to the view `B` directly, you can simply turn the `B` a generic parameter for `A`, and call it a day.
 
-The programmer can also assign a value to that `Binding` at any time - and the `TabView` will obey immediately.
+You may as well use this same approach for abstracting the factual way the view `A` can open the `B` (using `TabView`, `NavigationView`, etc), although I don't see a problem actually stating this in your view: there is nothing to be ashamed of! You can easily change the routing model right in place if you need to, without touching the view `B`.
 
-The programmatic navigation in SwiftUI is fully controlled by the state through `Bindings`. I dedicated a [separate article]({{ site.url }}/swiftui-deep-linking/) to this problem.
+And don't forget about the `@ViewBuilder` - this is an alternative to using an explicit generic parameter.
+
+I believe that SwiftUI made the `Coordinator` needless: we can isolate views using generic parameters or `@ViewBuilder` and achieve programmatic navigation with standard tooling.
+
+There is a [practical example](https://quickbirdstudios.com/blog/coordinator-pattern-in-swiftui/) of using Coordinators in SwiftUI by [quickbirdstudios](https://github.com/quickbirdstudios), however, to my state, it's overkill. Plus, this approach has several drawbacks, such as granting Coordinators full access to all ViewModels, but you should check it out and decide for yourself.
 
 # Are VIPER, RIBs and VIP applicable for SwiftUI?
 
 There are a lot of great ideas and concepts we can borrow from these architectures, but ultimately the canonical implementation of either one doesn't make sense for the SwiftUI app.
 
-First, as you already know, there is no more practical need to have a `Router`.
+First, as I just elaborated on, there is no more practical need to have a `Coordinator`.
 
 Secondly, the completely new design of the data flow in SwiftUI coupled with native support of view-state bindings shrank the required setup code to the degree that `Presenter` becomes a goofy entity doing nothing useful.
 
