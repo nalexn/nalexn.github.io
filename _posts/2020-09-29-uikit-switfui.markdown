@@ -1,9 +1,9 @@
 ---
 layout: post
-title: "UIKit vs SwiftUI: what to use in production?"
+title: "SwiftUI vs UIKit: what to use in production?"
 date: 2020-09-29 23:50:00 +0300
 description: "Designing data-driven interfaces compatible with both frameworks. Connecting SwiftUI with RxSwift and UIKit with Combine."
-tags: [swift,swiftui,uikit,vs,rxswift,combine,observable,driver,publisher,published,bridge,connect,convert,production,code,viewmodel,mvvm,mvvm-r,coordinator,router,data,driven]
+tags: [swiftui,uikit,swift,ui,vs,or,and,production,ready,rxswift,combine,performance]
 comments: true
 sharing: true
 published: true
