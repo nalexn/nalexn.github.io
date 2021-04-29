@@ -143,19 +143,22 @@ When it comes to SwiftUI, such dynamism is not possible by design: the hierarchy
 
 "Views are a function of state", remember? The key word here is **function**. An algorithm of converting state data to a rendered picture.
 
-This explains why extracting routing off the SwiftUI view is quite a challenge: **routing is an integral part of this static drawing algorithm**.
+This explains why extracting routing off the SwiftUI view is quite a challenge: **routing is an integral part of this drawing algorithm**.
 
-Coordinators aimed to solve these two problems: isolation of the ViewControllers from each other, when one has to link to another for navigation purposes, and programmatic navigation (opending a specific screen for a deeplink).
+Coordinators aimed to solve two problems:
 
-SwiftUI has a built-in mechanism for programmatic navigation through aforementioned `Bindings` (I have a [dedicated article]({{ site.url }}/swiftui-deep-linking/) about it), and Views **will be** statically linked to each other at compile time.
+1. Decoupling the ViewControllers from each other
+2. Programmatic navigation
 
-> If you don't want the view `A` to refer to the view `B` directly, you can simply turn the `B` a generic parameter for `A`, and call it a day.
+SwiftUI has a built-in mechanism for programmatic navigation through aforementioned `Bindings`. I have a [dedicated article]({{ site.url }}/swiftui-deep-linking/) about it.
 
-You may as well use this same approach for abstracting the factual way the view `A` can open the `B` (using `TabView`, `NavigationView`, etc), although I don't see a problem actually stating this in your view: there is nothing to be ashamed of! You can easily change the routing model right in place if you need to, without touching the view `B`.
+As for the decoupling of the Views in SwiftUI, this is quite easy to achieve. If you don't want the view `A` to refer to the view `B` directly, you can simply turn the `B` a generic parameter for `A`, and call it a day.
 
-And don't forget about the `@ViewBuilder` - this is an alternative to using an explicit generic parameter.
+You may as well use this same approach for abstracting the factual way the view `A` can open the `B` (using `TabView`, `NavigationView`, etc), although I don't see a problem actually stating this in your view. You can easily change the routing model right in place if you need to, without touching the view `B`.
 
-I believe that SwiftUI made the `Coordinator` needless: we can isolate views using generic parameters or `@ViewBuilder` and achieve programmatic navigation with standard tooling.
+And don't forget about the [`@ViewBuilder` and `AnyView`]({{ site.url }}/anyview-vs-group/) - the other two ways to make the type of `B` implicit for the `A`.
+
+Given the above, I believe that SwiftUI made the `Coordinator` needless: we can isolate views using generic parameters or `@ViewBuilder` and achieve programmatic navigation with standard tooling.
 
 There is a [practical example](https://quickbirdstudios.com/blog/coordinator-pattern-in-swiftui/) of using Coordinators in SwiftUI by [quickbirdstudios](https://github.com/quickbirdstudios), however, to my state, it's overkill. Plus, this approach has several drawbacks, such as granting Coordinators full access to all ViewModels, but you should check it out and decide for yourself.
 
