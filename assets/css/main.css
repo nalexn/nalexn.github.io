@@ -454,13 +454,13 @@ template {
 
 .highlighter-rouge {
   font-weight: 400;
-  border: 1px solid #403C39;
+  border: 1px solid #3A444C;
   border-radius: 8px;
   -webkit-border-radius: 8px;
           border-radius: 8px;
   padding: 0 .3em;
   margin: -1px 0;
-  background: #211F1E;
+  background: #11181E;
   margin-bottom: 1.2em;
 }
 
@@ -789,7 +789,7 @@ html {
 body {
   font-family: "Lato", sans-serif;
   color: #DFDFDF;
-  background-color: #211F1E;
+  background-color: #11181E;
   margin: 0;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -891,7 +891,7 @@ table tfoot td {
 .tg .tg-c3ow{border-color:inherit;text-align:center;vertical-align:top}
 
 .post, .article-page {
-  background-color: #2C2A28;
+  background-color: #17212B;
 }
 
 .article-page {
@@ -943,7 +943,7 @@ table tfoot td {
   width: 240px;
   height: 100%;
   padding: 20px 10px;
-  background-color: #2C2A28;
+  background-color: #17212B;
 }
 
 .about {
@@ -962,7 +962,7 @@ table tfoot td {
 .hover-message {
   pointer-events: none;
   visibility: hidden;
-  background-color: #211F1E;
+  background-color: #11181E;
   color: #DFDFDF;
   text-align: center;
   font-size: 0.8em;
@@ -980,7 +980,7 @@ table tfoot td {
   overflow: hidden;
   -webkit-border-radius: 100%;
           border-radius: 100%;
-  background-color: #211F1E;
+  background-color: #11181E;
 }
 
 .author-logo:hover .hover-message {
@@ -988,7 +988,7 @@ table tfoot td {
 }
 
 .about .cover-author-image img {
-  border: 1px solid #211F1E;
+  border: 1px solid #11181E;
   width: 100%;
   height: 100%;
   -webkit-border-radius: 50%;
@@ -1044,8 +1044,8 @@ table tfoot td {
 }
 
 .recent .post {
-  border: 1px solid #232120;
-  background-color: #232120;
+  border: 1px solid #11181E;
+  background-color: #11181E;
 }
 
 .contact .contact-title {
@@ -1322,7 +1322,7 @@ a.newer-posts:hover {
 }
 
 .page-image img {
-  border: 1px solid #211F1E;
+  border: 1px solid #11181E;
 }
 
 .page-footer {
